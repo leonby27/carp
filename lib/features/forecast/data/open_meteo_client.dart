@@ -41,6 +41,12 @@ class OpenMeteoClient {
   /// прогноза, дальше предыстория уже не влияет.
   static const _pastDays = 45;
 
+  /// Жёсткий таймаут сетевого запроса. Без него залипшее соединение (плохая
+  /// сеть, captive-portal, неответивший сервер) висит вечно — и лоадер на
+  /// экране крутится бесконечно. По таймауту бросаем ошибку: провайдер уйдёт
+  /// в офлайн-кэш либо покажет экран ошибки с «Повторить».
+  static const _timeout = Duration(seconds: 15);
+
   Future<Map<String, dynamic>> fetchJson(GeoPoint location) async {
     final uri = Uri.https('api.open-meteo.com', '/v1/forecast', {
       'latitude': location.latitude.toString(),
@@ -55,7 +61,7 @@ class OpenMeteoClient {
 
     final http.Response resp;
     try {
-      resp = await _client.get(uri);
+      resp = await _client.get(uri).timeout(_timeout);
     } catch (e) {
       throw OpenMeteoException('network error: $e');
     }

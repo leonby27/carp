@@ -1751,44 +1751,44 @@ abstract class AppLocalizations {
   /// No description provided for @fcTodDawn.
   ///
   /// In en, this message translates to:
-  /// **'Dawn — the feeding peak: in these hours the score is lifted above the daytime baseline.'**
-  String get fcTodDawn;
+  /// **'Dawn around {sunrise} is the daily feeding peak, so this period is lifted above the daytime baseline.'**
+  String fcTodDawn(String sunrise);
 
   /// No description provided for @fcTodDusk.
   ///
   /// In en, this message translates to:
-  /// **'Dusk — fish feed actively before nightfall, so the hourly score is raised.'**
-  String get fcTodDusk;
+  /// **'Dusk around {sunset} — fish feed hard before dark, so the score is raised.'**
+  String fcTodDusk(String sunset);
 
   /// No description provided for @fcTodWarmNight.
   ///
   /// In en, this message translates to:
-  /// **'The water is warm, so at night the fish keep feeding confidently — the night score stays close to the daytime one.'**
-  String get fcTodWarmNight;
+  /// **'Water {water} is at or above the {warm} warm-night mark, so fish keep feeding after dark — the night score stays close to the daytime level.'**
+  String fcTodWarmNight(String water, String warm);
 
   /// No description provided for @fcTodMidNight.
   ///
   /// In en, this message translates to:
-  /// **'The water is still cool, so night activity is moderate — no sharp drop.'**
-  String get fcTodMidNight;
+  /// **'Water {water} sits between the cold mark ({cold}) and the warm-night mark ({warm}) — night feeding is only partial, and the warmer the water, the livelier the night.'**
+  String fcTodMidNight(String water, String cold, String warm);
 
   /// No description provided for @fcTodColdNight.
   ///
   /// In en, this message translates to:
-  /// **'Cold water makes fish sluggish at night, so the night score sits noticeably below the daytime one.'**
-  String get fcTodColdNight;
+  /// **'Water {water} is below the {cold} cold mark — in cold water fish barely move at night, so the score drops well below the daytime level.'**
+  String fcTodColdNight(String water, String cold);
 
   /// No description provided for @fcTodMiddayHot.
   ///
   /// In en, this message translates to:
-  /// **'Hot midday — fish move into shade and deeper water, so the daytime bite dips.'**
-  String get fcTodMiddayHot;
+  /// **'Midday is hot ({temp}, above {heat}) — fish retreat into shade and deeper water, so the bite dips.'**
+  String fcTodMiddayHot(String temp, String heat);
 
   /// No description provided for @fcTodColdDay.
   ///
   /// In en, this message translates to:
-  /// **'In cool weather the daytime warming of the water makes this the relatively best part of the day.'**
-  String get fcTodColdDay;
+  /// **'Water is cold ({water}, at or below {cold}); the daytime warming makes midday the relatively best window.'**
+  String fcTodColdDay(String water, String cold);
 
   /// No description provided for @fcTodDayNeutral.
   ///

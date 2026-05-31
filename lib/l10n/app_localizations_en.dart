@@ -925,32 +925,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fcTodAdjCaption => 'Time-of-day adjustment';
 
   @override
-  String get fcTodDawn =>
-      'Dawn — the feeding peak: in these hours the score is lifted above the daytime baseline.';
+  String fcTodDawn(String sunrise) {
+    return 'Dawn around $sunrise is the daily feeding peak, so this period is lifted above the daytime baseline.';
+  }
 
   @override
-  String get fcTodDusk =>
-      'Dusk — fish feed actively before nightfall, so the hourly score is raised.';
+  String fcTodDusk(String sunset) {
+    return 'Dusk around $sunset — fish feed hard before dark, so the score is raised.';
+  }
 
   @override
-  String get fcTodWarmNight =>
-      'The water is warm, so at night the fish keep feeding confidently — the night score stays close to the daytime one.';
+  String fcTodWarmNight(String water, String warm) {
+    return 'Water $water is at or above the $warm warm-night mark, so fish keep feeding after dark — the night score stays close to the daytime level.';
+  }
 
   @override
-  String get fcTodMidNight =>
-      'The water is still cool, so night activity is moderate — no sharp drop.';
+  String fcTodMidNight(String water, String cold, String warm) {
+    return 'Water $water sits between the cold mark ($cold) and the warm-night mark ($warm) — night feeding is only partial, and the warmer the water, the livelier the night.';
+  }
 
   @override
-  String get fcTodColdNight =>
-      'Cold water makes fish sluggish at night, so the night score sits noticeably below the daytime one.';
+  String fcTodColdNight(String water, String cold) {
+    return 'Water $water is below the $cold cold mark — in cold water fish barely move at night, so the score drops well below the daytime level.';
+  }
 
   @override
-  String get fcTodMiddayHot =>
-      'Hot midday — fish move into shade and deeper water, so the daytime bite dips.';
+  String fcTodMiddayHot(String temp, String heat) {
+    return 'Midday is hot ($temp, above $heat) — fish retreat into shade and deeper water, so the bite dips.';
+  }
 
   @override
-  String get fcTodColdDay =>
-      'In cool weather the daytime warming of the water makes this the relatively best part of the day.';
+  String fcTodColdDay(String water, String cold) {
+    return 'Water is cold ($water, at or below $cold); the daytime warming makes midday the relatively best window.';
+  }
 
   @override
   String get fcTodDayNeutral =>

@@ -935,32 +935,39 @@ class AppLocalizationsFr extends AppLocalizations {
   String get fcTodAdjCaption => 'Ajustement selon l\'heure';
 
   @override
-  String get fcTodDawn =>
-      'L\'aube — le pic d\'alimentation : à ces heures la note est relevée par rapport au niveau de journée.';
+  String fcTodDawn(String sunrise) {
+    return 'L\'aube vers $sunrise est le pic d\'alimentation de la journée, ce créneau passe donc au-dessus du niveau de journée.';
+  }
 
   @override
-  String get fcTodDusk =>
-      'Le crépuscule — les poissons se nourrissent activement avant la nuit, la note horaire est donc relevée.';
+  String fcTodDusk(String sunset) {
+    return 'Le crépuscule vers $sunset — les poissons se nourrissent activement avant la nuit, la note est donc relevée.';
+  }
 
   @override
-  String get fcTodWarmNight =>
-      'L\'eau est chaude, la nuit les poissons continuent donc à se nourrir sûrement — la note de nuit reste proche de celle du jour.';
+  String fcTodWarmNight(String water, String warm) {
+    return 'L\'eau $water est au niveau de nuit chaude ($warm) ou au-dessus ; les poissons continuent de se nourrir la nuit et la note nocturne reste proche de celle du jour.';
+  }
 
   @override
-  String get fcTodMidNight =>
-      'L\'eau est encore fraîche, l\'activité nocturne est donc moyenne, sans forte baisse.';
+  String fcTodMidNight(String water, String cold, String warm) {
+    return 'L\'eau $water se situe entre le seuil froid ($cold) et celui de nuit chaude ($warm) : la nuit, l\'activité est partielle, et plus l\'eau est chaude, plus la nuit est active.';
+  }
 
   @override
-  String get fcTodColdNight =>
-      'L\'eau froide rend les poissons amorphes la nuit, la note de nuit reste donc nettement sous celle du jour.';
+  String fcTodColdNight(String water, String cold) {
+    return 'L\'eau $water est sous le seuil froid ($cold) : en eau froide les poissons bougent à peine la nuit, la note descend donc nettement sous celle du jour.';
+  }
 
   @override
-  String get fcTodMiddayHot =>
-      'Midi chaud — les poissons gagnent l\'ombre et les profondeurs, l\'activité de journée baisse donc.';
+  String fcTodMiddayHot(String temp, String heat) {
+    return 'À midi il fait chaud ($temp, au-dessus de $heat) — les poissons se réfugient à l\'ombre et en profondeur, l\'activité baisse.';
+  }
 
   @override
-  String get fcTodColdDay =>
-      'Par temps frais, le réchauffement diurne de l\'eau fait de la journée le meilleur moment relatif.';
+  String fcTodColdDay(String water, String cold) {
+    return 'L\'eau est froide ($water, au plus $cold) ; le réchauffement diurne fait de midi le meilleur moment relatif.';
+  }
 
   @override
   String get fcTodDayNeutral =>

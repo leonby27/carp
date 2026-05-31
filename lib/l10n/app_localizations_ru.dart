@@ -937,32 +937,39 @@ class AppLocalizationsRu extends AppLocalizations {
   String get fcTodAdjCaption => 'Поправка за время суток';
 
   @override
-  String get fcTodDawn =>
-      'Рассветная зорька — пик кормёжки: в эти часы оценка поднята относительно дневной.';
+  String fcTodDawn(String sunrise) {
+    return 'Рассвет около $sunrise — суточный пик кормёжки, поэтому период поднят над дневной базой.';
+  }
 
   @override
-  String get fcTodDusk =>
-      'Вечерняя зорька — рыба активно кормится перед ночью, поэтому оценка часа повышена.';
+  String fcTodDusk(String sunset) {
+    return 'Закат около $sunset — перед темнотой рыба активно кормится, поэтому оценка поднята.';
+  }
 
   @override
-  String get fcTodWarmNight =>
-      'Вода тёплая, поэтому ночью рыба уверенно кормится — ночная оценка близка к дневной.';
+  String fcTodWarmNight(String water, String warm) {
+    return 'Вода $water — на уровне тёплой ночи ($warm) или выше, рыба продолжает кормиться в темноте, поэтому ночная оценка держится у дневного уровня.';
+  }
 
   @override
-  String get fcTodMidNight =>
-      'Вода ещё прохладная — ночная активность средняя, без сильной просадки.';
+  String fcTodMidNight(String water, String cold, String warm) {
+    return 'Вода $water — между холодным порогом ($cold) и тёплой ночью ($warm): ночью рыба кормится вполсилы, и чем теплее вода, тем активнее ночь.';
+  }
 
   @override
-  String get fcTodColdNight =>
-      'Холодная вода — ночью рыба вялая, поэтому ночная оценка заметно ниже дневной.';
+  String fcTodColdNight(String water, String cold) {
+    return 'Вода $water — ниже холодного порога ($cold): в холодной воде ночью рыба почти не двигается, поэтому оценка заметно ниже дневной.';
+  }
 
   @override
-  String get fcTodMiddayHot =>
-      'Жаркий полдень — рыба уходит в тень и на глубину, поэтому днём клёв проседает.';
+  String fcTodMiddayHot(String temp, String heat) {
+    return 'В полдень жарко ($temp, выше $heat) — рыба уходит в тень и на глубину, поэтому клёв проседает.';
+  }
 
   @override
-  String get fcTodColdDay =>
-      'В прохладе дневной прогрев воды делает день относительно лучшим временем суток.';
+  String fcTodColdDay(String water, String cold) {
+    return 'Вода холодная ($water, не выше $cold); дневной прогрев делает день относительно лучшим временем.';
+  }
 
   @override
   String get fcTodDayNeutral =>

@@ -139,18 +139,19 @@ class OverpassClient {
     final double? areaHa;
 
     if (points.isNotEmpty) {
-      var dist = double.infinity;
       var sumLat = 0.0;
       var sumLon = 0.0;
       for (final p in points) {
-        final d = _haversineM(qLat, qLon, p.$1, p.$2);
-        if (d < dist) dist = d;
         sumLat += p.$1;
         sumLon += p.$2;
       }
       centroidLat = sumLat / points.length;
       centroidLon = sumLon / points.length;
-      minDist = dist;
+      // До РЁБЕР геометрии, а не до вершин: у редко размеченного полигона
+      // берег между вершинами куда ближе любой вершины, а если точка внутри
+      // водоёма — расстояние 0. Иначе близкая вершина соседней линии (реки)
+      // ложно перебивала водоём, внутри которого стоит спот.
+      minDist = _minDistM(qLat, qLon, points);
       // Площадь считаем только для замкнутого кольца way; реки/каналы оставляем
       // без площади (честнее, чем угадывать).
       areaHa = type == WaterBodyType.river || type == WaterBodyType.canal
@@ -277,6 +278,70 @@ class _Candidate {
 }
 
 double degToRad(double deg) => deg * math.pi / 180;
+
+/// Минимальное расстояние от точки до геометрии водоёма, метры. Линию (реку)
+/// меряем до ближайшего сегмента; для замкнутого кольца (полигон озера/
+/// водохранилища) точка внутри даёт 0. Локальная равнопромежуточная проекция
+/// вокруг точки запроса — на масштабе водоёма искажение пренебрежимо.
+double _minDistM(double qLat, double qLon, List<(double, double)> pts) {
+  if (pts.isEmpty) return double.infinity;
+  final mPerDegLat = 110540.0;
+  final mPerDegLon = 111320.0 * math.cos(degToRad(qLat));
+  final qx = qLon * mPerDegLon;
+  final qy = qLat * mPerDegLat;
+  final xy = [
+    for (final p in pts) (p.$2 * mPerDegLon, p.$1 * mPerDegLat),
+  ];
+  if (xy.length == 1) {
+    return math.sqrt(_sq(qx - xy.first.$1) + _sq(qy - xy.first.$2));
+  }
+  final closed = xy.length >= 4 &&
+      pts.first.$1 == pts.last.$1 &&
+      pts.first.$2 == pts.last.$2;
+  if (closed && _pointInRing(qx, qy, xy)) return 0;
+  var best = double.infinity;
+  for (var i = 0; i < xy.length - 1; i++) {
+    final d = _segDistM(qx, qy, xy[i].$1, xy[i].$2, xy[i + 1].$1, xy[i + 1].$2);
+    if (d < best) best = d;
+  }
+  return best;
+}
+
+/// Расстояние от точки до отрезка AB в проективных метрах.
+double _segDistM(
+  double px,
+  double py,
+  double ax,
+  double ay,
+  double bx,
+  double by,
+) {
+  final dx = bx - ax;
+  final dy = by - ay;
+  final len2 = dx * dx + dy * dy;
+  if (len2 == 0) return math.sqrt(_sq(px - ax) + _sq(py - ay));
+  final t = (((px - ax) * dx + (py - ay) * dy) / len2).clamp(0.0, 1.0);
+  return math.sqrt(_sq(px - (ax + t * dx)) + _sq(py - (ay + t * dy)));
+}
+
+/// Лучевой тест «точка внутри кольца» в проективных метрах.
+bool _pointInRing(double px, double py, List<(double, double)> ring) {
+  var inside = false;
+  final n = ring.length;
+  for (var i = 0, j = n - 1; i < n; j = i++) {
+    final xi = ring[i].$1;
+    final yi = ring[i].$2;
+    final xj = ring[j].$1;
+    final yj = ring[j].$2;
+    if ((yi > py) != (yj > py) &&
+        px < (xj - xi) * (py - yi) / (yj - yi) + xi) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+double _sq(double v) => v * v;
 
 double _haversineM(double lat1, double lon1, double lat2, double lon2) {
   const r = 6371000.0;

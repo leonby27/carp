@@ -1,8 +1,11 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../../core/units/units.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/astro.dart';
+import '../domain/bite_config.dart';
 import '../domain/bite_engine.dart';
 import '../domain/bite_score.dart';
 import '../domain/forecast.dart';
@@ -249,17 +252,35 @@ String biteRateLabel(AppLocalizations l10n, int value) {
 }
 
 /// Объяснение поправки времени суток: почему оценка ЭТОГО периода выше или ниже
-/// дневной базы (зорьки бустятся, холодная ночь проседает и т.д.).
-String todRegimePhrase(AppLocalizations l10n, TimeOfDayRegime r) => switch (r) {
-      TimeOfDayRegime.dawn => l10n.fcTodDawn,
-      TimeOfDayRegime.dusk => l10n.fcTodDusk,
-      TimeOfDayRegime.warmNight => l10n.fcTodWarmNight,
-      TimeOfDayRegime.midNight => l10n.fcTodMidNight,
-      TimeOfDayRegime.coldNight => l10n.fcTodColdNight,
-      TimeOfDayRegime.middayHot => l10n.fcTodMiddayHot,
-      TimeOfDayRegime.coldDay => l10n.fcTodColdDay,
-      TimeOfDayRegime.dayNeutral => l10n.fcTodDayNeutral,
-    };
+/// дневной базы. Текст расшифрован конкретными числами, которые и приняли
+/// решение (темп. воды и пороги из [config], темп. воздуха, время зорьки), —
+/// чтобы просадка читалась как «вода ниже X°», а не безликий «штраф».
+String todRegimePhrase(
+  AppLocalizations l10n,
+  TimeOfDayRegime r,
+  WeatherPoint p,
+  BiteConfig config,
+  Units units,
+) {
+  String hm(DateTime t) =>
+      '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';
+  final water = formatTemp(units, p.waterTempC);
+  final warm = formatTemp(units, config.warmNightWaterC);
+  final cold = formatTemp(units, config.coldWaterC);
+  return switch (r) {
+    TimeOfDayRegime.dawn => l10n.fcTodDawn(hm(p.sunrise)),
+    TimeOfDayRegime.dusk => l10n.fcTodDusk(hm(p.sunset)),
+    TimeOfDayRegime.warmNight => l10n.fcTodWarmNight(water, warm),
+    TimeOfDayRegime.midNight => l10n.fcTodMidNight(water, cold, warm),
+    TimeOfDayRegime.coldNight => l10n.fcTodColdNight(water, cold),
+    TimeOfDayRegime.middayHot => l10n.fcTodMiddayHot(
+        formatTemp(units, math.max(p.airTempC, p.waterTempC)),
+        formatTemp(units, config.middayHeatC),
+      ),
+    TimeOfDayRegime.coldDay => l10n.fcTodColdDay(water, cold),
+    TimeOfDayRegime.dayNeutral => l10n.fcTodDayNeutral,
+  };
+}
 
 /// Поправка времени суток в процентах как символьный бейдж: «+15 %», «−15 %»
 /// или «0 %». Знак считается от множителя (1.0 = без поправки).

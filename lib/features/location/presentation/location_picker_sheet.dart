@@ -200,16 +200,17 @@ class _LocationSheet extends ConsumerWidget {
           Flexible(
             child: ListView(
               shrinkWrap: true,
-              padding: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
               children: [
-                ListTile(
-                  leading: Icon(Icons.my_location, color: cs.primary),
-                  title: Text(l10n.spotsUseCurrent),
+                _ActionTile(
+                  icon: Icons.my_location,
+                  iconColor: cs.primary,
+                  label: l10n.spotsUseCurrent,
                   onTap: useCurrent,
                 ),
                 if (spots.isNotEmpty) ...[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 4),
+                    padding: const EdgeInsets.fromLTRB(4, 16, 4, 8),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -231,11 +232,11 @@ class _LocationSheet extends ConsumerWidget {
                       onDelete: () => confirmDelete(i, spots[i]),
                     ),
                 ],
-                const Divider(height: 8),
-                ListTile(
-                  leading: Icon(Icons.add_location_alt_outlined,
-                      color: cs.onSurfaceVariant),
-                  title: Text(l10n.spotsAddOnMap),
+                const SizedBox(height: 16),
+                _ActionTile(
+                  icon: Icons.add_location_alt_outlined,
+                  iconColor: cs.onSurfaceVariant,
+                  label: l10n.spotsAddOnMap,
                   onTap: addOnMap,
                 ),
               ],
@@ -266,33 +267,89 @@ class _SpotRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final l10n = AppLocalizations.of(context);
+    final bg = active
+        ? cs.primaryContainer
+        : cs.surfaceContainerHighest.withValues(alpha: 0.33);
+    final fg = active ? cs.onPrimaryContainer : cs.onSurface;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: ListTile(
+        onTap: onTap,
+        tileColor: bg,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        contentPadding: const EdgeInsets.fromLTRB(16, 4, 8, 4),
+        leading: Icon(
+          active ? Icons.check_circle : Icons.location_on_outlined,
+          color: active ? cs.primary : cs.onSurfaceVariant,
+        ),
+        title: Text(
+          spot.isUnnamed ? l10n.locCurrent : spot.name,
+          style: TextStyle(
+            fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+            color: fg,
+          ),
+        ),
+        subtitle: Text(
+          _coords(spot),
+          style: TextStyle(
+            color: active
+                ? cs.onPrimaryContainer.withValues(alpha: 0.7)
+                : cs.onSurfaceVariant,
+          ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              visualDensity: VisualDensity.compact,
+              icon: Icon(Icons.edit_outlined, color: cs.onSurfaceVariant),
+              tooltip: l10n.spotEdit,
+              onPressed: onEdit,
+            ),
+            IconButton(
+              visualDensity: VisualDensity.compact,
+              icon: Icon(Icons.delete_outline, color: cs.error),
+              tooltip: l10n.commonDelete,
+              onPressed: onDelete,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Строка-действие с плашкой (скруглённый фон), чтобы пункты не сливались с
+/// белым фоном листа. Используется для «текущего места» и «добавить на карте».
+class _ActionTile extends StatelessWidget {
+  const _ActionTile({
+    required this.icon,
+    required this.iconColor,
+    required this.label,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final Color iconColor;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return ListTile(
       onTap: onTap,
-      leading: Icon(
-        active ? Icons.check_circle : Icons.location_on_outlined,
-        color: active ? cs.primary : cs.onSurfaceVariant,
+      tileColor: cs.surfaceContainerHighest.withValues(alpha: 0.33),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
       ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      leading: Icon(icon, color: iconColor),
       title: Text(
-        spot.isUnnamed ? l10n.locCurrent : spot.name,
-        style: TextStyle(fontWeight: active ? FontWeight.w700 : FontWeight.w500),
-      ),
-      subtitle: Text(_coords(spot)),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            visualDensity: VisualDensity.compact,
-            icon: Icon(Icons.edit_outlined, color: cs.onSurfaceVariant),
-            tooltip: l10n.spotEdit,
-            onPressed: onEdit,
-          ),
-          IconButton(
-            visualDensity: VisualDensity.compact,
-            icon: Icon(Icons.delete_outline, color: cs.onSurfaceVariant),
-            tooltip: l10n.commonDelete,
-            onPressed: onDelete,
-          ),
-        ],
+        label,
+        style: const TextStyle(fontWeight: FontWeight.w600),
       ),
     );
   }

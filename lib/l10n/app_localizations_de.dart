@@ -934,32 +934,39 @@ class AppLocalizationsDe extends AppLocalizations {
   String get fcTodAdjCaption => 'Tageszeit-Korrektur';
 
   @override
-  String get fcTodDawn =>
-      'Morgendämmerung — der Beißhöhepunkt: In diesen Stunden liegt die Bewertung über dem Tagesniveau.';
+  String fcTodDawn(String sunrise) {
+    return 'Morgendämmerung gegen $sunrise — der tägliche Fresshöhepunkt, daher liegt dieser Zeitraum über dem Tagesniveau.';
+  }
 
   @override
-  String get fcTodDusk =>
-      'Abenddämmerung — die Fische fressen vor der Nacht aktiv, daher ist die Stundenbewertung erhöht.';
+  String fcTodDusk(String sunset) {
+    return 'Abenddämmerung gegen $sunset — vor der Dunkelheit fressen die Fische aktiv, daher wird die Bewertung angehoben.';
+  }
 
   @override
-  String get fcTodWarmNight =>
-      'Das Wasser ist warm, daher fressen die Fische nachts zuverlässig — die Nachtbewertung bleibt nahe am Tageswert.';
+  String fcTodWarmNight(String water, String warm) {
+    return 'Das Wasser $water liegt auf oder über der Warmnacht-Marke ($warm); die Fische fressen auch nachts weiter — die Nachtbewertung bleibt nahe am Tageswert.';
+  }
 
   @override
-  String get fcTodMidNight =>
-      'Das Wasser ist noch kühl, daher ist die nächtliche Aktivität mäßig — ohne starken Einbruch.';
+  String fcTodMidNight(String water, String cold, String warm) {
+    return 'Das Wasser $water liegt zwischen der Kalt-Marke ($cold) und der Warmnacht-Marke ($warm) — nachts wird nur teilweise gefressen, je wärmer das Wasser, desto aktiver die Nacht.';
+  }
 
   @override
-  String get fcTodColdNight =>
-      'Kaltes Wasser macht die Fische nachts träge, daher liegt die Nachtbewertung deutlich unter dem Tageswert.';
+  String fcTodColdNight(String water, String cold) {
+    return 'Das Wasser $water liegt unter der Kalt-Marke ($cold) — in kaltem Wasser bewegen sich die Fische nachts kaum, daher fällt die Bewertung deutlich unter den Tageswert.';
+  }
 
   @override
-  String get fcTodMiddayHot =>
-      'Heißer Mittag — die Fische ziehen in den Schatten und in tieferes Wasser, daher fällt der Tagesbiss ab.';
+  String fcTodMiddayHot(String temp, String heat) {
+    return 'Mittags ist es heiß ($temp, über $heat) — die Fische ziehen sich in Schatten und tieferes Wasser zurück, daher lässt der Biss nach.';
+  }
 
   @override
-  String get fcTodColdDay =>
-      'Bei kühlem Wetter macht die Tageserwärmung des Wassers den Tag zur relativ besten Tageszeit.';
+  String fcTodColdDay(String water, String cold) {
+    return 'Das Wasser ist kalt ($water, höchstens $cold); die Tageserwärmung macht den Mittag zur relativ besten Zeit.';
+  }
 
   @override
   String get fcTodDayNeutral =>

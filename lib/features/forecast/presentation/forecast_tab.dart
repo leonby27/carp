@@ -2144,7 +2144,7 @@ class _PeriodSheet extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              todRegimePhrase(l10n, tod.regime),
+              todRegimePhrase(l10n, tod.regime, weather, engine.config, units),
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: cs.onSurface, // основной цвет текста (белый в тёмной теме)
                 height: 1.35,

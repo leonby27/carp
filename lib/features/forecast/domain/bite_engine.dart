@@ -297,7 +297,9 @@ class BiteEngine {
     }
 
     // Жаркий полдень — рыба уходит с кормёжки (в тень/на глубину).
-    if (t.hour >= 11 && t.hour <= 16 && (p.airTempC >= 24 || water >= 24)) {
+    if (t.hour >= 11 &&
+        t.hour <= 16 &&
+        (p.airTempC >= config.middayHeatC || water >= config.middayHeatC)) {
       return (
         regime: TimeOfDayRegime.middayHot,
         multiplier: config.middayHotPenalty

@@ -933,32 +933,39 @@ class AppLocalizationsEs extends AppLocalizations {
   String get fcTodAdjCaption => 'Ajuste por momento del día';
 
   @override
-  String get fcTodDawn =>
-      'El amanecer es el pico de alimentación: en estas horas la valoración sube por encima del nivel diurno.';
+  String fcTodDawn(String sunrise) {
+    return 'El amanecer hacia las $sunrise es el pico diario de alimentación, así que este periodo se eleva por encima del nivel diurno.';
+  }
 
   @override
-  String get fcTodDusk =>
-      'El atardecer — los peces se alimentan con ganas antes de la noche, por eso la valoración horaria sube.';
+  String fcTodDusk(String sunset) {
+    return 'El atardecer hacia las $sunset: los peces comen con ganas antes de la noche, así que la valoración sube.';
+  }
 
   @override
-  String get fcTodWarmNight =>
-      'El agua está templada, así que de noche los peces siguen alimentándose con confianza: la valoración nocturna queda cerca de la diurna.';
+  String fcTodWarmNight(String water, String warm) {
+    return 'El agua $water está en o por encima del umbral de noche cálida ($warm); los peces siguen comiendo de noche y la valoración nocturna se mantiene cerca de la diurna.';
+  }
 
   @override
-  String get fcTodMidNight =>
-      'El agua aún está fresca, así que la actividad nocturna es moderada, sin una caída brusca.';
+  String fcTodMidNight(String water, String cold, String warm) {
+    return 'El agua $water está entre el umbral frío ($cold) y el de noche cálida ($warm): de noche comen a medias, y cuanto más cálida el agua, más activa la noche.';
+  }
 
   @override
-  String get fcTodColdNight =>
-      'El agua fría vuelve a los peces apáticos de noche, por eso la valoración nocturna queda bastante por debajo de la diurna.';
+  String fcTodColdNight(String water, String cold) {
+    return 'El agua $water está por debajo del umbral frío ($cold): en agua fría los peces apenas se mueven de noche, así que la valoración cae muy por debajo de la diurna.';
+  }
 
   @override
-  String get fcTodMiddayHot =>
-      'Mediodía caluroso — los peces se van a la sombra y a lo profundo, así que la actividad diurna baja.';
+  String fcTodMiddayHot(String temp, String heat) {
+    return 'Al mediodía hace calor ($temp, por encima de $heat): los peces se retiran a la sombra y a aguas profundas, así que la actividad baja.';
+  }
 
   @override
-  String get fcTodColdDay =>
-      'Con tiempo fresco, el calentamiento diurno del agua hace del día el mejor momento relativo.';
+  String fcTodColdDay(String water, String cold) {
+    return 'El agua está fría ($water, como máximo $cold); el calentamiento diurno hace del mediodía el mejor momento relativo.';
+  }
 
   @override
   String get fcTodDayNeutral =>

@@ -44,6 +44,7 @@ class BiteConfig {
     this.heatCalmPenalty = 0.40,
     this.postFrontPenalty = 0.18,
     this.waterTrendBonus = 0.08,
+    this.middayHeatC = 24,
   });
 
   // ── Веса факторов (в сумме = 1.00) ───────────────────────────
@@ -91,6 +92,10 @@ class BiteConfig {
 
   /// Холодная вода: ночь проваливается, день относительно лучше, °C.
   final double coldWaterC;
+
+  /// Порог «жаркого полдня», °C: при такой температуре воздуха или воды в
+  /// околополуденные часы рыба уходит с кормёжки в тень/на глубину.
+  final double middayHeatC;
 
   // ── Сезонность по месяцам (1..12) ───────────────────────────
   final Map<int, double> seasonByMonth;

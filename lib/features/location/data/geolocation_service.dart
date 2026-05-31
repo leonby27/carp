@@ -32,9 +32,20 @@ class GeolocationService {
       return const LocationResult(null, LocationStatus.denied);
     }
 
-    final pos = await Geolocator.getCurrentPosition(
-      locationSettings: const LocationSettings(accuracy: LocationAccuracy.low),
-    );
+    // timeLimit, чтобы зависший GPS-фикс (помещение, плохой сигнал) не висел
+    // вечно. По таймауту бросается TimeoutException — ловим и отдаём unknown,
+    // вызывающий останется на фолбэк-локации, а не будет ждать бесконечно.
+    final Position pos;
+    try {
+      pos = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.low,
+          timeLimit: Duration(seconds: 12),
+        ),
+      );
+    } catch (_) {
+      return const LocationResult(null, LocationStatus.unknown);
+    }
     return LocationResult(
       GeoPoint(name: '', latitude: pos.latitude, longitude: pos.longitude),
       LocationStatus.granted,

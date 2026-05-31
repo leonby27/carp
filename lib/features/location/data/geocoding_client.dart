@@ -12,6 +12,11 @@ class GeocodingClient {
 
   final http.Client _client;
 
+  /// Таймаут запроса. Без него залипшее соединение держит спиннер в поле поиска
+  /// бесконечно; по таймауту просто отдаём пустой список (как и при любой
+  /// сетевой ошибке) — поле освобождается, пользователь повторяет ввод.
+  static const _timeout = Duration(seconds: 10);
+
   Future<List<GeoPoint>> search(String query, {String language = 'en'}) async {
     final q = query.trim();
     if (q.isEmpty) return const [];
@@ -25,7 +30,7 @@ class GeocodingClient {
 
     final http.Response resp;
     try {
-      resp = await _client.get(uri);
+      resp = await _client.get(uri).timeout(_timeout);
     } catch (_) {
       return const [];
     }
