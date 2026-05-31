@@ -1,0 +1,421 @@
+import 'package:flutter/material.dart';
+
+class AppColors {
+  AppColors._();
+
+  // ── Accent / Brand ──────────────────────────────────────────
+  static const primary = Color(0xFF1D8B53);
+  static const primaryHover = Color(0xFF177044);
+  static const primaryLight = Color(0xFFE6F4EC);
+  static const primaryLightDark = Color(0x211D8B53);
+
+  // ── Semantic ────────────────────────────────────────────────
+  static const error = Color(0xFFEE2750);
+  static const errorDark = Color(0xFFBE1F40);
+  static const errorLightBg = Color(0xFFFFF2F5);
+  static const errorLightBgDark = Color(0xFF4E353A);
+
+  static const success = Color(0xFF3DA43B);
+  static const successHover = Color(0xFF348E33);
+  static const successText = Color(0xFF63C662);
+
+  // ── Mono / Data visualization ───────────────────────────────
+  static const blue = Color(0xFF317BFF);
+  static const green = Color(0xFF3DA43B);
+  static const green2 = Color(0xFF1CC14D);
+  static const orange = Color(0xFFF0681B);
+  static const purple = Color(0xFFB13AFB);
+  static const sepia = Color(0xFFD76556);
+  static const darkGray = Color(0xFF474D6C);
+
+  // ── Light-only helpers ──────────────────────────────────────
+  static const lightScaffold = Color(0xFFFAFBFC);
+  static const lightSurface = Color(0xFFFFFFFF);
+  static const lightSurface2 = Color(0xFFF0F1F5);
+  static const lightBack2 = Color(0xFFFFFFFF);
+  static const lightBack3 = Color(0xFFFFFFFF);
+  static const lightOnSurface = Color(0xFF0A1B39);
+  static const lightOnSurfaceVariant = Color(0xFF83899F);
+  static const lightSecondaryDark = Color(0xFF676E85);
+  static const lightSecondaryLight = Color(0xFF9CA0B2);
+  static const lightSecondaryExtraLight = Color(0xFFD8DBE4);
+  static const lightPrimaryLight = Color(0xFF485066);
+  static const lightDivider = Color(0xFFE6E7EC);
+  static const lightDividerLight = Color(0xFFEDEEF3);
+  static const lightDividerStrong = Color(0xFFD7D9E2);
+  static const lightInverse = Color(0xFF181A22);
+  static const lightAccentLight = Color(0xFF7FCFA3);
+  static const lightOnBack = Color(0xFFFFFFFF);
+  static const lightOnBackAlpha50 = Color(0x80FFFFFF);
+  static const lightOnBackAlpha30 = Color(0x80FFFFFF);
+  static const lightOnBack4 = Color(0xFFFFFFFF);
+  static const lightUnderBack = Color(0xFFE0E4EC);
+  static const lightDisabledBg = Color(0xFFE8EBEF);
+  static const lightDisabledContent = Color(0xFF9CA1B2);
+
+  // ── Dark-only helpers ───────────────────────────────────────
+  // Базовый фон тёмной темы взят чуть темнее и с лёгким бирюзовым подтоном
+  // (B>G>R) — в тон подводной картинки фона блока индекса клёва (back_dark).
+  static const darkScaffold = Color(0xFF0E1418);
+  static const darkSurface = Color(0xFF191E24);
+  static const darkBack2 = Color(0xFF0A0F12);
+  static const darkBack3 = Color(0xFF0A0F12);
+  static const darkSurface2 = Color(0xFF292E37);
+  static const darkSurface3 = Color(0xFF2B313A);
+  static const darkSurfaceElevated = Color(0xFF3B434F);
+  static const darkOnSurface = Color(0xFFFFFFFF);
+  static const darkOnSurfaceVariant = Color(0xFF686F87);
+  static const darkSecondaryDark = Color(0xFF9CA0B2);
+  static const darkSecondaryLight = Color(0xFF4D546B);
+  static const darkSecondaryExtraLight = Color(0xFF3D4357);
+  static const darkPrimaryLight = Color(0xB3FFFFFF);
+  static const darkDivider = Color(0xFF313843);
+  static const darkDividerLight = Color(0xFF262C34);
+  static const darkDividerStrong = Color(0xFF3E4551);
+  static const darkOnBack = Color(0xFF21262D);
+  static const darkOnBackAlpha50 = Color(0x8021262D);
+  static const darkOnBackAlpha30 = Color(0x4D21262D);
+  static const darkOnBack4 = Color(0xFF1A1C22);
+  static const darkUnderBack = Color(0xFF000000);
+  static const darkDisabledBg = Color(0x12E7EFFE);
+  static const darkDisabledContent = Color(0xFF5D6273);
+
+  // ── Orange background ───────────────────────────────────────
+  static const orangeLightBg = Color(0xFFFEF3E2);
+  static const orangeLightBgDark = Color(0xFF44413C);
+
+  // ── Neutral button ────────────────────────────────────────
+  static const neutralBtnBack = Color(0xFF272C35);
+  static const neutralBtnBackLight = Color(0xFFF0F1F5);
+  static const neutralBtnContent = Color(0xFFFFFFFF);
+  static const neutralBtnContentLight = Color(0xFF0A1B39);
+
+  // ── Line tokens (DT = dark-theme transparency variants) ───
+  static const lineDT50 = Color(0x0DCDDEFF);
+  static const lineDT100 = Color(0x1ACDDEFF);
+  static const lineDT200 = Color(0x1ACDDEFF);
+  static const lineDT300 = Color(0x1ACDDEFF);
+  static const lineLight100 = Color(0xFFEDEEF3);
+  static const lineLight200 = Color(0xFFE6E7EC);
+  static const lineLight300 = Color(0xFFD7D9E2);
+
+  /// Soft drop shadow for white-surface blocks in onboarding so they
+  /// don't blend into the white scaffold.
+  static const List<BoxShadow> baseDrop = [
+    BoxShadow(color: Color(0x05000000), offset: Offset(0, 11), blurRadius: 17),
+    BoxShadow(color: Color(0x03000000), offset: Offset(0, 6), blurRadius: 10),
+    BoxShadow(color: Color(0x03000000), offset: Offset(0, 3), blurRadius: 5),
+    BoxShadow(color: Color(0x03000000), offset: Offset(0, 1), blurRadius: 2),
+  ];
+
+  /// Flat background for clickable selection cards on the white onboarding scaffold.
+  static const onboardingClickableBg = Color(0xFFEFF2F6);
+
+  /// Primary CTA background for onboarding — deep near-black, not the brand blue,
+  /// so the white scaffold isn't dominated by a saturated rectangle.
+  static const onboardingCtaBg = Color(0xFF0E1220);
+
+  // ── Card edge tokens (skeumorphic depth) ──────────────────
+  static const cardEdgeLight = Color(0xFFE5E6EF);
+  static const cardEdgeDark = Color(0xFF0D0E11);
+  static const cardEdgeDarkTop = Color(0x0DCDDEFF);
+
+  // ── Overlay tokens ──────────────────────────────────────────
+  static const overlayDark = Color(0x80000000);
+}
+
+class AppTheme {
+  AppTheme._();
+
+  static const lightBarShadow = [
+    BoxShadow(color: Color(0x12000000), blurRadius: 16),
+    BoxShadow(color: Color(0x0A000000), blurRadius: 2),
+  ];
+
+  static const darkBarShadow = [
+    BoxShadow(color: Color(0x29000000), blurRadius: 16),
+    BoxShadow(color: Color(0x14000000), blurRadius: 2),
+  ];
+
+  static List<BoxShadow> cardElevatedShadows({required bool isDark}) {
+    return const [
+      BoxShadow(color: Color(0x081B364A), blurRadius: 20, offset: Offset(0, 5)),
+    ];
+  }
+
+  /// Обнуляет межбуквенный интервал во всех стилях [TextTheme]. Дефолтный
+  /// трекинг Material (0.1–0.5) рассчитан на латиницу и разрежает кириллицу.
+  static TextTheme _flatTracking(TextTheme t) => t.copyWith(
+        displayLarge: t.displayLarge?.copyWith(letterSpacing: 0),
+        displayMedium: t.displayMedium?.copyWith(letterSpacing: 0),
+        displaySmall: t.displaySmall?.copyWith(letterSpacing: 0),
+        headlineLarge: t.headlineLarge?.copyWith(letterSpacing: 0),
+        headlineMedium: t.headlineMedium?.copyWith(letterSpacing: 0),
+        headlineSmall: t.headlineSmall?.copyWith(letterSpacing: 0),
+        titleLarge: t.titleLarge?.copyWith(letterSpacing: 0),
+        titleMedium: t.titleMedium?.copyWith(letterSpacing: 0),
+        titleSmall: t.titleSmall?.copyWith(letterSpacing: 0),
+        bodyLarge: t.bodyLarge?.copyWith(letterSpacing: 0),
+        bodyMedium: t.bodyMedium?.copyWith(letterSpacing: 0),
+        bodySmall: t.bodySmall?.copyWith(letterSpacing: 0),
+        labelLarge: t.labelLarge?.copyWith(letterSpacing: 0),
+        labelMedium: t.labelMedium?.copyWith(letterSpacing: 0),
+        labelSmall: t.labelSmall?.copyWith(letterSpacing: 0),
+      );
+
+  static ThemeData get light {
+    const colorScheme = ColorScheme(
+      brightness: Brightness.light,
+      primary: AppColors.primary,
+      onPrimary: Colors.white,
+      primaryContainer: AppColors.primaryLight,
+      onPrimaryContainer: AppColors.lightOnSurface,
+      secondary: AppColors.lightOnSurfaceVariant,
+      onSecondary: Colors.white,
+      secondaryContainer: AppColors.primaryLight,
+      onSecondaryContainer: AppColors.primary,
+      tertiary: AppColors.orange,
+      onTertiary: Colors.white,
+      tertiaryContainer: AppColors.orangeLightBg,
+      onTertiaryContainer: AppColors.orange,
+      error: AppColors.error,
+      onError: Colors.white,
+      errorContainer: AppColors.errorLightBg,
+      onErrorContainer: AppColors.errorDark,
+      surface: AppColors.lightSurface,
+      onSurface: AppColors.lightOnSurface,
+      onSurfaceVariant: AppColors.lightOnSurfaceVariant,
+      surfaceContainerLowest: Colors.white,
+      surfaceContainerLow: AppColors.lightScaffold,
+      surfaceContainer: AppColors.lightScaffold,
+      surfaceContainerHigh: AppColors.lightUnderBack,
+      surfaceContainerHighest: AppColors.lightUnderBack,
+      outline: AppColors.lightDivider,
+      outlineVariant: AppColors.lightDividerLight,
+      inverseSurface: AppColors.lightInverse,
+      onInverseSurface: Colors.white,
+      inversePrimary: AppColors.lightAccentLight,
+      scrim: Color(0x80262E3D),
+      shadow: Colors.black,
+    );
+
+    final base = ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: AppColors.lightBack3,
+      dividerColor: AppColors.lightDivider,
+      appBarTheme: const AppBarTheme(
+        centerTitle: true,
+        elevation: 4,
+        scrolledUnderElevation: 4,
+        shadowColor: Color(0x12000000),
+        backgroundColor: AppColors.lightSurface,
+        foregroundColor: AppColors.lightOnSurface,
+        surfaceTintColor: Colors.transparent,
+      ),
+      cardTheme: CardThemeData(
+        elevation: 0,
+        color: AppColors.lightSurface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.lightSurface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.lightDivider),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.lightDivider),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.primary,
+        backgroundColor: Colors.white,
+      ),
+      dividerTheme: const DividerThemeData(
+        color: AppColors.lightDivider,
+        thickness: 1,
+        space: 1,
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: AppColors.lightSurface,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: AppColors.lightSurface,
+        surfaceTintColor: Colors.transparent,
+      ),
+      popupMenuTheme: PopupMenuThemeData(
+        color: AppColors.lightSurface,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        overlayColor:
+            WidgetStateProperty.all(AppColors.lightSurface.withAlpha(20)),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith(
+          (states) => Colors.white,
+        ),
+        trackColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? AppColors.primary
+              : AppColors.lightSecondaryExtraLight,
+        ),
+        trackOutlineColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? Colors.transparent
+              : AppColors.lightDividerStrong,
+        ),
+      ),
+    );
+    return base.copyWith(textTheme: _flatTracking(base.textTheme));
+  }
+
+  static ThemeData get dark {
+    const colorScheme = ColorScheme(
+      brightness: Brightness.dark,
+      primary: AppColors.primary,
+      onPrimary: Colors.white,
+      primaryContainer: AppColors.primaryLightDark,
+      onPrimaryContainer: Colors.white,
+      secondary: AppColors.darkOnSurfaceVariant,
+      onSecondary: Colors.white,
+      secondaryContainer: Color(0x1A1D8B53),
+      onSecondaryContainer: AppColors.primary,
+      tertiary: AppColors.orange,
+      onTertiary: Colors.white,
+      tertiaryContainer: AppColors.orangeLightBgDark,
+      onTertiaryContainer: AppColors.orange,
+      error: AppColors.error,
+      onError: Colors.white,
+      errorContainer: AppColors.errorLightBgDark,
+      onErrorContainer: AppColors.error,
+      surface: AppColors.darkSurface,
+      onSurface: AppColors.darkOnSurface,
+      onSurfaceVariant: AppColors.darkOnSurfaceVariant,
+      surfaceContainerLowest: AppColors.darkUnderBack,
+      surfaceContainerLow: AppColors.darkScaffold,
+      surfaceContainer: AppColors.darkSurface,
+      surfaceContainerHigh: AppColors.darkSurface2,
+      surfaceContainerHighest: AppColors.darkSurface3,
+      outline: AppColors.darkDivider,
+      outlineVariant: AppColors.darkDividerLight,
+      inverseSurface: Colors.white,
+      onInverseSurface: Color(0xFF262E3D),
+      inversePrimary: AppColors.primary,
+      scrim: Color(0x80000000),
+      shadow: Colors.black,
+    );
+
+    final base = ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: AppColors.darkBack3,
+      dividerColor: AppColors.darkDivider,
+      appBarTheme: const AppBarTheme(
+        centerTitle: true,
+        elevation: 4,
+        scrolledUnderElevation: 4,
+        shadowColor: Color(0x29000000),
+        backgroundColor: AppColors.darkSurface,
+        foregroundColor: AppColors.darkOnSurface,
+        surfaceTintColor: Colors.transparent,
+      ),
+      cardTheme: CardThemeData(
+        elevation: 0,
+        color: AppColors.darkSurface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.darkSurface2,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.darkDivider),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.darkDivider),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.primary,
+        backgroundColor: AppColors.darkSurface,
+      ),
+      dividerTheme: const DividerThemeData(
+        color: AppColors.darkDivider,
+        thickness: 1,
+        space: 1,
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: AppColors.darkSurface2,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: AppColors.darkSurface,
+        surfaceTintColor: Colors.transparent,
+      ),
+      popupMenuTheme: PopupMenuThemeData(
+        color: AppColors.darkSurface2,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        overlayColor:
+            WidgetStateProperty.all(AppColors.darkSurface.withAlpha(40)),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? Colors.white
+              : AppColors.darkSecondaryDark,
+        ),
+        trackColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? AppColors.primary
+              : AppColors.darkSurfaceElevated,
+        ),
+        trackOutlineColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? Colors.transparent
+              : AppColors.darkDividerStrong,
+        ),
+      ),
+    );
+    return base.copyWith(textTheme: _flatTracking(base.textTheme));
+  }
+}

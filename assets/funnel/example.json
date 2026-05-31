@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "id": "example_fitness_mvp",
+  "locale": { "default": "ru", "supported": ["ru", "en"] },
+
+  "steps": [
+    {
+      "id": "welcome",
+      "type": "welcome",
+      "hero": { "kind": "lottie", "asset": "assets/anim/welcome.json", "aspectRatio": 1 },
+      "title": { "ru": "Достигни цели быстрее", "en": "Reach your goal faster" },
+      "subtitle": { "ru": "Персональный план за 60 секунд", "en": "Personal plan in 60 seconds" },
+      "cta": { "label": { "ru": "Начать", "en": "Get started" } },
+      "secondary": { "label": { "ru": "У меня уже есть аккаунт", "en": "I have an account" }, "action": "login" }
+    },
+
+    {
+      "id": "q_goal",
+      "type": "quiz",
+      "question": { "ru": "Какая ваша главная цель?", "en": "What's your main goal?" },
+      "input": {
+        "kind": "single",
+        "options": [
+          { "value": "lose", "label": { "ru": "Сбросить вес", "en": "Lose weight" }, "icon": "scale" },
+          { "value": "gain", "label": { "ru": "Набрать массу", "en": "Gain muscle" }, "icon": "barbell" },
+          { "value": "tone", "label": { "ru": "Подтянуть тело", "en": "Tone up" }, "icon": "yoga" }
+        ]
+      },
+      "storeAs": "goal",
+      "required": true,
+      "showProgress": true
+    },
+
+    {
+      "id": "q_age",
+      "type": "quiz",
+      "question": { "ru": "Сколько вам лет?", "en": "How old are you?" },
+      "input": { "kind": "slider", "min": 16, "max": 80, "step": 1, "default": 30, "unit": "лет" },
+      "storeAs": "age",
+      "required": true,
+      "showProgress": true
+    },
+
+    {
+      "id": "q_barriers",
+      "type": "quiz",
+      "question": { "ru": "Что мешало вам раньше?", "en": "What got in your way before?" },
+      "subtitle": { "ru": "Можно выбрать несколько", "en": "Multiple choice" },
+      "input": {
+        "kind": "multi",
+        "min": 1,
+        "max": 3,
+        "options": [
+          { "value": "time", "label": { "ru": "Нет времени", "en": "No time" } },
+          { "value": "motivation", "label": { "ru": "Нет мотивации", "en": "No motivation" } },
+          { "value": "knowledge", "label": { "ru": "Не знаю как", "en": "Don't know how" } },
+          { "value": "results", "label": { "ru": "Не вижу результатов", "en": "No results" } }
+        ]
+      },
+      "storeAs": "barriers",
+      "showProgress": true
+    },
+
+    {
+      "id": "social_proof",
+      "type": "socialProof",
+      "rating": 4.7,
+      "reviewCount": 28000,
+      "userCountLabel": { "ru": "5 000 000+ людей доверяют", "en": "Trusted by 5M+ people" },
+      "testimonials": [
+        {
+          "author": "Анна, 28",
+          "text": { "ru": "Сбросила 6 кг за месяц без жёстких диет", "en": "Lost 6 kg in a month without harsh diets" }
+        }
+      ],
+      "cta": { "label": { "ru": "Продолжить", "en": "Continue" } }
+    },
+
+    {
+      "id": "q_motivation",
+      "type": "quiz",
+      "question": { "ru": "Как часто вы готовы тренироваться?", "en": "How often will you train?" },
+      "input": {
+        "kind": "single",
+        "options": [
+          { "value": "2", "label": { "ru": "2 раза в неделю", "en": "2 times a week" } },
+          { "value": "3-4", "label": { "ru": "3-4 раза в неделю", "en": "3-4 times a week" } },
+          { "value": "5+", "label": { "ru": "5+ раз в неделю", "en": "5+ times a week" } }
+        ]
+      },
+      "storeAs": "frequency",
+      "showProgress": true
+    },
+
+    {
+      "id": "commit",
+      "type": "goalCommitment",
+      "title": { "ru": "Ваша цель: {{answer.goal}}", "en": "Your goal: {{answer.goal}}" },
+      "subtitle": { "ru": "Подтвердите — мы построим план под неё", "en": "Confirm and we'll build a plan for it" },
+      "cta": { "label": { "ru": "Да, подтверждаю", "en": "Yes, confirm" } }
+    },
+
+    {
+      "id": "loader_plan",
+      "type": "loader",
+      "title": { "ru": "Строим ваш план", "en": "Building your plan" },
+      "stages": [
+        { "label": { "ru": "Анализируем ответы", "en": "Analyzing answers" }, "durationMs": 1500 },
+        { "label": { "ru": "Подбираем программу", "en": "Selecting program" }, "durationMs": 2000 },
+        { "label": { "ru": "Персонализируем", "en": "Personalizing" }, "durationMs": 1500 }
+      ]
+    },
+
+    {
+      "id": "result",
+      "type": "personalizedResult",
+      "title": { "ru": "Ваш план готов", "en": "Your plan is ready" },
+      "highlights": [
+        { "icon": "target", "label": { "ru": "Цель: {{answer.goal}}", "en": "Goal: {{answer.goal}}" } },
+        { "icon": "calendar", "label": { "ru": "Срок: 12 недель", "en": "Duration: 12 weeks" } },
+        { "icon": "chart", "label": { "ru": "Тренировки: {{answer.frequency}} раз в неделю", "en": "Workouts: {{answer.frequency}} per week" } }
+      ],
+      "cta": { "label": { "ru": "Получить план", "en": "Get my plan" } }
+    },
+
+    {
+      "id": "perm_notif",
+      "type": "permissionPriming",
+      "permission": "notifications",
+      "illustration": "assets/img/notif.png",
+      "title": { "ru": "Не сбейтесь с цели", "en": "Stay on track" },
+      "subtitle": { "ru": "Напомним о тренировках в удобное время", "en": "We'll remind you at the right time" },
+      "allowLabel": { "ru": "Включить уведомления", "en": "Enable notifications" },
+      "skipLabel": { "ru": "Не сейчас", "en": "Not now" }
+    },
+
+    { "id": "paywall_main", "type": "paywall", "ref": "paywall" }
+  ],
+
+  "paywall": {
+    "close": { "delayMs": 3000, "position": "topRight" },
+    "hero": { "kind": "lottie", "asset": "assets/anim/premium.json", "aspectRatio": 1.2 },
+    "headline": {
+      "title": { "ru": "Начни путь к цели «{{answer.goal}}»", "en": "Start your journey to {{answer.goal}}" },
+      "subtitle": { "ru": "Полный доступ к персональной программе", "en": "Full access to your personal program" }
+    },
+    "benefits": {
+      "items": [
+        { "icon": "check", "text": { "ru": "План под ваши цели и расписание", "en": "Plan tailored to your goals and schedule" } },
+        { "icon": "infinity", "text": { "ru": "Безлимитный доступ ко всем тренировкам", "en": "Unlimited access to all workouts" } },
+        { "icon": "chart", "text": { "ru": "Прогресс и аналитика", "en": "Progress tracking and analytics" } },
+        { "icon": "support", "text": { "ru": "Поддержка 24/7", "en": "24/7 support" } }
+      ]
+    },
+    "socialProof": {
+      "rating": 4.7,
+      "reviewCount": 28000,
+      "userCountLabel": { "ru": "5M+ с нами", "en": "5M+ with us" }
+    },
+    "pricing": {
+      "packages": ["$rc_annual_trial", "$rc_weekly"],
+      "default": "$rc_annual_trial",
+      "badges": { "$rc_annual_trial": { "ru": "Экономия 60%", "en": "Save 60%" } },
+      "showPricePerDay": true,
+      "layout": "stacked"
+    },
+    "trialTimeline": {
+      "enabled": true,
+      "days": 7,
+      "reminderDay": 5,
+      "appliesTo": "$rc_annual_trial"
+    },
+    "cta": {
+      "label": { "ru": "Начать бесплатно", "en": "Start free trial" },
+      "sublabel": { "ru": "Без оплаты сейчас. Отмена в любой момент", "en": "No payment now. Cancel anytime" },
+      "sticky": true
+    },
+    "finePrint": {
+      "showRestore": true,
+      "termsUrl": "https://example.com/terms",
+      "privacyUrl": "https://example.com/privacy",
+      "autoRenewDisclosure": true
+    }
+  },
+
+  "exitOffer": {
+    "trigger": "onPaywallClose",
+    "countdownSec": 300,
+    "hero": { "kind": "image", "asset": "assets/img/gift.png", "aspectRatio": 1 },
+    "headline": {
+      "title": { "ru": "Подождите — особое предложение", "en": "Wait — special offer" },
+      "subtitle": { "ru": "Скидка действует 5 минут", "en": "Discount expires in 5 minutes" }
+    },
+    "pricing": {
+      "packages": ["$rc_weekly_50off"],
+      "default": "$rc_weekly_50off"
+    },
+    "cta": {
+      "label": { "ru": "Забрать -50%", "en": "Claim -50%" }
+    },
+    "finePrint": {
+      "showRestore": false,
+      "termsUrl": "https://example.com/terms",
+      "privacyUrl": "https://example.com/privacy",
+      "autoRenewDisclosure": true
+    }
+  }
+}

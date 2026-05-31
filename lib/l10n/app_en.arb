@@ -1,0 +1,710 @@
+{
+  "@@locale": "en",
+
+  "welcomeTitle": "Carp bite forecast",
+  "welcomeSubtitle": "Quick setup — under a minute",
+  "welcomeCta": "Get started",
+
+  "languageSheetTitle": "Language",
+  "languageSheetSubtitle": "Choose your language",
+  "themeSheetSubtitle": "Choose how the app looks",
+  "languageEn": "English",
+  "languageRu": "Русский",
+  "languageDe": "Deutsch",
+  "languageEs": "Español",
+  "languageFr": "Français",
+
+  "langShortEn": "EN",
+  "langShortRu": "RU",
+  "langShortDe": "DE",
+  "langShortEs": "ES",
+  "langShortFr": "FR",
+
+  "commonContinue": "Continue",
+
+  "quizQ1Question": "What do you fish for?",
+  "quizQ1Subtitle": "We'll tune the forecast to your fish",
+  "quizQ1OptLearn": "Carp",
+  "quizQ1OptHabit": "Crucian carp",
+  "quizQ1OptSolve": "Both",
+
+  "quizQ2Question": "Drove out, no bite?",
+  "quizQ2Subtitle": "Be honest — it helps us help you",
+  "quizQ2OptDaily": "Yes, more than once",
+  "quizQ2OptWeekly": "Sometimes",
+  "quizQ2OptRarely": "Rarely — I usually catch",
+
+  "quizQ3Question": "How do you plan trips?",
+  "quizQ3Subtitle": "Decides what we show you first",
+  "quizQ3OptSimple": "I plan ahead",
+  "quizQ3OptResult": "I go spontaneously",
+  "quizQ3OptFlexible": "It varies",
+
+  "quizQ4Question": "How often do you fish?",
+  "quizQ4Subtitle": "We'll alert you to the best days",
+  "quizQ4OptWeekly": "Every week",
+  "quizQ4OptMonthly": "A couple times a month",
+  "quizQ4OptRarely": "Now and then",
+
+  "onbAnalyzingTitle": "Analyzing conditions",
+  "onbAnalyzingSubtitle": "Crunching weather, pressure and the moon…",
+  "onbResultTitle": "Your bite forecast is ready",
+  "onbResultSubtitle": "Today's bite is free. The 7-day forecast unlocks with a subscription.",
+  "onbResultTodayBadge": "Today · free",
+  "onbResultLockedLabel": "7-day forecast",
+  "onbResultCta": "See my forecast",
+  "paywallSkipToday": "See today for free first",
+
+  "paywallTitle": "Unlock the full bite forecast",
+  "planYearly": "12 months",
+  "planWeekly": "Week",
+  "trialBadgeFreeDays": "{days, plural, one{{days} day free} other{{days} days free}}",
+  "@trialBadgeFreeDays": {
+    "placeholders": { "days": { "type": "int" } }
+  },
+  "trialDayLabel": "Day {n}",
+  "@trialDayLabel": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "trialDay1Desc": "Access unlocked",
+  "trialDayMidDesc": "We'll remind you a day before",
+  "trialDayEndDesc": "Subscription starts",
+
+  "featureUnlimited": "Forecast for all your spots",
+  "featureUpdates": "Hourly bite windows, updated daily",
+  "featurePrivacy": "Works anywhere, data stays private",
+  "featureSupport": "Priority support",
+
+  "faqTitle": "Frequently asked",
+  "faqCancelQ": "Can I cancel?",
+  "faqCancelA": "Yes, anytime through your App Store or Google Play settings. If you cancel before the trial ends, you won't be charged.",
+  "faqChargeQ": "When will I be charged?",
+  "faqChargeA": "If you chose a free trial — after it ends. We'll remind you a day before so you can decide.",
+  "faqIncludesQ": "What's included in the subscription?",
+  "faqIncludesA": "The full bite forecast for all your spots, hourly biting windows, regular updates and priority support.",
+
+  "paywallNoPaymentNow": "No payment now",
+  "paywallCtaStartFree": "Start free trial",
+  "paywallCtaSubscribe": "Subscribe",
+  "paywallDisclaimer": "Auto-renews. Cancel anytime",
+
+  "menuRestore": "Restore purchases",
+  "menuTerms": "Terms of use",
+  "menuPrivacy": "Privacy policy",
+  "menuPromo": "Have a code?",
+  "menuRestart": "Start over",
+
+  "promoTitle": "Enter promo code",
+  "promoSubtitle": "If you have an activation code — enter it below",
+  "promoCtaActivate": "Activate",
+  "promoErrorInvalid": "Invalid code",
+  "promoSuccess": "Subscription activated for {days, plural, one{{days} day} other{{days} days}}",
+  "@promoSuccess": {
+    "placeholders": { "days": { "type": "int" } }
+  },
+
+  "homeTitle": "Home",
+  "homeSubNotActive": "Subscription not active",
+  "homeOnboardingNotDone": "Onboarding not completed",
+  "homeAnswersLabel": "Your answers:",
+  "homeBtnReplayOnboarding": "Restart onboarding",
+  "homeBtnToPaywall": "To paywall",
+  "homeBtnResetSub": "Reset subscription",
+  "homePremiumBadge": "Premium active · {remaining} left",
+  "@homePremiumBadge": {
+    "placeholders": { "remaining": { "type": "String" } }
+  },
+  "remainingDays": "{n, plural, one{{n} day} other{{n} days}}",
+  "@remainingDays": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "remainingHours": "{n}h",
+  "@remainingHours": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "remainingMinutes": "{n}m",
+  "@remainingMinutes": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+
+  "tabHome": "Home",
+  "tabAnalytics": "Analytics",
+  "tabSettings": "Settings",
+
+  "homeTabEmpty": "Home tab is empty for now",
+  "analyticsTabEmpty": "Analytics tab is empty for now",
+
+  "settingsSubscriptionTitle": "Subscription",
+  "settingsSubActive": "Premium active",
+  "settingsSubInactive": "Subscription not active",
+  "settingsSubExpiresLeft": "{remaining} left",
+  "@settingsSubExpiresLeft": {
+    "placeholders": { "remaining": { "type": "String" } }
+  },
+  "settingsSubBtnGoPaywall": "Activate subscription",
+  "settingsSubBtnManage": "Manage subscription",
+  "settingsRestartOnboarding": "Restart onboarding",
+  "restartConfirmTitle": "Restart onboarding?",
+  "restartConfirmMessage": "Your answers will be cleared and you'll go back to the welcome screen.",
+  "commonCancel": "Cancel",
+  "commonConfirm": "Restart",
+  "commonUndo": "Undo",
+  "commonDelete": "Delete",
+
+  "tabNotes": "Notes",
+  "noteNew": "Note",
+  "notesEmptyTitle": "No notes yet",
+  "notesEmptySubtitle": "Jot down your fishing observations: bite, bait, weather.",
+  "noteNewTitle": "New note",
+  "noteEditTitle": "Note",
+  "noteTextHint": "What did you notice? Bite, bait, weather…",
+  "noteLocationLabel": "Location",
+  "noteLocationNone": "No location",
+  "notePhotosLabel": "Photos",
+  "notePhotoCamera": "Camera",
+  "notePhotoGallery": "Gallery",
+  "noteConditionsTitle": "Conditions when noted",
+  "noteSave": "Save note",
+  "noteDeleteConfirm": "Delete note?",
+  "noteDeleted": "Note deleted",
+  "noteEmptyError": "Add text or a photo",
+  "noteDiscardTitle": "Discard changes?",
+  "noteDiscard": "Discard",
+
+  "settingsNotificationsTitle": "Notifications",
+  "settingsNotifMaster": "All notifications",
+  "settingsNotifReminders": "Reminders",
+  "settingsNotifNews": "News & updates",
+
+  "settingsAboutTitle": "About",
+  "settingsRateApp": "Rate the app",
+  "settingsShareApp": "Share with friends",
+  "settingsContactSupport": "Contact support",
+  "shareMessage": "Check out {appName} — {appLink}",
+  "@shareMessage": {
+    "placeholders": {
+      "appName": { "type": "String" },
+      "appLink": { "type": "String" }
+    }
+  },
+  "supportEmailSubject": "Help with {appName}",
+  "@supportEmailSubject": {
+    "placeholders": { "appName": { "type": "String" } }
+  },
+  "supportEmailBody": "\n\n\n---\nApp: {appName} v{version} ({build})\nPlatform: {platform}\nLocale: {locale}",
+  "@supportEmailBody": {
+    "placeholders": {
+      "appName": { "type": "String" },
+      "version": { "type": "String" },
+      "build": { "type": "String" },
+      "platform": { "type": "String" },
+      "locale": { "type": "String" }
+    }
+  },
+
+  "appVersionFooter": "{appName} · v{version} ({build})",
+  "@appVersionFooter": {
+    "placeholders": {
+      "appName": { "type": "String" },
+      "version": { "type": "String" },
+      "build": { "type": "String" }
+    }
+  },
+
+  "settingsAppearanceTitle": "Appearance",
+  "settingsLanguage": "Language",
+  "settingsUnitsTitle": "Units",
+  "unitTemperature": "Temperature",
+  "unitWind": "Wind",
+  "unitPressure": "Pressure",
+  "settingsMoreTitle": "More",
+  "settingsSubInactiveSubtitle": "Unlock all features",
+  "settingsThemeTitle": "Theme",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+
+  "mockPurchase": "Mock purchase: {plan}",
+  "@mockPurchase": {
+    "placeholders": { "plan": { "type": "String" } }
+  },
+  "mockRestore": "Mock: purchases restored",
+
+  "tabForecast": "Forecast",
+  "locCurrent": "My location",
+  "locDefault": "Default location",
+  "locationSheetTitle": "Location",
+  "locFallbackBanner": "Location is off — showing the default spot. Forecast may not match your area.",
+  "locFallbackAction": "Choose",
+  "fcLoading": "Loading forecast…",
+  "fcError": "Couldn't load forecast",
+  "fcErrorSubtitle": "Check your connection and try again",
+  "fcRetry": "Retry",
+  "fcRefresh": "Refresh weekly forecast",
+  "fcRefreshing": "Updating forecast…",
+  "fcRefreshStep1": "Fetching the weather…",
+  "fcRefreshStep2": "Reading pressure and wind…",
+  "fcRefreshStep3": "Checking the moon phase…",
+  "fcRefreshStep4": "Finding the bite windows…",
+  "fcRefreshStep5": "Recalculating the index…",
+  "fcUpdatedAt": "updated at {time}",
+  "@fcUpdatedAt": {
+    "placeholders": { "time": { "type": "String" } }
+  },
+  "fcUpdatedJustNow": "updated just now",
+  "fcUpdatedMinAgo": "updated {minutes} min ago",
+  "@fcUpdatedMinAgo": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "fcUpdatedHoursAgo": "updated {hours} h ago",
+  "@fcUpdatedHoursAgo": {
+    "placeholders": { "hours": { "type": "int" } }
+  },
+  "fcUpdatedDate": "updated {date}",
+  "@fcUpdatedDate": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "fcOfflineUpdated": "offline · {age}",
+  "@fcOfflineUpdated": {
+    "placeholders": { "age": { "type": "String" } }
+  },
+  "fcFactorGood": "good",
+  "fcFactorNeutral": "neutral",
+  "fcFactorWeak": "weak",
+
+  "tabSpots": "Spots",
+  "spotsActiveTitle": "Active spot",
+  "spotsSavedTitle": "Saved spots",
+  "spotsUseCurrent": "Use current location",
+  "spotsEmpty": "No saved spots yet.\nAdd one on the map.",
+  "spotsAddOnMap": "Add on map",
+  "spotPickerTitle": "Pick a spot",
+  "spotNameHint": "Spot name (optional)",
+  "spotSaveBtn": "Save spot",
+  "spotSaveActive": "Save",
+  "spotNameDialogTitle": "Spot name",
+  "spotEdit": "Edit",
+  "spotDefaultName": "Spot {n}",
+  "@spotDefaultName": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "spotDeleted": "Spot deleted",
+  "spotDeleteConfirm": "Delete spot?",
+  "spotSearchHint": "Search a place",
+  "spotNothingFound": "Nothing found",
+  "spotLocationUnavailable": "Couldn't get your location",
+
+  "fcToday": "Today",
+  "fcTomorrow": "Tomorrow",
+  "fcIndexCaption": "Bite index",
+  "fcBestWindow": "Best window",
+  "fcBestWindowEmpty": "Weak activity all day",
+  "fcHourlyTitle": "Hourly",
+  "fcWeekTitle": "7-day outlook",
+  "fcUpcomingDays": "Upcoming days",
+  "fcSeeWeek": "See week",
+  "fcWhyTitle": "Why this score",
+  "fcHowItWorksBtn": "How the forecast works",
+  "fcHowItWorksTitle": "How the forecast works",
+  "fcHowItWorksP1Title": "A smart model, not a coin toss",
+  "fcHowItWorksP1Body": "Behind every score is a model that pulls together dozens of weather factors each day — atmospheric pressure and its swings, wind speed and direction, air and water temperature, cloud cover, precipitation, the moon phase and the season. We weigh each one and turn it into a single, clear bite score.",
+  "fcHowItWorksP2Title": "Tuned to your water",
+  "fcHowItWorksP2Body": "A lake, river, pond and reservoir each live by their own rules. The algorithm factors in the type of water and its traits to pinpoint where and when fish are more likely to be active right at your spot.",
+  "fcHowItWorksP3Title": "Built on fish behaviour",
+  "fcHowItWorksP3Body": "Fish react to weather in predictable ways — chasing comfortable temperature, oxygen and food. We bake those patterns in and translate them into concrete tips: where to set up, what depth to work and which hours to wait for the bite.",
+  "fcHowItWorksP4Title": "The best time and place",
+  "fcHowItWorksP4Body": "We forecast not just today but days ahead and highlight the strongest bite windows — so you plan your session for the most promising day and hour instead of guessing.",
+  "fcHowItWorksDisclaimer": "It's a probability, not a promise. On the water, always read the spot and experiment — location, bait, timing.",
+
+  "storyTitle": "Anatomy of the bite",
+  "storySubtitle": "Why it isn't reading tea leaves",
+  "storyHookTitle": "Biting isn't a lottery",
+  "storyHookBody": "Fish are cold-blooded: no \"mood\", just a response to water and sky. Pressure drops, water warms, the wind picks up — appetite shifts. We learned to read those signals and fold them into one score. Here's what goes into it.",
+  "storyPressureTitle": "A barometer and a thermometer",
+  "storyPressureBody": "A fish has a built-in barometer — its swim bladder. A sharp pressure jump stuns it; a slow drop before bad weather flips the feeding on. All of it plays out against water temperature, which lags the air — a small pond wakes in days, a big lake in weeks — so we model the water's inertia and tune it to your venue. Cold water: sluggish on the bottom. Warmed up: out feeding.",
+  "storyWindTitle": "Wind and the hour",
+  "storyWindBody": "Wind is the angler's friend: it pushes warm water and food to the downwind bank and adds oxygen — that's where fish gather. And everyone has their hour: carp love dusk and a warm night, crucian the morning, while a hot midday shuts the bite down. The moon nudges it a little. So the score shifts not just by day, but by hour.",
+  "storyTypeTitle": "Every water has a character",
+  "storyTypeBody": "A lake, river, pond, canal and reservoir each live their own way. On big water fish follow the wind; on a river they hold to bends, pits and the slack below rapids; in a small pond they hug the reeds and snags. We identify your water from the OpenStreetMap map — its type and size — and tune both the water-warming model and the where-to-look tips to your venue.",
+  "storyFishTitle": "Carp ≠ crucian",
+  "storyFishBody": "One engine, two characters — and you mustn't mix them up. Carp is a cautious gourmet: it loves warm water, a slow pressure drop before bad weather, and feeds even at night. Crucian is fussier about swings, wakes later and fills up fast, yet it's absurdly hardy — a stuffy warm puddle that troubles carp suits it just fine. So we score each by its own profile: temperature thresholds, pressure response, feeding hours.",
+  "storyTacticsTitle": "Not just when, but how",
+  "storyTacticsBody": "Knowing it bites today isn't enough — how matters. From the day's real weather we suggest: the \"bait thermometer\" (cold — small and bright: maggots, corn; warm — richer: boilies, tiger nuts), which rig to use, where to sit and which hours to wait for. On warming water we feed generously; in cold and extreme heat, sparingly. All tuned to this day's water and sky, not done by rote.",
+  "storyHonestTitle": "A probability, not a promise",
+  "storyHonestBody": "Let's be honest: it's an estimate of the odds, not a promise of a catch. Depth, the shape of the bottom, snags, and how many fish are actually under you — a satellite can't see that, and no model knows it. The forecast helps you pick a good day, place and time — taking the lottery out of fishing. The rest is on you: try spots, switch baits and depths, experiment. That's the whole fun of it.",
+  "fcWhyHelps": "Helps",
+  "fcWhyHurts": "Holds back",
+  "fcWhyNoCons": "no limiting factors",
+  "fcWhyAnd": "and",
+  "fcWhyHelpsOne": "{factors} favors the bite.",
+  "@fcWhyHelpsOne": { "placeholders": { "factors": {} } },
+  "fcWhyHelpsMany": "{factors} favor the bite.",
+  "@fcWhyHelpsMany": { "placeholders": { "factors": {} } },
+  "fcWhyHurtsOne": "{factors} reduces fish activity.",
+  "@fcWhyHurtsOne": { "placeholders": { "factors": {} } },
+  "fcWhyHurtsMany": "{factors} reduce fish activity.",
+  "@fcWhyHurtsMany": { "placeholders": { "factors": {} } },
+  "fcWhyBalanced": "Factors are balanced — no sharp swings in activity expected.",
+  "fcPhrasePressurePos": "steady pressure keeps fish feeding near the bottom",
+  "fcPhrasePressureNeg": "pressure swings put fish off the feed",
+  "fcPhraseTemperaturePos": "the water has warmed to a comfortable feeding range",
+  "fcPhraseTemperatureNeg": "cold water slows fish down and they rarely feed",
+  "fcPhraseWindPos": "a light ripple pushes food toward the bank",
+  "fcPhraseWindNeg": "strong wind raises waves and fish move deep",
+  "fcPhraseCloudPos": "cloud cover dims the light, so fish feed more boldly",
+  "fcPhraseCloudNeg": "bright sun makes fish wary and they hide",
+  "fcPhrasePrecipPos": "dry, settled weather keeps fish predictable",
+  "fcPhrasePrecipNeg": "rain muddies the water and unsettles pressure",
+  "fcPhraseSeasonPos": "seasonal peak — fish are feeding up hard",
+  "fcPhraseSeasonNeg": "seasonal lull — the fish's metabolism is slowed",
+  "fcPhraseMoonPos": "active moon phase — a solunar feeding peak",
+  "fcPhraseMoonNeg": "weak moon phase — a solunar lull",
+  "fcConfidenceHigh": "High confidence",
+  "fcConfidenceMedium": "Medium confidence",
+  "fcConfidenceLow": "Low confidence",
+  "fcDayConditions": "Daytime weather",
+  "fcPeriodNight": "Night",
+  "fcPeriodMorning": "Morning",
+  "fcPeriodDay": "Day",
+  "fcPeriodEvening": "Evening",
+  "fcRateWeak": "Weak",
+  "fcRateMid": "Fair",
+  "fcRateGood": "Good",
+  "fcRateGreat": "Great",
+  "fcPeriodWhyTitle": "Why this score",
+  "fcPeriodTimeEffect": "Time of day",
+  "fcPeriodBaseTitle": "Underlying conditions",
+  "fcPeriodWater": "Water",
+  "fcTodAdjCaption": "Time-of-day adjustment",
+  "fcTodDawn": "Dawn — the feeding peak: in these hours the score is lifted above the daytime baseline.",
+  "fcTodDusk": "Dusk — fish feed actively before nightfall, so the hourly score is raised.",
+  "fcTodWarmNight": "The water is warm, so at night the fish keep feeding confidently — the night score stays close to the daytime one.",
+  "fcTodMidNight": "The water is still cool, so night activity is moderate — no sharp drop.",
+  "fcTodColdNight": "Cold water makes fish sluggish at night, so the night score sits noticeably below the daytime one.",
+  "fcTodMiddayHot": "Hot midday — fish move into shade and deeper water, so the daytime bite dips.",
+  "fcTodColdDay": "In cool weather the daytime warming of the water makes this the relatively best part of the day.",
+  "fcTodDayNeutral": "Daytime hours between the dawn and dusk peaks — calm, average activity.",
+  "moonNew": "New moon",
+  "moonWaxing": "Waxing",
+  "moonFull": "Full moon",
+  "moonWaning": "Waning",
+  "fcHowToFish": "How to fish today",
+  "fcHowToFishTomorrow": "How to fish tomorrow",
+  "fcHowToFishOn": "How to fish on {date}",
+  "@fcHowToFishOn": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "fcWhenTitle": "When",
+  "fcWindowsLabel": "Bite windows",
+  "fcWindowDawn": "morning bite (dawn)",
+  "fcWindowDusk": "evening bite (dusk)",
+  "fcWindowNight": "night bite",
+  "fcWindowMorning": "morning",
+  "fcWindowEvening": "evening",
+  "fcWindowDay": "midday",
+  "fcWindowsWhyDawn": "Carp feed most at first and last light — dawn and dusk.",
+  "fcWindowsWhyNight": "In warm water carp feed actively at night.",
+  "fcWindowsWhyDay": "Mild daytime weather keeps fish active.",
+  "fcVerdictVeryLow": "Tough day — the bite is sluggish, maybe skip it.",
+  "fcVerdictLow": "Weak bite. If you go — fish precise and patient.",
+  "fcVerdictMedium": "An average day — no guarantees, but there's a chance.",
+  "fcVerdictMediumWindow": "There's a chance — try the {from}–{to} window.",
+  "@fcVerdictMediumWindow": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "fcVerdictGood": "Good day — keep a bait in the water.",
+  "fcVerdictGoodWindow": "Worth going. Best time — {from}–{to}.",
+  "@fcVerdictGoodWindow": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "fcVerdictExcellent": "Excellent day — the bite is on!",
+  "fcVerdictExcellentWindow": "Excellent day! Don't miss the {from}–{to} window.",
+  "@fcVerdictExcellentWindow": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+
+  "fcLevelVeryLow": "Very low",
+  "fcLevelLow": "Low",
+  "fcLevelMedium": "Moderate",
+  "fcLevelGood": "Good",
+  "fcLevelExcellent": "Excellent",
+
+  "fcFactorPressure": "Pressure",
+  "fcFactorTemperature": "Water temp",
+  "fcFactorWind": "Wind",
+  "fcFactorCloud": "Cloud cover",
+  "fcFactorPrecipitation": "Precipitation",
+  "fcFactorSeason": "Season",
+  "fcFactorMoon": "Moon",
+
+  "fcCondClear": "Clear",
+  "fcCondPartly": "Partly cloudy",
+  "fcCondCloudy": "Cloudy",
+  "fcCondRain": "Rain",
+  "fcCondStorm": "Storm",
+
+  "fcChipPressure": "Pressure",
+  "fcChipWind": "Wind",
+  "fcChipWater": "Water",
+  "fcChipTemp": "Temperature",
+  "fcChipMoon": "Moon",
+
+  "fishCarp": "Carp",
+  "fishCrucian": "Crucian carp",
+  "fishSheetTitle": "Fish",
+
+  "fcUnitHpaSuffix": "hPa",
+  "fcUnitMmHgSuffix": "mmHg",
+  "fcUnitMsSuffix": "m/s",
+  "fcUnitKmhSuffix": "km/h",
+  "fcWindCalm": "Calm",
+
+  "fcWindN": "N",
+  "fcWindNE": "NE",
+  "fcWindE": "E",
+  "fcWindSE": "SE",
+  "fcWindS": "S",
+  "fcWindSW": "SW",
+  "fcWindW": "W",
+  "fcWindNW": "NW",
+
+  "tabAdvice": "Tactics",
+  "adviceHeadline": "Suggested tactics",
+  "adviceDisclaimer": "Guidance based on the weather forecast, not a specific water.",
+
+  "adviceKindBait": "Bait",
+  "adviceKindFeeding": "Feeding",
+  "adviceKindDepth": "Depth",
+  "adviceKindLocation": "Spot",
+  "adviceKindTiming": "Timing",
+
+  "adviceWhyWater": "water {value}",
+  "@adviceWhyWater": {
+    "placeholders": { "value": { "type": "String" } }
+  },
+  "adviceWhyWaterRising": "water warming day to day",
+  "adviceWhyWaterFalling": "water cooling day to day",
+  "adviceWhyAirHot": "hot — air {value}",
+  "@adviceWhyAirHot": {
+    "placeholders": { "value": { "type": "String" } }
+  },
+  "adviceWhyWind": "wind {value}",
+  "@adviceWhyWind": {
+    "placeholders": { "value": { "type": "String" } }
+  },
+  "adviceWhyWindLight": "light wind",
+  "adviceWhyPressureFalling": "pressure is falling",
+  "adviceWhyRain": "rain during the day",
+  "adviceWhyBottomHabit": "mild water — carp hold near the bottom",
+  "adviceWhyBiteHigh": "high bite index",
+  "adviceWhyBiteMid": "moderate bite index",
+  "adviceWhyBiteLow": "low bite index",
+  "adviceWhyBestHours": "index peaks at this time",
+
+  "windFullN": "northerly",
+  "windFullNE": "north-easterly",
+  "windFullE": "easterly",
+  "windFullSE": "south-easterly",
+  "windFullS": "southerly",
+  "windFullSW": "south-westerly",
+  "windFullW": "westerly",
+  "windFullNW": "north-westerly",
+
+  "adviceBaitColdBrightTitle": "Bright small baits",
+  "adviceBaitColdBrightBody": "Cold water — corn, maggots, small pellets. Carp feeds little and cautiously.",
+  "adviceBaitMidBoiliesTitle": "Boilies & pellets",
+  "adviceBaitMidBoiliesBody": "Water is warming — 10–16 mm boilies and pellets. Carp is more active.",
+  "adviceBaitWarmFishmealTitle": "Fishmeal boilies",
+  "adviceBaitWarmFishmealBody": "Warm water, peak appetite — rich fishmeal boilies, tiger nuts, sweetcorn.",
+  "adviceBaitHotSurfaceTitle": "Floating baits",
+  "adviceBaitHotSurfaceBody": "Heat pushes carp up — pop-ups, floating pellets, a little bread.",
+  "adviceBaitWarmingTitle": "Go bigger & smellier",
+  "adviceBaitWarmingBody": "Warming trend — carp are switching on. Boilies, tiger nuts, scented baits.",
+  "adviceBaitCoolingTitle": "Downsize & brighten",
+  "adviceBaitCoolingBody": "Water is dropping — fish turn cautious. Small pellets, corn, maggots.",
+
+  "adviceFeedMinimalTitle": "Feed sparingly",
+  "adviceFeedMinimalBody": "Only a couple of handfuls, placed tight — don't overfeed inactive fish.",
+  "adviceFeedModerateTitle": "Feed moderately",
+  "adviceFeedModerateBody": "Medium volume; top up regularly in small amounts.",
+  "adviceFeedHeavyTitle": "Feed heavily",
+  "adviceFeedHeavyBody": "Carp is feeding hard — a bigger initial bed and frequent top-ups pay off.",
+
+  "adviceRigBottomTitle": "Fish the bottom",
+  "adviceRigBottomBody": "Bottom rig on the deck or by features — the classic carp setup.",
+  "adviceRigZigTitle": "Try a zig rig",
+  "adviceRigZigBody": "Fish are holding in mid-water — a zig 1–2 m off the bottom can score.",
+  "adviceRigSurfaceTitle": "Fish on top",
+  "adviceRigSurfaceBody": "Carp basking near the surface — surface tackle and a floating bait.",
+
+  "adviceSwimWindwardTitle": "Fish into the wind",
+  "adviceSwimWindwardBody": "A {dir} wind pushes warm surface water and food to the far bank; carp feed there.",
+  "@adviceSwimWindwardBody": {
+    "placeholders": { "dir": { "type": "String" } }
+  },
+  "adviceSwimCalmFeaturesTitle": "Target features",
+  "adviceSwimCalmFeaturesBody": "Light wind — work drop-offs, snags, reeds and depth changes.",
+  "adviceSwimShelteredTitle": "Go deep or shaded",
+  "adviceSwimShelteredBody": "In the heat, look for cooler deep water and shaded areas.",
+
+  "adviceTimePressureDropTitle": "Pre-front window",
+  "adviceTimePressureDropBody": "Pressure is falling — a feeding spell is likely. Don't miss the next few hours.",
+  "adviceTimeBestWindowTitle": "Today's best window",
+  "adviceTimeBestWindowBody": "Peak activity around {from}–{to}. Be on your spot a little early.",
+  "@adviceTimeBestWindowBody": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "adviceTimeDawnDuskTitle": "Dawn & dusk",
+  "adviceTimeDawnDuskBody": "Bank on early morning and late evening — the most reliable bite.",
+  "adviceTimeAllDayTitle": "Active all day",
+  "adviceTimeAllDayBody": "High index — carp feed through the day; keep a bait in the water.",
+  "adviceTimeSlowPatientTitle": "Be patient",
+  "adviceTimeSlowPatientBody": "Fish are sluggish — precise presentation, finer rigs, wait for a window.",
+
+  "crucianBaitColdAnimalTitle": "Animal bait",
+  "crucianBaitColdAnimalBody": "Cold water — small bloodworm and maggots. One or two grubs at a time; crucian feed slowly.",
+  "crucianBaitWarmingTitle": "Worm & maggot",
+  "crucianBaitWarmingBody": "Water is warming — crucian switch on. Dendrobaena worm, a bunch of maggots, bloodworm.",
+  "crucianBaitCoolingTitle": "Downsize & soften",
+  "crucianBaitCoolingBody": "Cooling — crucian turn fussy. Small bloodworm or a sandwich, softer bait.",
+  "crucianBaitSandwichTitle": "Sandwich bait",
+  "crucianBaitSandwichBody": "Transitional water — a sandwich: maggot with pearl barley or corn. Crucian are picky.",
+  "crucianBaitWarmPlantTitle": "Plant bait",
+  "crucianBaitWarmPlantBody": "Warm water — pearl barley, semolina paste, corn, dough. Crucian switch to plant baits.",
+  "crucianBaitHotDoughTitle": "Soft dough",
+  "crucianBaitHotDoughBody": "Heat — soft dough, semolina paste, bread flake. A light sweet bait up in the water.",
+
+  "crucianFeedTinyTitle": "Feed tight",
+  "crucianFeedTinyBody": "Crucian are shy and fill up fast — a few pinches of fine sweet groundbait, no more.",
+  "crucianFeedSweetTitle": "Sweet groundbait",
+  "crucianFeedSweetBody": "Fine mix with garlic or vanilla scent; top up little and often, don't overfeed.",
+  "crucianFeedActiveTitle": "Feed actively",
+  "crucianFeedActiveBody": "Crucian are feeding well — top up more often but in small amounts to hold the shoal.",
+
+  "crucianRigFloatBottomTitle": "Float on the bottom",
+  "crucianRigFloatBottomBody": "The classic crucian setup — float tackle, bait resting on or just touching the bottom.",
+  "crucianRigDropperTitle": "Dropper shot & fall",
+  "crucianRigDropperBody": "Crucian have lifted into mid-water — a slow-falling bait, spread the shot, fish on the drop.",
+  "crucianRigShallowTitle": "Shallow near the top",
+  "crucianRigShallowBody": "In the heat crucian bask in the shallows — light tackle, bait in the warm upper layer.",
+
+  "crucianSwimReedsTitle": "Reed margins",
+  "crucianSwimReedsBody": "Work gaps in the weed, reed margins and overgrown spots — that's where crucian feed.",
+  "crucianSwimWarmShallowsTitle": "Warm shallows",
+  "crucianSwimWarmShallowsBody": "Water is cold — find the warmest shallows and bays heated by the sun.",
+  "crucianSwimDeepEdgeTitle": "Deeper edge & shade",
+  "crucianSwimDeepEdgeBody": "In the heat crucian leave the shallows — fish holes, drop-offs and shaded areas.",
+
+  "crucianTimePressureDropTitle": "Be patient",
+  "crucianTimePressureDropBody": "Pressure is falling — crucian turn fussy and passive. Small soft baits, wait for short spells.",
+  "crucianTimeBestWindowTitle": "Today's best window",
+  "crucianTimeBestWindowBody": "Peak activity around {from}–{to}. Be on your spot a little early.",
+  "@crucianTimeBestWindowBody": {
+    "placeholders": {
+      "from": { "type": "String" },
+      "to": { "type": "String" }
+    }
+  },
+  "crucianTimeMorningTitle": "Morning bite",
+  "crucianTimeMorningBody": "Bank on early morning — the classic crucian spell, before the heat.",
+  "crucianTimeStableWarmTitle": "Active in the day too",
+  "crucianTimeStableWarmBody": "Stable warmth — crucian feed through the day; keep a bait in the water.",
+  "crucianTimePatientTitle": "Tight & patient",
+  "crucianTimePatientBody": "Crucian are passive — fine rig, small bait, work one spot and wait for a spell.",
+
+  "spotTitle": "Your spot",
+  "spotNoWater": "No water body near this point on the map. The weather forecast still works — set a spot to read the water.",
+  "spotSetOnMap": "Set spot on map",
+  "spotCheckFailed": "Couldn't check the map right now — the weather forecast still works.",
+  "spotTypeLake": "Lake",
+  "spotTypePond": "Pond",
+  "spotTypeReservoir": "Reservoir",
+  "spotTypeRiver": "River",
+  "spotTypeCanal": "Canal",
+  "spotTypeWater": "Water",
+  "spotSizeHa": "~{value} ha",
+  "@spotSizeHa": { "placeholders": { "value": { "type": "String" } } },
+  "spotSizeKm2": "~{value} km²",
+  "@spotSizeKm2": { "placeholders": { "value": { "type": "String" } } },
+  "spotTipWindward": "A warm wind drives food and warmer water to the downwind bank — fish are likely more active there. Active bank: {bank}.",
+  "@spotTipWindward": { "placeholders": { "bank": { "type": "String" } } },
+  "spotTipSheltered": "The wind is colder than the water — fish pull off the exposed bank into calmer water. Sheltered side: {bank}.",
+  "@spotTipSheltered": { "placeholders": { "bank": { "type": "String" } } },
+  "spotTipNoWind": "Barely any wind — no bank stands out today; fish are spread across structure and depths.",
+  "spotTipColdWater": "Cold water — fish sit deep and sluggish on the bottom; wind moves them little right now.",
+  "spotWhereRiver": "Look for slack water: holes, outer bends, below riffles, around snags and bridge piers.",
+  "spotWhereCanal": "A canal is uniform — hunt anomalies: bends, bridges, inflows and weedy banks.",
+  "spotWherePondSmall": "A small water warms fast — fish hold by reeds, snags and the margins, dropping deeper in the heat.",
+  "spotWhereMid": "A mid-size water — work the bays, drop-offs and weedy patches.",
+  "spotWhereLarge": "A large water — fish roam; look to points, drop-offs and follow the wind.",
+  "spotWhereUnknown": "Still water — look to reeds, snags, drop-offs and bays.",
+  "spotSourceType": "for this water type",
+  "spotEditTitle": "Spot position",
+  "spotEditHint": "Drag the map to place the marker — move it to the better bank if needed.",
+  "spotSavePosition": "Save position",
+  "spotViewOnMap": "View on the map",
+  "spotWindLabel": "Wind",
+  "spotWindFrom": "Wind {dir}",
+  "@spotWindFrom": {
+    "placeholders": {
+      "dir": { "type": "String" }
+    }
+  },
+  "spotDirN": "from the north",
+  "spotDirNE": "from the northeast",
+  "spotDirE": "from the east",
+  "spotDirSE": "from the southeast",
+  "spotDirS": "from the south",
+  "spotDirSW": "from the southwest",
+  "spotDirW": "from the west",
+  "spotDirNW": "from the northwest",
+  "spotUserHere": "Your spot is already on the active bank — you're in the right place.",
+  "spotUserOpposite": "Your spot is on the other side — it may fish better across the water.",
+  "spotSourceMap": "From OpenStreetMap data",
+  "spotSourceWind": "from wind and water temperature",
+  "spotDisclaimer": "A read on conditions from the map and weather — we can't see depth, bottom or fish stock.",
+  "settingsAlertsPrimeTitle": "Best day of the week",
+  "settingsAlertsPrimeSubtitle": "One heads-up about the week's best biting day across your spots",
+  "settingsAlertsExcellentTitle": "All excellent days",
+  "settingsAlertsExcellentSubtitle": "A heads-up the evening before every day with excellent biting",
+  "settingsAlertsForCarp": "Carp notifications",
+  "settingsAlertsForCrucian": "Crucian carp notifications",
+  "alertTitlePrime": "{fish}: best day of the week",
+  "@alertTitlePrime": {
+    "placeholders": {
+      "fish": { "type": "String" }
+    }
+  },
+  "alertTitleExcellent": "{fish}: excellent biting tomorrow",
+  "@alertTitleExcellent": {
+    "placeholders": {
+      "fish": { "type": "String" }
+    }
+  },
+  "alertWindowDawn": "tomorrow at dawn",
+  "alertWindowDusk": "tomorrow at dusk",
+  "alertWindowDay": "tomorrow daytime",
+  "alertWindowNight": "tomorrow night",
+  "alertWindowAny": "tomorrow",
+  "alertSpotFallback": "Your spot",
+  "alertBody": "{spot}: {when}, bite index {index}",
+  "@alertBody": {
+    "placeholders": {
+      "spot": { "type": "String" },
+      "when": { "type": "String" },
+      "index": { "type": "int" }
+    }
+  }
+}
