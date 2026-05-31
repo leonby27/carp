@@ -972,6 +972,44 @@ class AppLocalizationsEs extends AppLocalizations {
       'Horas centrales del día, entre los picos del amanecer y el atardecer: actividad tranquila y media.';
 
   @override
+  String get spawnTitle => 'Ventana de desove';
+
+  @override
+  String spawnPreSpawn(String water) {
+    return 'El agua está a $water y sube hacia el rango de desove: parece la antesala del desove.';
+  }
+
+  @override
+  String spawnSpawning(String water) {
+    return 'El agua está a $water, dentro del rango de desove de la especie: parece desove.';
+  }
+
+  @override
+  String spawnPostSpawn(String water) {
+    return 'El agua a $water ya superó el rango de desove: el desove parece haber terminado.';
+  }
+
+  @override
+  String get spawnImpactPreSpawn =>
+      'Antes del desove suele haber un arranque de alimentación: el picado suele ser alto (≈70–90 de 100). Pesca mientras la ventana esté abierta.';
+
+  @override
+  String get spawnImpactSpawning =>
+      'El índice de arriba no tiene en cuenta el desove. Si de verdad está en marcha, el picado real es mucho menor — normalmente ≈10–20 de 100, durante varios días.';
+
+  @override
+  String get spawnImpactPostSpawn =>
+      'Tras el desove suele venir un arranque de alimentación: el picado vuelve a ser alto (≈70–90 de 100).';
+
+  @override
+  String get spawnCaveatEstimated =>
+      'Esto pronostica la ventana, no una fecha exacta: el desove ocurre distinto y en oleadas en cada masa de agua, y el agua la estimamos a partir del aire.';
+
+  @override
+  String get spawnCaveatRough =>
+      'Un pronóstico aproximado: masa de agua grande y lenta, el desove es distinto en todas partes y el agua la estimamos a partir del aire — las fechas pueden variar bastante.';
+
+  @override
   String get moonNew => 'Luna nueva';
 
   @override

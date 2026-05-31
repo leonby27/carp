@@ -964,6 +964,44 @@ class AppLocalizationsEn extends AppLocalizations {
       'Daytime hours between the dawn and dusk peaks — calm, average activity.';
 
   @override
+  String get spawnTitle => 'Spawning window';
+
+  @override
+  String spawnPreSpawn(String water) {
+    return 'Water $water and warming toward the spawn range — looks like the run-up to spawning.';
+  }
+
+  @override
+  String spawnSpawning(String water) {
+    return 'Water $water sits in the species\' spawn range — looks like spawning.';
+  }
+
+  @override
+  String spawnPostSpawn(String water) {
+    return 'Water $water has passed the spawn range — spawning looks to be over.';
+  }
+
+  @override
+  String get spawnImpactPreSpawn =>
+      'A pre-spawn feeding burst is common — bite usually runs high (≈70–90 of 100). Fish while the window is open.';
+
+  @override
+  String get spawnImpactSpawning =>
+      'The index above doesn\'t account for spawning. If it\'s truly underway, the real bite is far lower — typically ≈10–20 of 100, for several days.';
+
+  @override
+  String get spawnImpactPostSpawn =>
+      'A post-spawn feeding burst usually follows — bite runs high again (≈70–90 of 100).';
+
+  @override
+  String get spawnCaveatEstimated =>
+      'This forecasts the window, not an exact date — spawning runs differently and in waves on every water, and we estimate water from air temperature.';
+
+  @override
+  String get spawnCaveatRough =>
+      'A rough forecast: a large, slow water, spawning differs everywhere, and water is estimated from air — the timing can drift noticeably.';
+
+  @override
   String get moonNew => 'New moon';
 
   @override

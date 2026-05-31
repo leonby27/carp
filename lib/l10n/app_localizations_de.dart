@@ -973,6 +973,44 @@ class AppLocalizationsDe extends AppLocalizations {
       'Tagesstunden zwischen den Dämmerungsspitzen — ruhige, durchschnittliche Aktivität.';
 
   @override
+  String get spawnTitle => 'Laichzeit-Fenster';
+
+  @override
+  String spawnPreSpawn(String water) {
+    return 'Wasser $water und steigend Richtung Laichbereich — sieht nach dem Vorlauf zur Laichzeit aus.';
+  }
+
+  @override
+  String spawnSpawning(String water) {
+    return 'Wasser $water liegt im Laichbereich der Art — sieht nach Laichzeit aus.';
+  }
+
+  @override
+  String spawnPostSpawn(String water) {
+    return 'Wasser $water hat den Laichbereich nach oben verlassen — die Laichzeit scheint vorbei.';
+  }
+
+  @override
+  String get spawnImpactPreSpawn =>
+      'Vor dem Laichen oft ein Fressschub — der Biss läuft meist hoch (≈70–90 von 100). Fische, solange das Fenster offen ist.';
+
+  @override
+  String get spawnImpactSpawning =>
+      'Der Index oben berücksichtigt das Laichen nicht. Läuft es wirklich, ist der echte Biss weit niedriger — typisch ≈10–20 von 100, für einige Tage.';
+
+  @override
+  String get spawnImpactPostSpawn =>
+      'Nach dem Laichen folgt meist ein Fressschub — der Biss läuft wieder hoch (≈70–90 von 100).';
+
+  @override
+  String get spawnCaveatEstimated =>
+      'Das ist die Prognose eines Fensters, kein genaues Datum — das Laichen läuft an jedem Gewässer anders und in Schüben, und das Wasser schätzen wir aus der Luft.';
+
+  @override
+  String get spawnCaveatRough =>
+      'Eine grobe Prognose: großes, träges Gewässer, das Laichen ist überall anders und das Wasser schätzen wir aus der Luft — der Zeitpunkt kann deutlich schwanken.';
+
+  @override
   String get moonNew => 'Neumond';
 
   @override

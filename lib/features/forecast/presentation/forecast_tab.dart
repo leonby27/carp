@@ -26,6 +26,7 @@ import '../application/forecast_providers.dart';
 import '../domain/bite_score.dart';
 import '../domain/fish.dart';
 import '../domain/forecast.dart';
+import '../domain/spawn_advisor.dart';
 import '../domain/weather_point.dart';
 import 'forecast_format.dart';
 
@@ -195,6 +196,11 @@ class ForecastTab extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 12),
+              // 2b. Нерест — контекстный сигнал, если вода в нерестовом окне.
+              if (day.spawn.isActive) ...[
+                _SpawnBanner(spawn: day.spawn, units: units),
+                const SizedBox(height: 12),
+              ],
               // 3. Погода днём — ключевые условия сразу под оценкой (без заголовка).
               _KeepAlive(
                 child: _Card(
@@ -416,6 +422,80 @@ class _FallbackBanner extends ConsumerWidget {
           TextButton(
             onPressed: () => showLocationSheet(context),
             child: Text(l10n.locFallbackAction),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Контекстный баннер нереста: фаза словами (расшифрована температурой воды) +
+/// оговорка об уверенности. Индекс клёва не меняет — только объясняет, что вода
+/// вошла в нерестовое окно вида. Показывается лишь при [SpawnAssessment.isActive].
+class _SpawnBanner extends StatelessWidget {
+  const _SpawnBanner({required this.spawn, required this.units});
+  final SpawnAssessment spawn;
+  final Units units;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final color = spawnPhaseColor(spawn.phase);
+    final caveat = spawnCaveatText(l10n, spawn.confidence);
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(spawnPhaseIcon(spawn.phase), size: 20, color: color),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.spawnTitle,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  spawnPhraseText(l10n, spawn, units),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: cs.onSurface,
+                    height: 1.35,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  spawnImpactText(l10n, spawn.phase),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: cs.onSurface,
+                    height: 1.35,
+                  ),
+                ),
+                if (caveat != null) ...[
+                  const SizedBox(height: 6),
+                  Text(
+                    caveat,
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: cs.onSurfaceVariant,
+                      height: 1.3,
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ),
         ],
       ),

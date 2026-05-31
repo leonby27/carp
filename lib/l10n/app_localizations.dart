@@ -1796,6 +1796,60 @@ abstract class AppLocalizations {
   /// **'Daytime hours between the dawn and dusk peaks — calm, average activity.'**
   String get fcTodDayNeutral;
 
+  /// No description provided for @spawnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spawning window'**
+  String get spawnTitle;
+
+  /// No description provided for @spawnPreSpawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Water {water} and warming toward the spawn range — looks like the run-up to spawning.'**
+  String spawnPreSpawn(String water);
+
+  /// No description provided for @spawnSpawning.
+  ///
+  /// In en, this message translates to:
+  /// **'Water {water} sits in the species\' spawn range — looks like spawning.'**
+  String spawnSpawning(String water);
+
+  /// No description provided for @spawnPostSpawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Water {water} has passed the spawn range — spawning looks to be over.'**
+  String spawnPostSpawn(String water);
+
+  /// No description provided for @spawnImpactPreSpawn.
+  ///
+  /// In en, this message translates to:
+  /// **'A pre-spawn feeding burst is common — bite usually runs high (≈70–90 of 100). Fish while the window is open.'**
+  String get spawnImpactPreSpawn;
+
+  /// No description provided for @spawnImpactSpawning.
+  ///
+  /// In en, this message translates to:
+  /// **'The index above doesn\'t account for spawning. If it\'s truly underway, the real bite is far lower — typically ≈10–20 of 100, for several days.'**
+  String get spawnImpactSpawning;
+
+  /// No description provided for @spawnImpactPostSpawn.
+  ///
+  /// In en, this message translates to:
+  /// **'A post-spawn feeding burst usually follows — bite runs high again (≈70–90 of 100).'**
+  String get spawnImpactPostSpawn;
+
+  /// No description provided for @spawnCaveatEstimated.
+  ///
+  /// In en, this message translates to:
+  /// **'This forecasts the window, not an exact date — spawning runs differently and in waves on every water, and we estimate water from air temperature.'**
+  String get spawnCaveatEstimated;
+
+  /// No description provided for @spawnCaveatRough.
+  ///
+  /// In en, this message translates to:
+  /// **'A rough forecast: a large, slow water, spawning differs everywhere, and water is estimated from air — the timing can drift noticeably.'**
+  String get spawnCaveatRough;
+
   /// No description provided for @moonNew.
   ///
   /// In en, this message translates to:

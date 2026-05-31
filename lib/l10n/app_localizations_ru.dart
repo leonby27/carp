@@ -976,6 +976,44 @@ class AppLocalizationsRu extends AppLocalizations {
       'Дневные часы между зорьками — спокойная средняя активность.';
 
   @override
+  String get spawnTitle => 'Нерестовое окно';
+
+  @override
+  String spawnPreSpawn(String water) {
+    return 'Вода $water и растёт к нерестовой полосе — похоже на преднерестовое окно.';
+  }
+
+  @override
+  String spawnSpawning(String water) {
+    return 'Вода $water — в нерестовой полосе вида. Похоже на нерест.';
+  }
+
+  @override
+  String spawnPostSpawn(String water) {
+    return 'Вода $water прошла нерестовую полосу вверх — нерест, похоже, позади.';
+  }
+
+  @override
+  String get spawnImpactPreSpawn =>
+      'Перед нерестом часто жор — клёв высокий (≈70–90 из 100). Лови, пока окно открыто.';
+
+  @override
+  String get spawnImpactSpawning =>
+      'Индекс выше нерест не учитывает. Если он действительно идёт, реальный клёв куда ниже — обычно ≈10–20 из 100, и так несколько дней.';
+
+  @override
+  String get spawnImpactPostSpawn =>
+      'После нереста — жор: клёв снова высокий (≈70–90 из 100).';
+
+  @override
+  String get spawnCaveatEstimated =>
+      'Это прогноз окна, а не точная дата — нерест на каждом водоёме идёт по-своему и волнами, а воду мы оцениваем по воздуху.';
+
+  @override
+  String get spawnCaveatRough =>
+      'Это грубый прогноз: водоём крупный и инертный, нерест везде свой, а воду мы оцениваем по воздуху — сроки могут заметно плавать.';
+
+  @override
   String get moonNew => 'Новолуние';
 
   @override

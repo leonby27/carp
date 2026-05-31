@@ -974,6 +974,44 @@ class AppLocalizationsFr extends AppLocalizations {
       'Heures de journée entre les pics de l\'aube et du crépuscule — activité calme et moyenne.';
 
   @override
+  String get spawnTitle => 'Fenêtre de frai';
+
+  @override
+  String spawnPreSpawn(String water) {
+    return 'Eau à $water et en hausse vers la plage de frai — on dirait l\'approche du frai.';
+  }
+
+  @override
+  String spawnSpawning(String water) {
+    return 'Eau à $water, dans la plage de frai de l\'espèce — on dirait le frai.';
+  }
+
+  @override
+  String spawnPostSpawn(String water) {
+    return 'Eau à $water ayant dépassé la plage de frai — le frai semble terminé.';
+  }
+
+  @override
+  String get spawnImpactPreSpawn =>
+      'Avant le frai, une ruée alimentaire est fréquente — les touches sont souvent élevées (≈70–90 sur 100). Pêchez tant que la fenêtre est ouverte.';
+
+  @override
+  String get spawnImpactSpawning =>
+      'L\'indice ci-dessus ne tient pas compte du frai. S\'il est vraiment en cours, les touches réelles sont bien plus faibles — généralement ≈10–20 sur 100, pendant plusieurs jours.';
+
+  @override
+  String get spawnImpactPostSpawn =>
+      'Après le frai vient souvent une ruée alimentaire — les touches repartent à la hausse (≈70–90 sur 100).';
+
+  @override
+  String get spawnCaveatEstimated =>
+      'Ceci prévoit la fenêtre, pas une date exacte — le frai se déroule différemment et par vagues sur chaque plan d\'eau, et nous estimons l\'eau à partir de l\'air.';
+
+  @override
+  String get spawnCaveatRough =>
+      'Une prévision grossière : plan d\'eau vaste et inerte, le frai diffère partout et l\'eau est estimée à partir de l\'air — les dates peuvent varier sensiblement.';
+
+  @override
   String get moonNew => 'Nouvelle lune';
 
   @override

@@ -9,6 +9,7 @@ import '../domain/bite_config.dart';
 import '../domain/bite_engine.dart';
 import '../domain/bite_score.dart';
 import '../domain/forecast.dart';
+import '../domain/spawn_advisor.dart';
 import '../domain/weather_point.dart';
 
 /// Маппинг доменных enum'ов в подписи, цвета и иконки для UI прогноза.
@@ -281,6 +282,58 @@ String todRegimePhrase(
     TimeOfDayRegime.dayNeutral => l10n.fcTodDayNeutral,
   };
 }
+
+/// Объяснение нерестовой фазы словами, расшифрованное температурой воды (то
+/// число, что приняло решение). Честная формулировка: «похоже / обычно», без
+/// точной даты. См. [SpawnAdvisor].
+String spawnPhraseText(
+  AppLocalizations l10n,
+  SpawnAssessment s,
+  Units units,
+) {
+  final water = formatTemp(units, s.waterC);
+  return switch (s.phase) {
+    SpawnPhase.preSpawn => l10n.spawnPreSpawn(water),
+    SpawnPhase.spawning => l10n.spawnSpawning(water),
+    SpawnPhase.postSpawn => l10n.spawnPostSpawn(water),
+    SpawnPhase.none => '',
+  };
+}
+
+/// Явное влияние фазы на клёв: до/после нереста — жор, в нерест индекс выше
+/// нерест не учитывает и реальный клёв куда ниже. Числа — ориентировочные.
+String spawnImpactText(AppLocalizations l10n, SpawnPhase phase) =>
+    switch (phase) {
+      SpawnPhase.preSpawn => l10n.spawnImpactPreSpawn,
+      SpawnPhase.spawning => l10n.spawnImpactSpawning,
+      SpawnPhase.postSpawn => l10n.spawnImpactPostSpawn,
+      SpawnPhase.none => '',
+    };
+
+/// Оговорка об уверенности: вода у нас оценочная, поэтому сроки нереста плавают.
+/// Высокая уверенность (проточная/мелкая вода) оговорки не требует — null.
+String? spawnCaveatText(AppLocalizations l10n, SpawnConfidence c) => switch (c) {
+      SpawnConfidence.high => null,
+      SpawnConfidence.medium => l10n.spawnCaveatEstimated,
+      SpawnConfidence.low => l10n.spawnCaveatRough,
+    };
+
+/// Иконка фазы нереста: подход — восходящий тренд, нерест — пауза, после — жор.
+IconData spawnPhaseIcon(SpawnPhase phase) => switch (phase) {
+      SpawnPhase.preSpawn => Icons.trending_up,
+      SpawnPhase.spawning => Icons.pause_circle_outline,
+      SpawnPhase.postSpawn => Icons.restaurant,
+      SpawnPhase.none => Icons.egg_outlined,
+    };
+
+/// Цвет акцента баннера нереста: нерест — приглушённое предупреждение (клёв
+/// падает), подход и посленерест — позитив (жор).
+Color spawnPhaseColor(SpawnPhase phase) => switch (phase) {
+      SpawnPhase.spawning => const Color(0xFFEBA80B),
+      SpawnPhase.preSpawn => const Color(0xFF1D8B53),
+      SpawnPhase.postSpawn => const Color(0xFF1D8B53),
+      SpawnPhase.none => const Color(0xFF8A94A6),
+    };
 
 /// Поправка времени суток в процентах как символьный бейдж: «+15 %», «−15 %»
 /// или «0 %». Знак считается от множителя (1.0 = без поправки).

@@ -176,7 +176,8 @@ final forecastProvider = FutureProvider<Forecast>((ref) async {
       fish: fish,
       latitude: location.latitude,
       fetchedAt: series.fetchedAt,
-      fromCache: series.fromCache);
+      fromCache: series.fromCache,
+      waterTauDays: tau);
 });
 
 /// Индекс выбранного дня в ленте 7 дней (0 = сегодня). Сбрасывается на «сегодня»

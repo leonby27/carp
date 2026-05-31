@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'bite_score.dart';
+import 'spawn_advisor.dart';
 import 'weather_point.dart';
 
 /// Прогноз на один час: погода + индекс клёва с учётом времени суток.
@@ -22,6 +23,7 @@ class DayForecast {
     required this.hours,
     required this.minTempC,
     required this.maxTempC,
+    this.spawn = SpawnAssessment.none,
   });
 
   final DateTime date;
@@ -32,6 +34,10 @@ class DayForecast {
   final List<HourForecast> hours;
   final double minTempC;
   final double maxTempC;
+
+  /// Контекстный сигнал нереста для дня (фаза + уверенность + числа). Не влияет
+  /// на индекс клёва — только пояснительный баннер. См. [SpawnAdvisor].
+  final SpawnAssessment spawn;
 
   WeatherCondition get condition => representative.condition;
 

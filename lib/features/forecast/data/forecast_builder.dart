@@ -2,7 +2,9 @@ import '../domain/bite_engine.dart';
 import '../domain/bite_score.dart';
 import '../domain/fish.dart';
 import '../domain/forecast.dart';
+import '../domain/spawn_advisor.dart';
 import '../domain/weather_point.dart';
+import 'open_meteo_client.dart';
 
 /// Собирает [Forecast] из плоского почасового ряда: группирует точки по дате,
 /// прогоняет через [BiteEngine] (профиль выбранного вида рыбы) и выбирает
@@ -15,9 +17,12 @@ Forecast buildForecast(
   DateTime? fetchedAt,
   double latitude = 0,
   bool fromCache = false,
+  double waterTauDays = OpenMeteoClient.defaultWaterTauDays,
 }) {
   // Южное полушарие — сезон инвертирован (lat < 0).
-  final engine = BiteEngine.forFish(fish, southern: latitude < 0);
+  final southern = latitude < 0;
+  final engine = BiteEngine.forFish(fish, southern: southern);
+  final spawnAdvisor = SpawnAdvisor.forFish(fish, southern: southern);
   final byDate = <DateTime, List<WeatherPoint>>{};
   for (final p in hourly) {
     final key = DateTime(p.time.year, p.time.month, p.time.day);
@@ -59,6 +64,7 @@ Forecast buildForecast(
       hours: hours,
       minTempC: minT,
       maxTempC: maxT,
+      spawn: spawnAdvisor.assess(representative, tauDays: waterTauDays),
     ));
   }
 
