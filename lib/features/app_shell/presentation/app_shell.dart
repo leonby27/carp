@@ -106,6 +106,8 @@ class _BottomNavBar extends StatelessWidget {
 
     final items = <_NavItemData>[
       _NavItemData(Icons.phishing_outlined, Icons.phishing, l10n.tabForecast),
+      _NavItemData(
+          Icons.lightbulb_outline, Icons.lightbulb, l10n.tabTips),
       _NavItemData(Icons.note_alt_outlined, Icons.note_alt, l10n.tabNotes),
       _NavItemData(Icons.settings_outlined, Icons.settings, l10n.tabSettings),
     ];

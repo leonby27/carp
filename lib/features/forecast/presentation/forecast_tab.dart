@@ -23,12 +23,14 @@ import '../../spots/presentation/map_picker_screen.dart';
 import '../../spots/presentation/spot_format.dart';
 import 'forecast_story_screen.dart';
 import '../application/forecast_providers.dart';
+import '../domain/algo_fact.dart';
 import '../domain/bite_score.dart';
 import '../domain/fish.dart';
 import '../domain/forecast.dart';
 import '../domain/spawn_advisor.dart';
 import '../domain/weather_point.dart';
 import 'forecast_format.dart';
+import 'algo_fact_format.dart';
 
 /// Локализованное название вида рыбы для шапки и шита выбора.
 String fishLabel(AppLocalizations l10n, Fish fish) => switch (fish) {
@@ -232,7 +234,13 @@ class ForecastTab extends ConsumerWidget {
               _DayPeriods(day: day),
               const SizedBox(height: 20),
               // 6. Почему — связное объяснение прогноза + уверенность.
+              _SectionTitle(l10n.fcWhyTitle),
+              const SizedBox(height: 10),
               _WhySummary(score: day.bite),
+              const SizedBox(height: 20),
+              // 6b. Интересное об алгоритме — один «факт дня» (авто-ротация по
+              // календарному дню) про нестандартные особенности модели.
+              const _AlgoFactsCard(),
               const SizedBox(height: 20),
               // 7. Обновление прогноза вручную.
               _RefreshButton(
@@ -1430,7 +1438,16 @@ class _SpotAdviceCard extends ConsumerWidget {
             loading: () => const _SpotLoading(),
             error: (_, _) => const _SpotError(),
             data: (waterBody) {
-              if (waterBody == null) return const _SpotEmpty();
+              if (waterBody == null) {
+                // «Воды нет» кэшируется надолго; даём перепроверить вручную,
+                // сбросив кэш этих координат (OSM мог не разметить водоём).
+                return _SpotEmpty(
+                  onRefresh: () {
+                    clearWaterCache(location.latitude, location.longitude);
+                    ref.invalidate(waterBodyProvider);
+                  },
+                );
+              }
               final advice = SpotAdvisor.analyze(
                 waterBody,
                 day.representative,
@@ -1476,8 +1493,14 @@ class _SpotAdviceCard extends ConsumerWidget {
 }
 
 /// Нет воды рядом / спот не выбран — приглашение задать спот на карте.
+///
+/// [onRefresh] передаётся только в случае «воды нет по карте» (не для фолбэка):
+/// результат кэшируется на ~45 дней, а OSM иногда не размечает водоём или мы
+/// ошиблись — даём вручную перепроверить, минуя кэш.
 class _SpotEmpty extends StatelessWidget {
-  const _SpotEmpty();
+  const _SpotEmpty({this.onRefresh});
+
+  final VoidCallback? onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -1520,6 +1543,22 @@ class _SpotEmpty extends StatelessWidget {
               ),
             ),
           ),
+          if (onRefresh != null)
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: onRefresh,
+                icon: const Icon(Icons.refresh, size: 16),
+                label: Text(l10n.fcRetry),
+                style: TextButton.styleFrom(
+                  foregroundColor: cs.onSurfaceVariant,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -1572,7 +1611,13 @@ class _SpotError extends ConsumerWidget {
             ),
           ),
           TextButton(
-            onPressed: () => ref.invalidate(waterBodyProvider),
+            onPressed: () {
+              // Сбрасываем кэш текущих координат, чтобы повтор сходил в сеть
+              // заново, а не вернул залипший результат.
+              final loc = ref.read(activeLocationProvider);
+              clearWaterCache(loc.latitude, loc.longitude);
+              ref.invalidate(waterBodyProvider);
+            },
             child: Text(l10n.fcRetry),
           ),
         ],
@@ -1618,6 +1663,9 @@ class _SpotContent extends StatelessWidget {
 
     final tipText = spotTipText(l10n, advice);
     final whereText = spotWhereText(l10n, advice);
+    // Структурные признаки с карты рядом со спотом (приток, тростник, плотина,
+    // острова) — честные «что размечено в OSM», отдельный блок от ветра.
+    final structHints = spotStructureHints(l10n, advice.body);
 
     Widget divider() => Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -1711,6 +1759,21 @@ class _SpotContent extends StatelessWidget {
                 const SizedBox(width: 8),
                 _SpotIllustration(advice: advice),
               ],
+            ),
+          ],
+          // Структурные подсказки с карты: течение/тростник/плотина/острова.
+          // Отдельный блок с источником «по карте» — это не погодная эвристика.
+          if (structHints.isNotEmpty) ...[
+            divider(),
+            for (final h in structHints) _SpotBullet(h),
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Text(
+                l10n.spotSourceMap,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: cs.onSurfaceVariant,
+                ),
+              ),
             ),
           ],
           divider(),
@@ -2783,58 +2846,22 @@ class _WhySummary extends StatelessWidget {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     return _Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.fcWhyTitle,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      whyExplanation(l10n, score),
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: cs.onSurfaceVariant,
-                        height: 1.35,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              // Иллюстрация ведущего фактора прогноза. Если под состояние нет
-              // ассета (или он не загрузился) — запасной зелёный щит в кружке.
-              SizedBox(width: 92, height: 92, child: _whyVisual(context, cs)),
-            ],
-          ),
-          const SizedBox(height: 8),
-          // Кнопка начинается по левой линии контента (без бокового паддинга).
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton.icon(
-              onPressed: () => showForecastStory(context),
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                minimumSize: const Size(0, 36),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                foregroundColor: cs.primary,
-              ),
-              icon: const Icon(Icons.help_outline, size: 18),
-              label: Text(
-                l10n.fcHowItWorksBtn,
-                style: const TextStyle(fontWeight: FontWeight.w600),
+          Expanded(
+            child: Text(
+              whyExplanation(l10n, score),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: cs.onSurface,
+                height: 1.35,
               ),
             ),
           ),
+          const SizedBox(width: 16),
+          // Иллюстрация ведущего фактора прогноза. Если под состояние нет
+          // ассета (или он не загрузился) — запасной зелёный щит в кружке.
+          SizedBox(width: 92, height: 92, child: _whyVisual(context, cs)),
         ],
       ),
     );
@@ -2862,6 +2889,71 @@ class _WhySummary extends StatelessWidget {
         ),
         child: Icon(Icons.verified_user, size: 44, color: cs.primary),
       );
+}
+
+/// «Интересное об алгоритме»: один факт про нестандартные особенности модели.
+/// Авто-ротация по календарному дню ([algoFactOfDayIndex]) — без кнопок: при
+/// повторном заходе в тот же день факт тот же, назавтра — другой.
+class _AlgoFactsCard extends StatelessWidget {
+  const _AlgoFactsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final fact = kAlgoFacts[algoFactOfDayIndex(DateTime.now())];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _SectionTitle(l10n.fcAlgoFactsTitle),
+        const SizedBox(height: 10),
+        _Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Мелкая серая метка-номер факта над текстом.
+              Text(
+                l10n.fcAlgoFactLabel,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: cs.onSurfaceVariant,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                algoFactText(l10n, fact),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: cs.onSurface,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 8),
+              // Кнопка начинается по левой линии контента (без бокового паддинга).
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton.icon(
+                  onPressed: () => showForecastStory(context),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    minimumSize: const Size(0, 36),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    foregroundColor: cs.primary,
+                  ),
+                  icon: const Icon(Icons.help_outline, size: 18),
+                  label: Text(
+                    l10n.fcHowItWorksBtn,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 

@@ -88,6 +88,17 @@ String? spotWhereText(AppLocalizations l10n, SpotAdvice a) {
   }
 }
 
+/// Структурные подсказки, вычитанные из карты рядом со спотом (приток, тростник,
+/// плотина, острова). Это честные «что есть на карте» признаки, не зависящие от
+/// погоды; показываем отдельным блоком от ветровых подсказок. Пустой список —
+/// структур рядом не размечено.
+List<String> spotStructureHints(AppLocalizations l10n, WaterBody body) => [
+      if (body.inflowNearSpot) l10n.spotStructInflow,
+      if (body.reedsNearSpot) l10n.spotStructReeds,
+      if (body.damNearSpot) l10n.spotStructDam,
+      if (body.islandCount > 0) l10n.spotStructIslands(body.islandCount),
+    ];
+
 /// Заметка про спот пользователя относительно активного берега. null, если
 /// берег пользователя не определён или активного берега нет.
 String? spotUserNote(AppLocalizations l10n, SpotAdvice a) {

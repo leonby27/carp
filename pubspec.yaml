@@ -89,6 +89,8 @@ flutter:
     - assets/images/spots/dark/
     - assets/images/story/
     - assets/images/story/dark/
+    - assets/images/tips/
+    - assets/images/tips/dark/
     - assets/images/why/
     - assets/images/why/dark/
     - assets/images/notes/

@@ -1677,6 +1677,31 @@ class AppLocalizationsEs extends AppLocalizations {
       'Agua quieta — fíjate en juncos, troncos, desniveles y ensenadas.';
 
   @override
+  String get spotStructInflow =>
+      'Cerca desemboca un arroyo o canal — la corriente trae comida y oxígeno; un punto excelente, sobre todo con calor.';
+
+  @override
+  String get spotStructReeds =>
+      'Aquí la orilla tiene juncos o marisma — refugio y despensa para la carpa.';
+
+  @override
+  String get spotStructDam =>
+      'Hay una presa o dique cerca — un cambio brusco de profundidad y un punto clásico.';
+
+  @override
+  String spotStructIslands(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Hay $count islas en esta agua — los peces suelen rondarlas: estructura, cambios de profundidad y refugio.',
+      one:
+          'Hay una isla en esta agua — los peces suelen rondar las islas: estructura, cambios de profundidad y refugio.',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get spotSourceType => 'para este tipo de agua';
 
   @override
@@ -1789,6 +1814,308 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get alertSpotFallback => 'Tu spot';
+
+  @override
+  String get tabTips => 'Consejos';
+
+  @override
+  String get tipsNext => 'Otro consejo';
+
+  @override
+  String get tipLocationFirstTitle => 'El sitio importa más que el cebo';
+
+  @override
+  String get tipLocationFirstBody =>
+      'El error de principiante más común es llegar y lanzar «a ninguna parte». Los carpistas con experiencia coinciden: saber DÓNDE está el pez importa más que CON QUÉ pescar; en el sitio equivocado ningún cebo te salva. Una hora buscando peces que comen (saltos, hileras de burbujas, peces cerca de la superficie) rinde más que diez horas a ciegas tras los avisadores. Observa el agua 15–20 minutos primero y luego monta.';
+
+  @override
+  String get tipLocationFirstProof =>
+      'La prensa carpista llama a leer el agua la mayor ventaja: «en el sitio equivocado no pescas, punto».';
+
+  @override
+  String get tipMarginsTitle =>
+      'Pesca a la orilla — la táctica más infravalorada';
+
+  @override
+  String get tipMarginsBody =>
+      'La mayoría lanza lo más lejos posible e ignora el agua a sus pies. Pero la carpa patrulla la orilla cada día y cada noche, en cualquier agua. Un caso conocido: quienes pescaron en la orilla cogieron el doble que los que lanzaban al centro. Ventaja extra: ves al pez, le ofreces el cebo a un ejemplar concreto y aprendes de su conducta. Acércate a la orilla en silencio.';
+
+  @override
+  String get tipMarginsProof =>
+      'Las guías sitúan la pesca a la orilla entre las tácticas de carpa más infravaloradas.';
+
+  @override
+  String get tipSharpHooksTitle => 'Un anzuelo romo es un pez perdido';
+
+  @override
+  String get tipSharpHooksBody =>
+      'Es lo que más pasan por alto los principiantes. La diferencia entre afilado y afilado como una aguja es enorme: más toques se vuelven picadas, más picadas se vuelven clavadas firmes. El anzuelo se embota no solo con piedras y mejillones, sino con solo estar apoyado en el fondo. Revisa la punta antes de CADA lanzamiento (prueba de la uña) y cámbiala al menor síntoma de desgaste.';
+
+  @override
+  String get tipSharpHooksProof =>
+      'Los expertos coinciden: el filo reduce mucho los despegues y eleva el ratio de clavadas.';
+
+  @override
+  String get tipDontOverfeedTitle => 'No sobrecebes el puesto';
+
+  @override
+  String get tipDontOverfeedBody =>
+      'El segundo error clásico. Demasiado cebo dispersa a los peces por una zona amplia y los aleja de tu aparejo, y una carpa saciada ignora tu cebo de anzuelo. Mejor poco pero preciso — cantidades pequeñas a un punto cerrado. Sobrecebar es causa frecuente de un día en blanco aunque el pez esté ahí.';
+
+  @override
+  String get tipDontOverfeedProof =>
+      '«Sobrecebar» encabeza la mayoría de las listas de errores comunes en la pesca de carpa.';
+
+  @override
+  String get tipBaitRegularlyTitle =>
+      'Cebar con regularidad supera a las grandes tiradas';
+
+  @override
+  String get tipBaitRegularlyBody =>
+      'Si puedes, ceba tu punto con antelación y a menudo. Un kilo cada día funciona mejor que cinco kilos cada cinco días. La constancia enseña a la carpa a volver a por comida gratis sin miedo — y cuando por fin pescas, las picadas son decididas. Mantén un solo cebo en la campaña: los peces aprenden a buscarlo y a menudo se obsesionan.';
+
+  @override
+  String get tipBaitRegularlyProof =>
+      'Las marcas de cebo y las guías de cebado coinciden: la clave es la regularidad, menos pero más a menudo.';
+
+  @override
+  String get tipHairRigTitle => 'El montaje «pelo» — por qué pesca';
+
+  @override
+  String get tipHairRigBody =>
+      'La carpa no traga de golpe: prueba el cebo, lo aspira y lo expulsa. Con el cebo en el propio anzuelo nota el metal y lo escupe junto con el anzuelo. En el «pelo» el cebo queda separado del anzuelo desnudo: al aspirar, el anzuelo entra libre en la boca y prende el labio inferior. Desde los años 80 este principio transformó el ratio de clavadas y es la base de la pesca moderna de carpa.';
+
+  @override
+  String get tipHairRigProof =>
+      'Clásico probado durante décadas; el principio de aspirar y probar sustenta todo montaje moderno de carpa.';
+
+  @override
+  String get tipSweetcornTitle => 'El maíz dulce — barato y demoledor';
+
+  @override
+  String get tipSweetcornBody =>
+      'El maíz dulce pesca carpas en todo el mundo: vistoso, dulce, blando y rico en aminoácidos, la carpa lo acepta como comida natural. Y cuesta cuatro perras: el mismo peso de boilies vale muchas veces más. A menudo da resultado instantáneo donde la carpa come sobre todo alimento natural.';
+
+  @override
+  String get tipSweetcornProof =>
+      'El maíz figura como uno de los cebos más baratos y eficaces; la diferencia de precio con los boilies es de decenas de veces.';
+
+  @override
+  String get tipMixedSizesTitle => 'Mezcla los tamaños de cebo';
+
+  @override
+  String get tipMixedSizesBody =>
+      'Mezcla tamaños de boilie (por ejemplo 12–15 mm y 18–22 mm) para que la carpa no se ajuste a un calibre y se vuelva cauta — sube la probabilidad de que tome el cebo del anzuelo. Pequeño (12–15 mm) para invierno y aguas presionadas, grande (18–22 mm) contra peces molestos y para ejemplares.';
+
+  @override
+  String get tipMixedSizesProof =>
+      '«Tamaños mezclados» es un truco estándar para romper la selectividad de tamaño del pez.';
+
+  @override
+  String get tipFallingPressureTitle => 'Presión que baja — ventana de comida';
+
+  @override
+  String get tipFallingPressureBody =>
+      'Cuando se acerca un frente y la presión baja, el pez suele comer con más ganas. La carpa reacciona más suave que los depredadores (vive en el fondo, es menos sensible), pero los pescadores notan que con presión baja come más tiempo y de mejor gana. La mejor ventana es 6–12 horas antes del frente. Importante: no hay número mágico de presión — funciona la TENDENCIA a la baja, no una lectura.';
+
+  @override
+  String get tipFallingPressureProof =>
+      'Observaciones de revistas registraron hasta un ~40% más de actividad con presión en descenso; pero el estudio más citado (1983, perca) halló solo una correlación débil — por eso es honesto hablar de tendencia, no de garantía.';
+
+  @override
+  String get tipCrucianShyBitesTitle =>
+      'El carpín es un catador tímido: hunde la antena';
+
+  @override
+  String get tipCrucianShyBitesBody =>
+      'La picada del carpín puede ser apenas visible — un cuarto de hundimiento de una antena fina. Si asoma mucha antena, te pierdes los toques delicados. Plomea el flotador a ras, dejando lo mínimo a la vista. El carpín escupe el cebo en cuanto nota resistencia — todo debe ser ligero y sensible.';
+
+  @override
+  String get tipCrucianShyBitesProof =>
+      'Las guías de carpín coinciden: hunde la antena; una antena fina registra las picadas tímidas.';
+
+  @override
+  String get tipCrucianFineTackleTitle => 'Carpín: fino y pequeño';
+
+  @override
+  String get tipCrucianFineTackleBody =>
+      'Línea gruesa y anzuelos grandes, prohibidos. Usa un anzuelo fino pero fuerte de tamaño pequeño: 18–20 para gusano/caster, 16 para maíz/pellet. No sobreceves (entrarán tenca y brema): empieza con bolas de engodo del tamaño de una pelota de golf y unas muestras de cebo, y añade más solo si pescas bien.';
+
+  @override
+  String get tipCrucianFineTackleProof =>
+      'Consejo estándar para el carpín — aparejo fino, anzuelo pequeño, cebado medido.';
+
+  @override
+  String get tipCrucianSlowFallTitle => 'El carpín toma el cebo que cae';
+
+  @override
+  String get tipCrucianSlowFallBody =>
+      'A menudo pica mientras el cebo se hunde despacio. Reparte los plomillos de forma uniforme para una caída lenta, y coloca el último plomillo indicador a solo 5–7 cm del anzuelo — registra rápido una picada tímida.';
+
+  @override
+  String get tipCrucianSlowFallProof =>
+      'Caída lenta más un plomillo indicador junto al anzuelo es una táctica típica de carpín.';
+
+  @override
+  String get tipWaterTempTitle => 'El agua importa más que el calendario';
+
+  @override
+  String get tipWaterTempBody =>
+      'La carpa es de sangre fría — el apetito sigue la temperatura del AGUA, no la fecha. La máxima actividad ronda los 18–24 °C; por debajo de ~10 °C el metabolismo se frena y casi deja de comer. En la práctica: en agua fría usa cebo pequeño y pesca en el calor del mediodía en las zonas someras; con calor, de noche y al amanecer. No esperes un frenesí con agua helada a mediodía.';
+
+  @override
+  String get tipWaterTempProof =>
+      'Biología de los ciprínidos: el metabolismo depende directamente de la temperatura del agua — por eso la picada cae en picado en invierno.';
+
+  @override
+  String get tipPvaBagTitle => 'Bolsa de PVA — un bocado junto al anzuelo';
+
+  @override
+  String get tipPvaBagBody =>
+      'Una bolsa de PVA soluble con pellet o migas en el anzuelo deja un montoncito de cebo justo donde cae tu anzuelo. Se disuelve en minutos, dejando una mancha atractiva y una presentación sin enredos en el lance. Brilla en el fango y entre las hierbas, donde un cebo solitario se pierde — la carpa encuentra una “mesa” y come justo sobre tu aparejo.';
+
+  @override
+  String get tipPvaBagProof =>
+      'El material de PVA es un estándar de la pesca moderna de carpa para colocar el cebo justo en el anzuelo.';
+
+  @override
+  String get tipFeatureFindingTitle =>
+      'Encuentra las estructuras — la carpa patrulla los desniveles';
+
+  @override
+  String get tipFeatureFindingBody =>
+      'Los peces no se reparten por igual — se sitúan junto a estructuras: desniveles, cambios de profundidad, fondo duro entre el fango, bordes de hierba, obstáculos. Antes de pescar, “palpa” el fondo con un plomo: arrástralo y nota cómo cambia el terreno, cuenta la profundidad por la caída. Un lance sobre una estructura hallada supera al lance al azar “a distancia”.';
+
+  @override
+  String get tipFeatureFindingProof =>
+      'Sondear las estructuras con marcador o plomo es una destreza básica — la carpa patrulla la estructura, no el vacío abierto.';
+
+  @override
+  String get tipStayQuietTitle => 'Silencio en la orilla — la carpa se asusta';
+
+  @override
+  String get tipStayQuietBody =>
+      'La carpa percibe la vibración por la línea lateral y “oye” con el cuerpo. Pisadas fuertes, portazos, golpes en la barca, un lance pesado a tus pies — y los peces dejan los bajíos y la orilla. Acércate al agua en silencio, no ilumines la superficie, monta con suavidad. Importa sobre todo al pescar en la orilla y en los bajíos.';
+
+  @override
+  String get tipStayQuietProof =>
+      'La línea lateral de la carpa capta el menor movimiento — el ruido fuerte realmente pone en guardia al pez.';
+
+  @override
+  String get tipParticlesTitle => 'Las partículas (cáñamo) retienen al banco';
+
+  @override
+  String get tipParticlesBody =>
+      'El cebo menudo como el cáñamo crea una mancha que hace a la carpa hozar y comer en un punto sin saciarse rápido — los peces se demoran sobre tu aparejo. Aviso de seguridad: las partículas secas (sobre todo chufas y legumbres) deben remojarse Y hervirse hasta su punto antes de usarlas — poco cocidas pueden dañar al pez.';
+
+  @override
+  String get tipParticlesProof =>
+      'El cáñamo es un clásico para retener al banco; preparar bien las partículas es una regla conocida de seguridad para el pez.';
+
+  @override
+  String get tipFishCareTitle => 'Cuida al pez — volverá a picar';
+
+  @override
+  String get tipFishCareBody =>
+      'Una carpa grande tarda décadas en crecer y puede volver a picar — si se suelta sana. Manos mojadas y una colchoneta o hierba húmeda, el mínimo tiempo fuera del agua, nunca pongas el pez sobre arena o piedras secas, desanzuela con cuidado (otra razón para tener el anzuelo afilado). Fotos bajas sobre la colchoneta, rápidas. Una carpa sana liberada es una picada futura — para ti y para otros.';
+
+  @override
+  String get tipFishCareProof =>
+      'Principios de captura y suelta entre carpistas: el trato cuidadoso preserva la población y tus capturas futuras.';
+
+  @override
+  String get tipCrucianWarmShallowsTitle => 'El carpín ama los bajíos cálidos';
+
+  @override
+  String get tipCrucianWarmShallowsBody =>
+      'El carpín ama el calor y la hierba. En primavera y a principios de verano sale a comer primero en los bajíos templados — pequeñas calas, junto a los juncos y los nenúfares, donde el agua está un par de grados más cálida. Busca zonas tranquilas, con hierba y bien soleadas; en lo hondo casi no hay carpín en esa época. Cuanto más cálida el agua, más activo el carpín.';
+
+  @override
+  String get tipCrucianWarmShallowsProof =>
+      'El carpín es un pez de hierba amante del calor; el calentamiento temprano de los bajíos explica por qué come allí primero.';
+
+  @override
+  String get fcAlgoFactsTitle => 'Curiosidades del algoritmo';
+
+  @override
+  String get fcAlgoFactLabel => 'Dato del día';
+
+  @override
+  String get algoFactWaterModelTitle =>
+      'Calculamos con el agua, no con el aire';
+
+  @override
+  String get algoFactWaterModelBody =>
+      'La carpa vive en el agua, y esta se calienta con retraso. En vez de usar la temperatura del aire directamente, modelamos la del agua con una ecuación de intercambio de calor — como una taza de té que se enfría.';
+
+  @override
+  String get algoFactThermalInertiaTitle =>
+      'Cada masa de agua tiene su inercia térmica';
+
+  @override
+  String get algoFactThermalInertiaBody =>
+      'Un río responde al tiempo en un par de días, un estanque más despacio, y un gran embalse tarda semanas en moverse. Por eso ajustamos la velocidad de calentamiento al tipo y tamaño del agua.';
+
+  @override
+  String get algoFactPressureTrendTitle =>
+      'Importa la tendencia de presión, no el nivel';
+
+  @override
+  String get algoFactPressureTrendBody =>
+      'La mejor picada no llega con una presión ‘buena’, sino con una caída suave antes de un frente. Un desplome brusco y una subida brusca se penalizan igual. Leemos la tendencia a 6 y a 24 horas.';
+
+  @override
+  String get algoFactFrontMemoryTitle =>
+      'Recordamos un frente que pasó durante un día';
+
+  @override
+  String get algoFactFrontMemoryBody =>
+      'Aunque la presión se haya recuperado, los peces siguen en shock tras un frente frío. Mantenemos una penalización propia durante un día entero — la carpa necesita uno o dos días.';
+
+  @override
+  String get algoFactWeakestLinkTitle => 'El principio del eslabón más débil';
+
+  @override
+  String get algoFactWeakestLinkBody =>
+      'Muchas calculadoras solo suman puntos, así una buena presión ‘rescata’ el agua helada. Con nosotros, temperatura, temporada y presión actúan como fusibles: ningún viento perfecto salva el agua muerta.';
+
+  @override
+  String get algoFactHeatCalmTitle =>
+      'Una penalización por calor y calma a la vez';
+
+  @override
+  String get algoFactHeatCalmBody =>
+      'La rebaja entra solo cuando coinciden calor y calma total — es cuando al agua le falta oxígeno. Por separado, un día caluroso o la falta de viento no son tan dañinos.';
+
+  @override
+  String get algoFactRealSunTitle => 'Horas punta según el sol real';
+
+  @override
+  String get algoFactRealSunBody =>
+      'Nada de ‘picada a las 6’. Tomamos el amanecer y el atardecer reales de tu punto, reforzamos las ventanas del alba y el ocaso, y suavizamos el mediodía caluroso.';
+
+  @override
+  String get algoFactSpawnPhysicsTitle =>
+      'El desove desde la física, no el calendario';
+
+  @override
+  String get algoFactSpawnPhysicsBody =>
+      'Calculamos la fase de desove a partir de la temperatura del agua y la duración del día en tu latitud. Y somos honestos con la certeza: en un agua lenta la señal es difusa.';
+
+  @override
+  String get algoFactSpeciesModelsTitle =>
+      'Carpa y carpín son dos modelos distintos';
+
+  @override
+  String get algoFactSpeciesModelsBody =>
+      'No es una fórmula con una casilla. El carpín tiene un óptimo de temperatura más alto, es más sensible a la presión, prefiere un oleaje suave y casi no pica de noche — decenas de parámetros se ajustan por especie.';
+
+  @override
+  String get algoFactBiteWindowsTitle => 'Ventanas de picada, no solo horas';
+
+  @override
+  String get algoFactBiteWindowsBody =>
+      'Reunimos las buenas horas en ventanas continuas, salvamos los bajones de una hora y unimos bien las ventanas que cruzan la medianoche.';
 
   @override
   String alertBody(String spot, String when, int index) {

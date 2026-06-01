@@ -3020,6 +3020,30 @@ abstract class AppLocalizations {
   /// **'Still water — look to reeds, snags, drop-offs and bays.'**
   String get spotWhereUnknown;
 
+  /// No description provided for @spotStructInflow.
+  ///
+  /// In en, this message translates to:
+  /// **'A stream or channel feeds in nearby — current brings food and oxygen; a prime spot, especially in the heat.'**
+  String get spotStructInflow;
+
+  /// No description provided for @spotStructReeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Reeds or marsh line the bank here — cover and a food shelf for carp.'**
+  String get spotStructReeds;
+
+  /// No description provided for @spotStructDam.
+  ///
+  /// In en, this message translates to:
+  /// **'A dam or dyke is close by — a sharp depth change and a classic holding spot.'**
+  String get spotStructDam;
+
+  /// No description provided for @spotStructIslands.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{There\'s an island on this water — fish often hold around islands: structure, depth changes and cover.} other{There are {count} islands on this water — fish often hold around them: structure, depth changes and cover.}}'**
+  String spotStructIslands(int count);
+
   /// No description provided for @spotSourceType.
   ///
   /// In en, this message translates to:
@@ -3223,6 +3247,492 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your spot'**
   String get alertSpotFallback;
+
+  /// No description provided for @tabTips.
+  ///
+  /// In en, this message translates to:
+  /// **'Tips'**
+  String get tabTips;
+
+  /// No description provided for @tipsNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Another tip'**
+  String get tipsNext;
+
+  /// No description provided for @tipLocationFirstTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location matters more than bait'**
+  String get tipLocationFirstTitle;
+
+  /// No description provided for @tipLocationFirstBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The most common beginner mistake is to turn up and cast into nowhere. Experienced carp anglers agree: knowing WHERE the fish are beats knowing WHAT to use — in the wrong swim no bait will save you. An hour spent finding feeding fish (shows, lines of bubbles, fish cruising near the surface) pays off more than ten hours fishing blind behind the alarms. Watch the water for 15–20 minutes first, then set up.'**
+  String get tipLocationFirstBody;
+
+  /// No description provided for @tipLocationFirstProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp media call watercraft — reading the water — the single biggest edge: in the wrong spot you will not catch, full stop.'**
+  String get tipLocationFirstProof;
+
+  /// No description provided for @tipMarginsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fish the margins — the most underrated edge'**
+  String get tipMarginsTitle;
+
+  /// No description provided for @tipMarginsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Most anglers cast as far as they can and ignore the water at their feet. Yet carp patrol the marginal shelf every single day and night, on every water. In one well-known case, anglers fishing the edge caught twice as many as those casting to the middle. Bonus: you can see the fish, present a bait to a specific one and learn from its behaviour. Approach the bank quietly.'**
+  String get tipMarginsBody;
+
+  /// No description provided for @tipMarginsProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Guides rate close-in edge fishing among the most underrated carp tactics.'**
+  String get tipMarginsProof;
+
+  /// No description provided for @tipSharpHooksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A blunt hook is a lost fish'**
+  String get tipSharpHooksTitle;
+
+  /// No description provided for @tipSharpHooksBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This is what beginners overlook most. The gap between a sharp hook and a needle-sharp one is huge: more pick-ups turn into bites, more bites into solid hook-holds. Hooks blunt not only on stones and mussels but even just lying on the bottom. Check the point before EVERY cast (the nail test) and change it at the first sign of dulling.'**
+  String get tipSharpHooksBody;
+
+  /// No description provided for @tipSharpHooksProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp experts agree sharpness sharply cuts hook pulls and lifts your hooking rate.'**
+  String get tipSharpHooksProof;
+
+  /// No description provided for @tipDontOverfeedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not overfeed the swim'**
+  String get tipDontOverfeedTitle;
+
+  /// No description provided for @tipDontOverfeedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The second classic mistake. Too much bait spreads the fish over a wide area and pulls them away from your rig, and a full carp ignores your hookbait. Better little but accurate — small amounts to one tight spot. Overfeeding is a common cause of a blank even when fish are right there.'**
+  String get tipDontOverfeedBody;
+
+  /// No description provided for @tipDontOverfeedProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Overfeeding tops most lists of common carp-fishing mistakes.'**
+  String get tipDontOverfeedProof;
+
+  /// No description provided for @tipBaitRegularlyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular baiting beats big hits'**
+  String get tipBaitRegularlyTitle;
+
+  /// No description provided for @tipBaitRegularlyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If you can, pre-bait your spot often. A kilo every day works better than five kilos every five days. Consistency teaches carp to return for a free meal without fear — so when you finally fish, the takes are confident. Stick to one bait through a campaign: the fish learn to search for it and often become preoccupied.'**
+  String get tipBaitRegularlyBody;
+
+  /// No description provided for @tipBaitRegularlyProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Bait companies and baiting guides agree — the key is regularity, less but more often.'**
+  String get tipBaitRegularlyProof;
+
+  /// No description provided for @tipHairRigTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The hair rig — why it catches'**
+  String get tipHairRigTitle;
+
+  /// No description provided for @tipHairRigBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp do not gulp a bait down — they test it, sucking it in and blowing it out. With the bait on the hook itself they feel the metal and eject it along with the hook. On a hair the bait sits apart from a bare hook: as it is sucked in, the hook slides freely into the mouth and catches the bottom lip. Since the 1980s this principle has transformed hooking rates and become the backbone of modern carp fishing.'**
+  String get tipHairRigBody;
+
+  /// No description provided for @tipHairRigProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Decades-proven classic; the suck-and-test principle underpins every modern carp rig.'**
+  String get tipHairRigProof;
+
+  /// No description provided for @tipSweetcornTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweetcorn — cheap and deadly'**
+  String get tipSweetcornTitle;
+
+  /// No description provided for @tipSweetcornBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweetcorn catches carp worldwide: bright, sweet, soft and rich in amino acids, so carp accept it as natural food. And it costs pennies — the same weight of boilies is many times more expensive. It often produces an instant result where carp feed mainly on natural food.'**
+  String get tipSweetcornBody;
+
+  /// No description provided for @tipSweetcornProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Corn is rated one of the most affordable and effective baits; the price gap with boilies runs to tens of times.'**
+  String get tipSweetcornProof;
+
+  /// No description provided for @tipMixedSizesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mix your bait sizes'**
+  String get tipMixedSizesTitle;
+
+  /// No description provided for @tipMixedSizesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Mix boilie sizes (say 12–15 mm and 18–22 mm) so carp cannot tune in to one calibre and feed cautiously — the chance they take your hookbait goes up. Small (12–15 mm) for winter and pressured waters, large (18–22 mm) against nuisance fish and for specimens.'**
+  String get tipMixedSizesBody;
+
+  /// No description provided for @tipMixedSizesProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Mixed sizes is a standard trick to break a fish size selectivity.'**
+  String get tipMixedSizesProof;
+
+  /// No description provided for @tipFallingPressureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Falling pressure — a feeding window'**
+  String get tipFallingPressureTitle;
+
+  /// No description provided for @tipFallingPressureBody.
+  ///
+  /// In en, this message translates to:
+  /// **'As a front approaches and pressure drops, fish often feed harder. Carp react more mildly than predators (bottom-dwelling, less sensitive), but anglers note they feed longer and more willingly on low pressure. The best window is 6–12 hours before the front. Important: there is no magic pressure number — it is the downward TREND that works, not a reading.'**
+  String get tipFallingPressureBody;
+
+  /// No description provided for @tipFallingPressureProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Magazine observations recorded feeding up ~40% on falling pressure; yet the most-cited study (1983, bass) found only a weak correlation — so it is honest to talk of a trend, not a guarantee.'**
+  String get tipFallingPressureProof;
+
+  /// No description provided for @tipCrucianShyBitesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crucians are shy tasters — dot the float down'**
+  String get tipCrucianShyBitesTitle;
+
+  /// No description provided for @tipCrucianShyBitesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A crucian bite can be barely visible — a quarter-dip of a fine tip. If too much tip shows above the surface you will miss the delicate knocks. Shot the float right down, leaving the minimum showing. Crucians spit a bait the moment they feel resistance, so everything must be light and sensitive.'**
+  String get tipCrucianShyBitesBody;
+
+  /// No description provided for @tipCrucianShyBitesProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Crucian guides agree — dot the float down; a fine tip is what registers shy bites.'**
+  String get tipCrucianShyBitesProof;
+
+  /// No description provided for @tipCrucianFineTackleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crucians: fine and small'**
+  String get tipCrucianFineTackleTitle;
+
+  /// No description provided for @tipCrucianFineTackleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Thick line and big hooks are a no-go. Use a fine but strong hook in a small size: 18–20 for maggot/caster, 16 for corn/pellet. Do not overfeed (tench and bream will move in): start with golf-ball nuggets of groundbait and a few hookbait samples, and add more only if you are catching well.'**
+  String get tipCrucianFineTackleBody;
+
+  /// No description provided for @tipCrucianFineTackleProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard crucian advice — fine tackle, a small hook, measured feeding.'**
+  String get tipCrucianFineTackleProof;
+
+  /// No description provided for @tipCrucianSlowFallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crucians take the falling bait'**
+  String get tipCrucianSlowFallTitle;
+
+  /// No description provided for @tipCrucianSlowFallBody.
+  ///
+  /// In en, this message translates to:
+  /// **'They often bite as the bait sinks slowly. Space small shot evenly for a slow fall, and set the last tiny tell-tale shot just 5–7 cm from the hook — it registers a shy bite fast.'**
+  String get tipCrucianSlowFallBody;
+
+  /// No description provided for @tipCrucianSlowFallProof.
+  ///
+  /// In en, this message translates to:
+  /// **'A slow fall plus a tell-tale shot near the hook is a typical crucian tactic.'**
+  String get tipCrucianSlowFallProof;
+
+  /// No description provided for @tipWaterTempTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water beats the calendar'**
+  String get tipWaterTempTitle;
+
+  /// No description provided for @tipWaterTempBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp are cold-blooded — appetite tracks WATER temperature, not the date. Peak activity is around 18–24 °C; below ~10 °C the metabolism slows and feeding almost stops. In practice: in cold water go small on the bait and fish the midday warmth in the shallows; in heat fish the night and dawn. Do not expect a feeding frenzy in icy water at noon.'**
+  String get tipWaterTempBody;
+
+  /// No description provided for @tipWaterTempProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyprinid biology: metabolism depends directly on water temperature — which is why the bite drops sharply in winter.'**
+  String get tipWaterTempProof;
+
+  /// No description provided for @tipPvaBagTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PVA bag — a mouthful right by the hook'**
+  String get tipPvaBagTitle;
+
+  /// No description provided for @tipPvaBagBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A water-soluble PVA bag of pellet or crumb threaded onto the hook drops a neat pile of feed exactly where your hookbait lands. It melts in minutes, leaving an attractive patch and a tangle-free presentation on the cast. It shines on silt and in weed, where a lone bait gets lost — the carp finds a “table” and feeds right on top of your rig.'**
+  String get tipPvaBagBody;
+
+  /// No description provided for @tipPvaBagProof.
+  ///
+  /// In en, this message translates to:
+  /// **'PVA tackle is a modern carp-fishing standard for placing feed precisely at the hook.'**
+  String get tipPvaBagProof;
+
+  /// No description provided for @tipFeatureFindingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find the features — carp patrol the contours'**
+  String get tipFeatureFindingTitle;
+
+  /// No description provided for @tipFeatureFindingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Fish are not spread evenly — they hold near features: drop-offs, depth changes, hard bottom amid silt, weed edges, snags. Before fishing, “feel” the bottom with a lead: drag it and sense how the ground changes, count the depth by the drop. A cast onto a feature you found beats a random cast “for distance”.'**
+  String get tipFeatureFindingBody;
+
+  /// No description provided for @tipFeatureFindingProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Feeling out features with a marker or lead is a basic carp skill — carp patrol structure, not open emptiness.'**
+  String get tipFeatureFindingProof;
+
+  /// No description provided for @tipStayQuietTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay quiet on the bank — carp spook easily'**
+  String get tipStayQuietTitle;
+
+  /// No description provided for @tipStayQuietBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp sense vibration through the lateral line and “hear” with the body. Heavy footfalls, slammed doors, banging on the boat, a heavy cast at your feet — and fish leave the shallows and the margins. Approach the water quietly, keep light off the surface, set up gently. It matters most when fishing the edge and the shallows.'**
+  String get tipStayQuietBody;
+
+  /// No description provided for @tipStayQuietProof.
+  ///
+  /// In en, this message translates to:
+  /// **'A carp lateral line picks up the faintest movement — loud noise genuinely puts fish on guard.'**
+  String get tipStayQuietProof;
+
+  /// No description provided for @tipParticlesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Particles (hemp) hold the shoal'**
+  String get tipParticlesTitle;
+
+  /// No description provided for @tipParticlesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Small feed like hemp creates a patch that makes carp root around and feed in one spot without filling up fast — so fish linger over your rig. A safety note: dry particles (especially tigernuts and beans) must be soaked AND boiled until done before use — undercooked, they can harm the fish.'**
+  String get tipParticlesBody;
+
+  /// No description provided for @tipParticlesProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Hemp is a classic for holding a shoal; preparing particles properly is a well-known fish-safety rule.'**
+  String get tipParticlesProof;
+
+  /// No description provided for @tipFishCareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Care for the fish — it will bite again'**
+  String get tipFishCareTitle;
+
+  /// No description provided for @tipFishCareBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A big carp takes decades to grow and can be caught again — if it is released healthy. Wet hands and a wet mat or grass, minimum time out of water, never lay the fish on dry sand or stones, unhook gently (another reason to keep the hook sharp). Photos low over the mat, quick. A healthy released carp is a future bite — for you and others.'**
+  String get tipFishCareBody;
+
+  /// No description provided for @tipFishCareProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Catch-and-release practice among carp anglers: gentle handling preserves the stock and your future catches.'**
+  String get tipFishCareProof;
+
+  /// No description provided for @tipCrucianWarmShallowsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crucians love the warm shallows'**
+  String get tipCrucianWarmShallowsTitle;
+
+  /// No description provided for @tipCrucianWarmShallowsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Crucians love warmth and weed. In spring and early summer they come to feed first in the warmed shallows — small bays, by the reeds and lilies, where the water is a couple of degrees warmer. Look for quiet, weedy, well-warmed spots; there is almost no crucian in the depths at that time. The warmer the water, the more active the crucian.'**
+  String get tipCrucianWarmShallowsBody;
+
+  /// No description provided for @tipCrucianWarmShallowsProof.
+  ///
+  /// In en, this message translates to:
+  /// **'The crucian is a warmth-loving weed fish; the early warming of the shallows explains why it feeds there first.'**
+  String get tipCrucianWarmShallowsProof;
+
+  /// No description provided for @fcAlgoFactsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Algorithm insights'**
+  String get fcAlgoFactsTitle;
+
+  /// No description provided for @fcAlgoFactLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fact of the day'**
+  String get fcAlgoFactLabel;
+
+  /// No description provided for @algoFactWaterModelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We track water, not air'**
+  String get algoFactWaterModelTitle;
+
+  /// No description provided for @algoFactWaterModelBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp live in water, and it warms up with a lag. Instead of using air temperature directly, we model the water temperature with a heat-exchange equation — like a cup of tea cooling down.'**
+  String get algoFactWaterModelBody;
+
+  /// No description provided for @algoFactThermalInertiaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Every water body has its own thermal inertia'**
+  String get algoFactThermalInertiaTitle;
+
+  /// No description provided for @algoFactThermalInertiaBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A river responds to the weather in a couple of days, a pond more slowly, and a large reservoir takes weeks to swing. So we tune the warming speed to the type and size of the water body.'**
+  String get algoFactThermalInertiaBody;
+
+  /// No description provided for @algoFactPressureTrendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s the pressure trend, not the level'**
+  String get algoFactPressureTrendTitle;
+
+  /// No description provided for @algoFactPressureTrendBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The best bite comes not at some \'good\' pressure but during a gentle drop before a front. A sharp crash and a sharp spike are both penalised. We read the trend over both 6 and 24 hours.'**
+  String get algoFactPressureTrendBody;
+
+  /// No description provided for @algoFactFrontMemoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We remember a passing front for a day'**
+  String get algoFactFrontMemoryTitle;
+
+  /// No description provided for @algoFactFrontMemoryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Even once the pressure has recovered, fish are still in shock after a cold front. We keep a separate penalty for a full day — carp need one or two days to recover.'**
+  String get algoFactFrontMemoryBody;
+
+  /// No description provided for @algoFactWeakestLinkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The weakest-link principle'**
+  String get algoFactWeakestLinkTitle;
+
+  /// No description provided for @algoFactWeakestLinkBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Many calculators just add up points, so good pressure \'rescues\' freezing water. With us, temperature, season and pressure act as fuses: no perfect wind can save dead water.'**
+  String get algoFactWeakestLinkBody;
+
+  /// No description provided for @algoFactHeatCalmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A penalty for heat plus dead calm'**
+  String get algoFactHeatCalmTitle;
+
+  /// No description provided for @algoFactHeatCalmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The drop kicks in only when heat and dead calm coincide — that\'s when the water runs short of oxygen. On their own, a hot day or no wind aren\'t as harmful.'**
+  String get algoFactHeatCalmBody;
+
+  /// No description provided for @algoFactRealSunTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feeding peaks tied to the real sun'**
+  String get algoFactRealSunTitle;
+
+  /// No description provided for @algoFactRealSunBody.
+  ///
+  /// In en, this message translates to:
+  /// **'No fixed \'bite at 6 a.m.\'. We take the actual sunrise and sunset for your spot, boost the morning and evening windows, and dampen the hot midday.'**
+  String get algoFactRealSunBody;
+
+  /// No description provided for @algoFactSpawnPhysicsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spawning from physics, not the calendar'**
+  String get algoFactSpawnPhysicsTitle;
+
+  /// No description provided for @algoFactSpawnPhysicsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We work out the spawning phase from water temperature and the day length at your latitude. And we\'re honest about the confidence: on a slow water body the signal is blurry.'**
+  String get algoFactSpawnPhysicsBody;
+
+  /// No description provided for @algoFactSpeciesModelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp and crucian are two different models'**
+  String get algoFactSpeciesModelsTitle;
+
+  /// No description provided for @algoFactSpeciesModelsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It isn\'t one formula with a checkbox. Crucian have a higher temperature optimum, are more sensitive to pressure, like a gentle ripple and barely bite at night — dozens of parameters are tuned per species.'**
+  String get algoFactSpeciesModelsBody;
+
+  /// No description provided for @algoFactBiteWindowsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bite windows, not just hours'**
+  String get algoFactBiteWindowsTitle;
+
+  /// No description provided for @algoFactBiteWindowsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We gather the good hours into continuous windows, bridge single-hour dips, and correctly stitch together windows that cross midnight.'**
+  String get algoFactBiteWindowsBody;
 
   /// No description provided for @alertBody.
   ///

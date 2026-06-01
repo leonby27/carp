@@ -1679,6 +1679,31 @@ class AppLocalizationsFr extends AppLocalizations {
       'Eau calme — vise les roseaux, les obstacles, les cassures et les baies.';
 
   @override
+  String get spotStructInflow =>
+      'Un ruisseau ou un canal se jette tout près — le courant apporte nourriture et oxygène ; un poste de choix, surtout par forte chaleur.';
+
+  @override
+  String get spotStructReeds =>
+      'Ici la berge est bordée de roseaux ou de marais — abri et garde-manger pour la carpe.';
+
+  @override
+  String get spotStructDam =>
+      'Un barrage ou une digue est tout proche — une cassure nette de profondeur et un poste classique.';
+
+  @override
+  String spotStructIslands(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Il y a $count îles sur ce plan d\'eau — les poissons tiennent souvent autour : structure, cassures de profondeur et abri.',
+      one:
+          'Il y a une île sur ce plan d\'eau — les poissons tiennent souvent autour des îles : structure, cassures de profondeur et abri.',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get spotSourceType => 'pour ce type de plan d\'eau';
 
   @override
@@ -1791,6 +1816,310 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get alertSpotFallback => 'Ton spot';
+
+  @override
+  String get tabTips => 'Astuces';
+
+  @override
+  String get tipsNext => 'Autre astuce';
+
+  @override
+  String get tipLocationFirstTitle => 'Le poste compte plus que l’appât';
+
+  @override
+  String get tipLocationFirstBody =>
+      'L’erreur de débutant la plus courante : arriver et lancer « nulle part ». Les carpistes expérimentés sont unanimes — savoir OÙ sont les poissons compte plus que savoir AVEC QUOI pêcher ; au mauvais poste, aucun appât ne sauve. Une heure passée à trouver des poissons qui s’alimentent (sauts, chapelets de bulles, poissons en surface) rapporte plus que dix heures à l’aveugle derrière les détecteurs. Observe l’eau 15–20 minutes d’abord, puis installe-toi.';
+
+  @override
+  String get tipLocationFirstProof =>
+      'La presse carpiste qualifie la lecture de l’eau du plus grand atout : « au mauvais endroit tu ne prends rien, point ».';
+
+  @override
+  String get tipMarginsTitle =>
+      'Pêche les bordures — la tactique la plus sous-estimée';
+
+  @override
+  String get tipMarginsBody =>
+      'La plupart lancent le plus loin possible et ignorent l’eau sous leurs pieds. Or la carpe patrouille la bordure chaque jour et chaque nuit, sur tous les plans d’eau. Cas connu : ceux qui pêchaient en bordure ont pris deux fois plus que ceux qui lançaient au milieu. Bonus — on voit le poisson, on présente l’appât à un sujet précis et on apprend de son comportement. Approche-toi de la berge en silence.';
+
+  @override
+  String get tipMarginsProof =>
+      'Les guides classent la pêche en bordure parmi les tactiques carpe les plus sous-estimées.';
+
+  @override
+  String get tipSharpHooksTitle => 'Un hameçon émoussé, c’est un poisson perdu';
+
+  @override
+  String get tipSharpHooksBody =>
+      'C’est ce que les débutants négligent le plus. L’écart entre piquant et piquant comme une aiguille est énorme : plus de touches deviennent des départs, plus de départs deviennent des prises solides. L’hameçon s’émousse non seulement sur les pierres et les moules, mais même en restant posé sur le fond. Vérifie la pointe avant CHAQUE lancer (test de l’ongle) et change-la au moindre signe d’usure.';
+
+  @override
+  String get tipSharpHooksProof =>
+      'Les experts s’accordent : le piquant réduit fortement les décrochages et augmente le taux de ferrage.';
+
+  @override
+  String get tipDontOverfeedTitle => 'Ne suramorce pas le poste';
+
+  @override
+  String get tipDontOverfeedBody =>
+      'La deuxième erreur classique. Trop d’amorce disperse les poissons sur une grande surface et les éloigne de ton montage, et une carpe rassasiée ignore ton esche. Mieux vaut peu mais précis — de petites quantités sur un point serré. Le suramorçage est une cause fréquente de bredouille même quand le poisson est là.';
+
+  @override
+  String get tipDontOverfeedProof =>
+      'Le suramorçage arrive en tête des listes d’erreurs courantes en pêche de la carpe.';
+
+  @override
+  String get tipBaitRegularlyTitle =>
+      'Amorcer régulièrement vaut mieux que de grosses doses';
+
+  @override
+  String get tipBaitRegularlyBody =>
+      'Si tu peux, pré-amorce ton poste à l’avance et souvent. Un kilo chaque jour marche mieux que cinq kilos tous les cinq jours. La régularité apprend à la carpe à revenir chercher un repas gratuit sans crainte — et quand tu pêches enfin, les touches sont franches. Garde un seul appât sur la campagne : les poissons apprennent à le chercher et s’y fixent souvent.';
+
+  @override
+  String get tipBaitRegularlyProof =>
+      'Fabricants d’appâts et guides d’amorçage sont unanimes : la clé est la régularité, moins mais plus souvent.';
+
+  @override
+  String get tipHairRigTitle => 'Le montage « cheveu » — pourquoi il prend';
+
+  @override
+  String get tipHairRigBody =>
+      'La carpe n’avale pas d’un coup : elle teste l’appât, l’aspire et le recrache. Sur l’hameçon même, elle sent le métal et le recrache avec l’appât. Sur le « cheveu », l’appât est séparé de l’hameçon nu : à l’aspiration, l’hameçon glisse librement dans la bouche et accroche la lèvre inférieure. Depuis les années 1980, ce principe a transformé le taux de ferrage et est devenu la base de la pêche moderne de la carpe.';
+
+  @override
+  String get tipHairRigProof =>
+      'Classique éprouvé depuis des décennies ; le principe aspirer et tester fonde tout montage carpe moderne.';
+
+  @override
+  String get tipSweetcornTitle => 'Le maïs doux — bon marché et redoutable';
+
+  @override
+  String get tipSweetcornBody =>
+      'Le maïs doux prend des carpes partout dans le monde : vif, sucré, tendre et riche en acides aminés, la carpe l’accepte comme une nourriture naturelle. Et ça coûte trois fois rien : le même poids de bouillettes vaut bien plus cher. Il donne souvent un résultat instantané là où la carpe se nourrit surtout de nourriture naturelle.';
+
+  @override
+  String get tipSweetcornProof =>
+      'Le maïs est cité parmi les appâts les plus abordables et efficaces ; l’écart de prix avec les bouillettes est de plusieurs dizaines de fois.';
+
+  @override
+  String get tipMixedSizesTitle => 'Varie la taille des appâts';
+
+  @override
+  String get tipMixedSizesBody =>
+      'Mélange les tailles de bouillettes (par ex. 12–15 mm et 18–22 mm) pour que la carpe ne se cale pas sur un calibre et ne devienne pas méfiante — la chance qu’elle prenne ton esche augmente. Petit (12–15 mm) pour l’hiver et les eaux pressionnées, gros (18–22 mm) contre les indésirables et pour les gros sujets.';
+
+  @override
+  String get tipMixedSizesProof =>
+      'Les tailles mélangées sont une astuce classique pour casser la sélectivité de taille du poisson.';
+
+  @override
+  String get tipFallingPressureTitle =>
+      'Pression en baisse — une fenêtre d’activité';
+
+  @override
+  String get tipFallingPressureBody =>
+      'À l’approche d’un front, quand la pression baisse, le poisson se nourrit souvent davantage. La carpe réagit plus doucement que les carnassiers (poisson de fond, moins sensible), mais les pêcheurs notent qu’à basse pression elle mange plus longtemps et plus volontiers. La meilleure fenêtre est 6–12 heures avant le front. Important : il n’y a pas de chiffre magique de pression — c’est la TENDANCE à la baisse qui agit, pas une valeur.';
+
+  @override
+  String get tipFallingPressureProof =>
+      'Des observations de magazines ont relevé jusqu’à ~40% d’activité en plus à pression descendante ; mais l’étude la plus citée (1983, perche) n’a trouvé qu’une faible corrélation — d’où l’honnêteté de parler de tendance, pas de garantie.';
+
+  @override
+  String get tipCrucianShyBitesTitle =>
+      'Le carassin est un goûteur timide : noie l’antenne';
+
+  @override
+  String get tipCrucianShyBitesBody =>
+      'La touche du carassin peut être à peine visible — un quart d’enfoncement d’une fine antenne. Si trop d’antenne dépasse, tu rates les touches délicates. Plombe le flotteur à ras, en ne laissant que le minimum dehors. Le carassin recrache l’appât dès qu’il sent une résistance — tout doit être léger et sensible.';
+
+  @override
+  String get tipCrucianShyBitesProof =>
+      'Les guides carassin sont unanimes : noie l’antenne ; une antenne fine enregistre les touches timides.';
+
+  @override
+  String get tipCrucianFineTackleTitle => 'Carassin : fin et petit';
+
+  @override
+  String get tipCrucianFineTackleBody =>
+      'Fil épais et gros hameçons sont à proscrire. Prends un hameçon fin mais solide de petite taille : 18–20 pour asticot/caster, 16 pour maïs/pellet. Ne suramorce pas (tanches et brèmes débarquent) : commence par des boules d’amorce de la taille d’une balle de golf et quelques échantillons d’esche, et n’ajoute que si ça mord bien.';
+
+  @override
+  String get tipCrucianFineTackleProof =>
+      'Conseil standard pour le carassin — matériel fin, petit hameçon, amorçage dosé.';
+
+  @override
+  String get tipCrucianSlowFallTitle => 'Le carassin prend l’appât qui descend';
+
+  @override
+  String get tipCrucianSlowFallBody =>
+      'Il mord souvent pendant que l’appât coule lentement. Répartis les petits plombs régulièrement pour une descente lente, et place le dernier minuscule plomb témoin à seulement 5–7 cm de l’hameçon — il signale vite une touche timide.';
+
+  @override
+  String get tipCrucianSlowFallProof =>
+      'Une descente lente plus un plomb témoin près de l’hameçon est une tactique typique du carassin.';
+
+  @override
+  String get tipWaterTempTitle => 'L’eau compte plus que le calendrier';
+
+  @override
+  String get tipWaterTempBody =>
+      'La carpe est à sang froid — l’appétit suit la température de l’EAU, pas la date. L’activité maximale se situe vers 18–24 °C ; en dessous de ~10 °C le métabolisme ralentit et l’alimentation s’arrête presque. En pratique : en eau froide, petit appât et pêche dans la chaleur de midi sur les hauts-fonds ; par forte chaleur, la nuit et à l’aube. N’attends pas de frénésie en eau glacée à midi.';
+
+  @override
+  String get tipWaterTempProof =>
+      'Biologie des cyprinidés : le métabolisme dépend directement de la température de l’eau — d’où la chute du mordant en hiver.';
+
+  @override
+  String get tipPvaBagTitle => 'Sac PVA — une bouchée juste près de l’hameçon';
+
+  @override
+  String get tipPvaBagBody =>
+      'Un sac PVA soluble rempli de pellets ou de miettes, enfilé sur l’hameçon, dépose un petit tas d’appât exactement là où ton esche se pose. Il fond en quelques minutes, laissant une tache attractive et une présentation sans emmêlement au lancer. Il excelle sur la vase et dans les herbiers, où une esche isolée se perd — la carpe trouve une « table » et mange juste au-dessus du montage.';
+
+  @override
+  String get tipPvaBagProof =>
+      'Le matériel PVA est un standard de la pêche moderne de la carpe pour placer l’amorce précisément à l’hameçon.';
+
+  @override
+  String get tipFeatureFindingTitle =>
+      'Trouve les structures — la carpe longe les cassures';
+
+  @override
+  String get tipFeatureFindingBody =>
+      'Les poissons ne sont pas répartis uniformément — ils se tiennent près des structures : cassures, changements de profondeur, fond dur dans la vase, bordures d’herbiers, obstacles. Avant de pêcher, « sonde » le fond avec un plomb : traîne-le et sens comment le sol change, compte la profondeur à la descente. Un lancer sur une structure trouvée bat le lancer au hasard « pour la distance ».';
+
+  @override
+  String get tipFeatureFindingProof =>
+      'Sonder les structures au marqueur ou au plomb est une compétence de base — la carpe longe les structures, pas le vide ouvert.';
+
+  @override
+  String get tipStayQuietTitle =>
+      'Silence sur la berge — la carpe est farouche';
+
+  @override
+  String get tipStayQuietBody =>
+      'La carpe perçoit les vibrations par la ligne latérale et « entend » avec le corps. Des pas lourds, des portes claquées, des coups sur la barque, un lancer lourd à tes pieds — et les poissons quittent les hauts-fonds et les bordures. Approche-toi de l’eau en silence, garde la lumière hors de la surface, installe-toi doucement. C’est crucial en pêchant la bordure et les hauts-fonds.';
+
+  @override
+  String get tipStayQuietProof =>
+      'La ligne latérale de la carpe capte le moindre mouvement — un bruit fort met réellement le poisson en alerte.';
+
+  @override
+  String get tipParticlesTitle => 'Les graines (chènevis) retiennent le banc';
+
+  @override
+  String get tipParticlesBody =>
+      'Les petites graines comme le chènevis créent une tache qui fait fouiller la carpe et manger sur un point sans se rassasier vite — les poissons s’attardent au-dessus du montage. Note de sécurité : les graines sèches (surtout les noix tigrées et les légumineuses) doivent être trempées ET cuites à point avant usage — mal cuites, elles peuvent nuire au poisson.';
+
+  @override
+  String get tipParticlesProof =>
+      'Le chènevis est un classique pour retenir un banc ; bien préparer les graines est une règle de sécurité bien connue pour le poisson.';
+
+  @override
+  String get tipFishCareTitle => 'Préserve le poisson — il remordra';
+
+  @override
+  String get tipFishCareBody =>
+      'Une grosse carpe met des décennies à grandir et peut être reprise — si elle est relâchée en bonne santé. Mains mouillées et tapis ou herbe humide, un minimum de temps hors de l’eau, ne pose jamais le poisson sur du sable ou des pierres secs, décroche en douceur (une raison de plus de garder l’hameçon piquant). Photos basses au-dessus du tapis, rapides. Une carpe relâchée en bonne santé est une touche future — pour toi et les autres.';
+
+  @override
+  String get tipFishCareProof =>
+      'Principes du no-kill chez les carpistes : une manipulation soigneuse préserve le cheptel et tes prises futures.';
+
+  @override
+  String get tipCrucianWarmShallowsTitle =>
+      'Le carassin aime les hauts-fonds chauds';
+
+  @override
+  String get tipCrucianWarmShallowsBody =>
+      'Le carassin aime la chaleur et les herbiers. Au printemps et au début de l’été, il vient se nourrir d’abord dans les hauts-fonds réchauffés — petites criques, près des roseaux et des nénuphars, où l’eau est plus chaude de quelques degrés. Cherche des zones calmes, herbeuses, bien réchauffées ; en profondeur il n’y a presque pas de carassin à cette période. Plus l’eau est chaude, plus le carassin est actif.';
+
+  @override
+  String get tipCrucianWarmShallowsProof =>
+      'Le carassin est un poisson d’herbiers qui aime la chaleur ; le réchauffement précoce des hauts-fonds explique pourquoi il s’y nourrit d’abord.';
+
+  @override
+  String get fcAlgoFactsTitle => 'Le saviez-vous sur l’algorithme';
+
+  @override
+  String get fcAlgoFactLabel => 'Le fait du jour';
+
+  @override
+  String get algoFactWaterModelTitle => 'On calcule avec l’eau, pas avec l’air';
+
+  @override
+  String get algoFactWaterModelBody =>
+      'La carpe vit dans l’eau, qui se réchauffe avec un décalage. Plutôt que de prendre la température de l’air directement, on modélise celle de l’eau par une équation d’échange thermique — comme une tasse de thé qui refroidit.';
+
+  @override
+  String get algoFactThermalInertiaTitle =>
+      'Chaque plan d’eau a sa propre inertie thermique';
+
+  @override
+  String get algoFactThermalInertiaBody =>
+      'Une rivière réagit à la météo en quelques jours, un étang plus lentement, et un grand réservoir met des semaines à bouger. On règle donc la vitesse de réchauffement selon le type et la taille du plan d’eau.';
+
+  @override
+  String get algoFactPressureTrendTitle =>
+      'C’est la tendance de pression, pas le niveau';
+
+  @override
+  String get algoFactPressureTrendBody =>
+      'La meilleure touche ne vient pas à une pression ‹ bonne ›, mais lors d’une baisse douce avant un front. Une chute brutale comme une hausse brutale sont pénalisées. On lit la tendance sur 6 et sur 24 heures.';
+
+  @override
+  String get algoFactFrontMemoryTitle =>
+      'On garde en mémoire un front passé pendant un jour';
+
+  @override
+  String get algoFactFrontMemoryBody =>
+      'Même une fois la pression revenue, les poissons restent sous le choc après un front froid. On maintient une pénalité propre pendant une journée entière — la carpe met un à deux jours à récupérer.';
+
+  @override
+  String get algoFactWeakestLinkTitle => 'Le principe du maillon faible';
+
+  @override
+  String get algoFactWeakestLinkBody =>
+      'Beaucoup de calculateurs additionnent juste des points, si bien qu’une bonne pression ‹ rattrape › une eau glacée. Chez nous, température, saison et pression agissent comme des fusibles : aucun vent parfait ne sauve une eau morte.';
+
+  @override
+  String get algoFactHeatCalmTitle => 'Une pénalité pour chaleur et calme plat';
+
+  @override
+  String get algoFactHeatCalmBody =>
+      'La baisse ne s’applique que quand chaleur et calme plat coïncident — c’est là que l’eau manque d’oxygène. Pris séparément, une journée chaude ou l’absence de vent sont moins nuisibles.';
+
+  @override
+  String get algoFactRealSunTitle => 'Des pics liés au vrai soleil';
+
+  @override
+  String get algoFactRealSunBody =>
+      'Pas de ‹ touche à 6 h › figée. On prend le lever et le coucher réels du soleil pour ton spot, on renforce l’aube et le crépuscule, et on atténue le midi chaud.';
+
+  @override
+  String get algoFactSpawnPhysicsTitle =>
+      'La fraie par la physique, pas par le calendrier';
+
+  @override
+  String get algoFactSpawnPhysicsBody =>
+      'On déduit la phase de fraie de la température de l’eau et de la durée du jour à ta latitude. Et on reste honnête sur la confiance : sur un plan d’eau lent, le signal est flou.';
+
+  @override
+  String get algoFactSpeciesModelsTitle =>
+      'Carpe et carassin sont deux modèles distincts';
+
+  @override
+  String get algoFactSpeciesModelsBody =>
+      'Ce n’est pas une formule avec une case à cocher. Le carassin a un optimum de température plus haut, est plus sensible à la pression, aime un léger clapot et ne mord presque pas la nuit — des dizaines de paramètres sont réglés par espèce.';
+
+  @override
+  String get algoFactBiteWindowsTitle =>
+      'Des fenêtres de touche, pas juste des heures';
+
+  @override
+  String get algoFactBiteWindowsBody =>
+      'On regroupe les bonnes heures en fenêtres continues, on comble les creux d’une heure et on raccorde correctement les fenêtres qui passent minuit.';
 
   @override
   String alertBody(String spot, String when, int index) {

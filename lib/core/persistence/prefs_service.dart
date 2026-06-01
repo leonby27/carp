@@ -43,6 +43,9 @@ class PrefsKeys {
   static const cachedWeatherLat = 'cached_weather_lat';
   static const cachedWeatherLon = 'cached_weather_lon';
   static const cachedWeatherAtMs = 'cached_weather_at_ms';
+  // Офлайн-кэш распознанных водоёмов: JSON-словарь по округлённым координатам.
+  // Геометрия водоёма не меняется — кэш переживает перезапуск и сеть.
+  static const cachedWaterBodies = 'cached_water_bodies';
 }
 
 Future<void> initPrefs() async {

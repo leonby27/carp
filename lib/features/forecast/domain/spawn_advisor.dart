@@ -45,10 +45,11 @@ class SpawnAssessment {
   );
 }
 
-/// Определяет фазу нереста по оценке воды, её тренду и календарному окну вида.
-/// Чистый Dart, без знания об источнике данных. Сигнал намеренно консервативен:
-/// вне сезонного окна молчит, даже если вода случайно попала в полосу (защита от
-/// «осеннего лжанереста»).
+/// Определяет фазу нереста по оценке воды, её тренду, длине светового дня и
+/// широкому warming-half окну сезона. Чистый Dart, без знания об источнике
+/// данных. Сигнал намеренно консервативен: вне весенне-летнего прогрева, при
+/// коротком дне и на остывании воды молчит, даже если температура случайно
+/// попала в полосу (защита от «осеннего/ранневесеннего лжанереста»).
 class SpawnAdvisor {
   const SpawnAdvisor(this.config, {this.southern = false});
 
@@ -70,6 +71,14 @@ class SpawnAdvisor {
   /// давно позади, сигнал гасим (иначе разгар лета весь стал бы «посленерестом»).
   static const _postSpawnReach = 4;
 
+  /// Границы warming-half сезона (северное полушарие, 1..12): от выхода воды из
+  /// зимнего минимума до её летнего пика. Это НЕ видовое окно нереста, а грубый
+  /// сезонный предохранитель — конкретную фазу внутри решает температура полосы,
+  /// которая сама географична (вода = EMA локального воздуха), поэтому юг входит
+  /// в полосу раньше, север позже, и окно подстраивается без подбора месяцев.
+  static const _seasonFirstMonth = 3;
+  static const _seasonLastMonth = 8;
+
   SpawnAssessment assess(WeatherPoint p, {required double tauDays}) {
     // Месяц приводим к северному полушарию тем же приёмом, что и сезонная кривая.
     final m = southern ? (p.month + 5) % 12 + 1 : p.month;
@@ -84,7 +93,20 @@ class SpawnAdvisor {
           trendC: trend,
         );
 
-    if (!config.spawnMonths.contains(m)) return SpawnAssessment.none;
+    // Грубый сезонный гейт: вне весенне-летнего прогрева молчим, чтобы аномальное
+    // межсезонное тепло не дало ложного «нереста».
+    if (m < _seasonFirstMonth || m > _seasonLastMonth) {
+      return SpawnAssessment.none;
+    }
+
+    // Фотопериод: у карповых нерест завязан не только на тепло, но и на длинный
+    // день. Длину берём из реальных sunrise/sunset точки (уже с поправкой на
+    // широту и дату), поэтому короткий день ранней весной гасит ложный
+    // преднерест, когда вода уже в полосе.
+    final daylightHours = p.sunset.difference(p.sunrise).inMinutes / 60.0;
+    if (daylightHours < config.minSpawnDaylightHours) {
+      return SpawnAssessment.none;
+    }
 
     final lo = config.spawnTempLow;
     final hi = config.spawnTempHigh;
@@ -96,6 +118,10 @@ class SpawnAdvisor {
       }
       return SpawnAssessment.none;
     }
+    // В полосе и выше сигналим только на ПОДЪЁМЕ воды — это и есть «первый прогрев
+    // года сквозь полосу». Заметное остывание сквозь ту же полосу (позднее лето
+    // или тёплое межсезонье) нерестом не считаем.
+    if (trend <= -_warmingTrend) return SpawnAssessment.none;
     if (water <= hi) return of(SpawnPhase.spawning);
     if (water <= hi + _postSpawnReach) return of(SpawnPhase.postSpawn);
     return SpawnAssessment.none;

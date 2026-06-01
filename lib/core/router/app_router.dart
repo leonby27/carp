@@ -10,6 +10,7 @@ import '../../features/onboarding/presentation/onboarding_flow.dart';
 import '../../features/onboarding/presentation/welcome_screen.dart';
 import '../../features/paywall/presentation/paywall_screen.dart';
 import '../../features/settings/presentation/settings_tab.dart';
+import '../../features/tips/presentation/tips_tab.dart';
 import '../theme/app_theme.dart';
 
 final _rootNavKey = GlobalKey<NavigatorState>();
@@ -79,6 +80,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: '/',
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: ForecastTab()),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/tips',
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: TipsTab()),
               ),
             ],
           ),

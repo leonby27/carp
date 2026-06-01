@@ -1677,6 +1677,31 @@ class AppLocalizationsDe extends AppLocalizations {
       'Stillwasser — achte auf Schilf, Hindernisse, Kanten und Buchten.';
 
   @override
+  String get spotStructInflow =>
+      'In der Nähe mündet ein Bach oder Kanal — die Strömung bringt Futter und Sauerstoff; eine Top-Stelle, besonders bei Hitze.';
+
+  @override
+  String get spotStructReeds =>
+      'Hier säumen Schilf oder Sumpf das Ufer — Deckung und Futterbank für Karpfen.';
+
+  @override
+  String get spotStructDam =>
+      'Ein Damm oder Deich ist nah — ein scharfer Tiefenwechsel und eine klassische Standstelle.';
+
+  @override
+  String spotStructIslands(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Auf diesem Gewässer gibt es mehrere Inseln — Fische stehen oft an ihnen: Struktur, Tiefenwechsel und Deckung.',
+      one:
+          'Auf diesem Gewässer gibt es eine Insel — Fische stehen oft an Inseln: Struktur, Tiefenwechsel und Deckung.',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get spotSourceType => 'für diesen Gewässertyp';
 
   @override
@@ -1789,6 +1814,310 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get alertSpotFallback => 'Dein Spot';
+
+  @override
+  String get tabTips => 'Tipps';
+
+  @override
+  String get tipsNext => 'Noch ein Tipp';
+
+  @override
+  String get tipLocationFirstTitle => 'Der Platz zählt mehr als der Köder';
+
+  @override
+  String get tipLocationFirstBody =>
+      'Der häufigste Anfängerfehler: ankommen und „ins Nichts“ auswerfen. Erfahrene Karpfenangler sind sich einig — zu wissen, WO die Fische stehen, ist wichtiger als WOMIT man fischt; am falschen Platz hilft kein Köder. Eine Stunde, um fressende Fische zu finden (Sprünge, Blasenketten, Fische nahe der Oberfläche), bringt mehr als zehn Stunden blind hinter den Bissanzeigern. Beobachte das Wasser erst 15–20 Minuten, dann baue auf.';
+
+  @override
+  String get tipLocationFirstProof =>
+      'Die Karpfenpresse nennt das Lesen des Wassers den größten Vorteil: „am falschen Platz fängst du nicht, Punkt.“';
+
+  @override
+  String get tipMarginsTitle =>
+      'Fische die Uferzone — der unterschätzteste Trick';
+
+  @override
+  String get tipMarginsBody =>
+      'Die meisten werfen so weit wie möglich und ignorieren das Wasser vor den Füßen. Dabei patrouilliert der Karpfen die Uferkante jeden Tag und jede Nacht — an jedem Gewässer. Ein bekannter Fall: Wer am Ufer fischte, fing doppelt so viel wie die, die in die Mitte warfen. Bonus — man sieht den Fisch, kann einem einzelnen Tier den Köder anbieten und aus seinem Verhalten lernen. Nähere dich dem Ufer leise.';
+
+  @override
+  String get tipMarginsProof =>
+      'Guides zählen das Fischen in der Kante zu den am meisten unterschätzten Karpfentaktiken.';
+
+  @override
+  String get tipSharpHooksTitle =>
+      'Ein stumpfer Haken ist ein verlorener Fisch';
+
+  @override
+  String get tipSharpHooksBody =>
+      'Das übersehen Anfänger am häufigsten. Der Unterschied zwischen scharf und nadelscharf ist enorm: mehr Anfasser werden zu Bissen, mehr Bisse zu sicheren Haken. Haken stumpfen nicht nur an Steinen und Muscheln ab, sondern schon beim bloßen Liegen am Grund. Prüfe die Spitze vor JEDEM Wurf (Fingernagel-Test) und wechsle sie beim kleinsten Abstumpfen.';
+
+  @override
+  String get tipSharpHooksProof =>
+      'Experten sind sich einig: Schärfe senkt Aussteiger deutlich und erhöht die Hakquote.';
+
+  @override
+  String get tipDontOverfeedTitle => 'Füttere den Platz nicht über';
+
+  @override
+  String get tipDontOverfeedBody =>
+      'Der zweite klassische Fehler. Zu viel Futter verteilt die Fische über eine große Fläche und zieht sie vom Rig weg, und ein satter Karpfen ignoriert deinen Hakenköder. Besser wenig, aber genau — kleine Mengen auf einen Punkt. Überfüttern ist eine häufige Ursache für einen Schneidertag, obwohl die Fische da sind.';
+
+  @override
+  String get tipDontOverfeedProof =>
+      '„Überfüttern“ steht ganz oben in den Listen typischer Karpfenfehler.';
+
+  @override
+  String get tipBaitRegularlyTitle =>
+      'Regelmäßiges Anfüttern schlägt große Mengen';
+
+  @override
+  String get tipBaitRegularlyBody =>
+      'Wenn möglich, füttere deinen Platz vorab und oft an. Ein Kilo täglich wirkt besser als fünf Kilo alle fünf Tage. Beständigkeit bringt Karpfen dazu, ohne Scheu für eine Gratismahlzeit zurückzukehren — und wenn du endlich fischst, sind die Bisse entschlossen. Bleib in der Kampagne bei einem Köder: Die Fische lernen, danach zu suchen, und fixieren sich oft darauf.';
+
+  @override
+  String get tipBaitRegularlyProof =>
+      'Köderfirmen und Anfütter-Guides sind einig: Der Schlüssel ist Regelmäßigkeit, weniger, aber öfter.';
+
+  @override
+  String get tipHairRigTitle => 'Das Haar-Rig — warum es fängt';
+
+  @override
+  String get tipHairRigBody =>
+      'Karpfen schlucken nicht sofort: Sie testen den Köder, saugen ihn ein und blasen ihn aus. Am Haken selbst spüren sie das Metall und stoßen ihn mit dem Köder wieder aus. Am „Haar“ liegt der Köder getrennt vom blanken Haken: beim Einsaugen gleitet der Haken frei ins Maul und fasst die Unterlippe. Seit den 1980ern hat dieses Prinzip die Hakquote revolutioniert und ist zum Rückgrat des modernen Karpfenangelns geworden.';
+
+  @override
+  String get tipHairRigProof =>
+      'Jahrzehntelang bewährter Klassiker; das Saug-und-Test-Prinzip ist die Basis jedes modernen Rigs.';
+
+  @override
+  String get tipSweetcornTitle => 'Mais — billig und tödlich';
+
+  @override
+  String get tipSweetcornBody =>
+      'Süßmais fängt weltweit Karpfen: leuchtend, süß, weich und reich an Aminosäuren — der Karpfen nimmt ihn als natürliche Nahrung an. Und er kostet fast nichts: dasselbe Gewicht an Boilies ist um ein Vielfaches teurer. Besonders dort, wo Karpfen vor allem Naturnahrung fressen, wirkt er oft sofort.';
+
+  @override
+  String get tipSweetcornProof =>
+      'Mais gilt als einer der günstigsten und wirksamsten Köder; der Preisunterschied zu Boilies ist um ein Vielfaches.';
+
+  @override
+  String get tipMixedSizesTitle => 'Misch die Ködergrößen';
+
+  @override
+  String get tipMixedSizesBody =>
+      'Misch die Boilie-Größen (etwa 12–15 mm und 18–22 mm), damit sich Karpfen nicht auf ein Kaliber einstellen und vorsichtig werden — die Chance, dass sie den Hakenköder nehmen, steigt. Klein (12–15 mm) für Winter und beangelte Gewässer, groß (18–22 mm) gegen Kleinfisch und für Großkarpfen.';
+
+  @override
+  String get tipMixedSizesProof =>
+      '„Gemischte Größen“ ist ein Standardtrick, um die Größen-Selektivität der Fische zu brechen.';
+
+  @override
+  String get tipFallingPressureTitle =>
+      'Fallender Luftdruck — ein Fressfenster';
+
+  @override
+  String get tipFallingPressureBody =>
+      'Wenn eine Front naht und der Druck fällt, fressen Fische oft kräftiger. Karpfen reagieren milder als Raubfische (Grundbewohner, weniger empfindlich), doch Angler beobachten: bei niedrigem Druck fressen sie länger und williger. Das beste Fenster liegt 6–12 Stunden vor der Front. Wichtig: Es gibt keine magische Druckzahl — es wirkt der fallende TREND, nicht ein Messwert.';
+
+  @override
+  String get tipFallingPressureProof =>
+      'Zeitschriften-Beobachtungen verzeichneten bis zu ~40% mehr Fressaktivität bei fallendem Druck; die meistzitierte Studie (1983, Barsch) fand aber nur eine schwache Korrelation — daher ehrlicher: ein Trend, keine Garantie.';
+
+  @override
+  String get tipCrucianShyBitesTitle =>
+      'Karauschen sind scheue Koster — tauche die Pose ab';
+
+  @override
+  String get tipCrucianShyBitesBody =>
+      'Ein Karauschenbiss kann kaum sichtbar sein — ein Viertel-Eintauchen einer feinen Antenne. Schaut zu viel Antenne heraus, übersiehst du die zarten Zupfer. Beschwere die Pose so weit ab, dass nur ein Minimum herausragt. Karauschen spucken den Köder aus, sobald sie Widerstand spüren — alles muss leicht und feinfühlig sein.';
+
+  @override
+  String get tipCrucianShyBitesProof =>
+      'Karauschen-Guides sind einig: Pose abtauchen; eine feine Antenne registriert scheue Bisse.';
+
+  @override
+  String get tipCrucianFineTackleTitle => 'Karauschen: fein und klein';
+
+  @override
+  String get tipCrucianFineTackleBody =>
+      'Dicke Schnur und große Haken sind tabu. Nimm einen feinen, aber starken Haken in kleiner Größe: 18–20 für Made/Caster, 16 für Mais/Pellet. Nicht überfüttern (Schleien und Brassen rücken ein): Beginne mit golfballgroßen Futterballen und ein paar Köderproben, und lege nur nach, wenn du gut fängst.';
+
+  @override
+  String get tipCrucianFineTackleProof =>
+      'Standardrat für Karauschen — feines Gerät, kleiner Haken, dosiertes Füttern.';
+
+  @override
+  String get tipCrucianSlowFallTitle => 'Karauschen nehmen den fallenden Köder';
+
+  @override
+  String get tipCrucianSlowFallBody =>
+      'Oft beißen sie, während der Köder langsam absinkt. Verteile kleine Schrote gleichmäßig für einen langsamen Fall, und setze das letzte winzige Anzeige-Schrot nur 5–7 cm vom Haken — es zeigt einen scheuen Biss schnell an.';
+
+  @override
+  String get tipCrucianSlowFallProof =>
+      'Langsamer Fall plus ein Anzeige-Schrot nahe am Haken ist eine typische Karauschentaktik.';
+
+  @override
+  String get tipWaterTempTitle => 'Das Wasser zählt mehr als der Kalender';
+
+  @override
+  String get tipWaterTempBody =>
+      'Karpfen sind wechselwarm — der Appetit folgt der WASSERtemperatur, nicht dem Datum. Höchste Aktivität bei etwa 18–24 °C; unter ~10 °C verlangsamt sich der Stoffwechsel und das Fressen hört fast auf. In der Praxis: bei kaltem Wasser klein ködern und in der Mittagswärme im Flachen fischen; bei Hitze nachts und in der Dämmerung. Erwarte kein Fressen bei eisigem Wasser am Mittag.';
+
+  @override
+  String get tipWaterTempProof =>
+      'Biologie der Karpfenfische: Der Stoffwechsel hängt direkt von der Wassertemperatur ab — daher bricht der Biss im Winter stark ein.';
+
+  @override
+  String get tipPvaBagTitle => 'PVA-Beutel — eine Portion direkt am Haken';
+
+  @override
+  String get tipPvaBagBody =>
+      'Ein wasserlöslicher PVA-Beutel mit Pellet oder Krümel am Haken legt ein sauberes Futterhäufchen genau dort ab, wo dein Köder landet. Er löst sich in Minuten auf, hinterlässt einen attraktiven Fleck und eine verwicklungsfreie Präsentation beim Wurf. Top auf Schlamm und im Kraut, wo ein einzelner Köder untergeht — der Karpfen findet einen „Tisch“ und frisst direkt über dem Rig.';
+
+  @override
+  String get tipPvaBagProof =>
+      'PVA-Zubehör ist im modernen Karpfenangeln Standard, um Futter genau am Haken zu platzieren.';
+
+  @override
+  String get tipFeatureFindingTitle =>
+      'Finde die Strukturen — Karpfen patrouillieren die Kanten';
+
+  @override
+  String get tipFeatureFindingBody =>
+      'Fische sind nicht gleichmäßig verteilt — sie stehen an Strukturen: Kanten, Tiefenänderungen, hartem Grund im Schlamm, Krautkanten, Hindernissen. Vor dem Angeln den Grund mit einem Blei „erfühlen“: schleifen und spüren, wie sich der Boden ändert, die Tiefe am Absinken zählen. Ein Wurf auf eine gefundene Kante schlägt den Zufallswurf „auf Weite“.';
+
+  @override
+  String get tipFeatureFindingProof =>
+      'Strukturen mit Marker oder Blei auszuloten ist eine Grundfertigkeit — Karpfen patrouillieren Strukturen, nicht die offene Leere.';
+
+  @override
+  String get tipStayQuietTitle => 'Sei leise am Ufer — Karpfen sind scheu';
+
+  @override
+  String get tipStayQuietBody =>
+      'Karpfen spüren Schwingungen über die Seitenlinie und „hören“ mit dem Körper. Schwere Schritte, zugeschlagene Türen, Klopfen am Boot, ein schwerer Wurf vor die Füße — und die Fische verlassen das Flache und die Uferzone. Nähere dich dem Wasser leise, halte Licht von der Oberfläche fern, baue sanft auf. Am wichtigsten beim Angeln an der Kante und im Flachen.';
+
+  @override
+  String get tipStayQuietProof =>
+      'Die Seitenlinie des Karpfens nimmt kleinste Bewegungen wahr — lauter Lärm macht die Fische tatsächlich wachsam.';
+
+  @override
+  String get tipParticlesTitle => 'Partikel (Hanf) halten den Schwarm';
+
+  @override
+  String get tipParticlesBody =>
+      'Kleines Futter wie Hanf erzeugt einen Fleck, an dem Karpfen wühlen und an einer Stelle fressen, ohne schnell satt zu werden — die Fische bleiben über dem Rig. Sicherheitshinweis: Trockene Partikel (besonders Tigernüsse und Bohnen) müssen vor Gebrauch eingeweicht UND gar gekocht werden — ungar können sie dem Fisch schaden.';
+
+  @override
+  String get tipParticlesProof =>
+      'Hanf ist ein Klassiker, um einen Schwarm zu halten; Partikel richtig vorzubereiten ist eine bekannte Fisch-Sicherheitsregel.';
+
+  @override
+  String get tipFishCareTitle => 'Schone den Fisch — er beißt wieder';
+
+  @override
+  String get tipFishCareBody =>
+      'Ein großer Karpfen wächst über Jahrzehnte und kann erneut gefangen werden — wenn er gesund zurückgesetzt wird. Nasse Hände und eine nasse Matte oder Gras, minimale Zeit außerhalb des Wassers, lege den Fisch nie auf trockenen Sand oder Steine, hake schonend ab (noch ein Grund für einen scharfen Haken). Fotos tief über der Matte, schnell. Ein gesund zurückgesetzter Karpfen ist ein künftiger Biss — für dich und andere.';
+
+  @override
+  String get tipFishCareProof =>
+      'Catch-and-Release-Grundsätze unter Karpfenanglern: schonende Behandlung erhält den Bestand und deine künftigen Fänge.';
+
+  @override
+  String get tipCrucianWarmShallowsTitle =>
+      'Karauschen lieben das warme Flachwasser';
+
+  @override
+  String get tipCrucianWarmShallowsBody =>
+      'Karauschen lieben Wärme und Kraut. Im Frühjahr und Frühsommer kommen sie zuerst im erwärmten Flachwasser zum Fressen — kleine Buchten, an Schilf und Seerosen, wo das Wasser ein paar Grad wärmer ist. Suche ruhige, krautige, gut erwärmte Stellen; in der Tiefe gibt es zu dieser Zeit kaum Karauschen. Je wärmer das Wasser, desto aktiver die Karausche.';
+
+  @override
+  String get tipCrucianWarmShallowsProof =>
+      'Die Karausche ist ein wärmeliebender Krautfisch; die frühe Erwärmung des Flachwassers erklärt, warum sie dort zuerst frisst.';
+
+  @override
+  String get fcAlgoFactsTitle => 'Wissenswertes zum Algorithmus';
+
+  @override
+  String get fcAlgoFactLabel => 'Fakt des Tages';
+
+  @override
+  String get algoFactWaterModelTitle =>
+      'Wir rechnen mit dem Wasser, nicht mit der Luft';
+
+  @override
+  String get algoFactWaterModelBody =>
+      'Karpfen leben im Wasser, und das erwärmt sich verzögert. Statt die Lufttemperatur direkt zu nehmen, modellieren wir die Wassertemperatur über eine Wärmeaustausch-Gleichung — wie eine abkühlende Tasse Tee.';
+
+  @override
+  String get algoFactThermalInertiaTitle =>
+      'Jedes Gewässer hat seine eigene Wärmeträgheit';
+
+  @override
+  String get algoFactThermalInertiaBody =>
+      'Ein Fluss reagiert in ein paar Tagen aufs Wetter, ein Teich langsamer, ein großer Stausee schwingt erst über Wochen. Deshalb passen wir die Erwärmungsgeschwindigkeit an Typ und Größe des Gewässers an.';
+
+  @override
+  String get algoFactPressureTrendTitle =>
+      'Entscheidend ist der Drucktrend, nicht der Pegel';
+
+  @override
+  String get algoFactPressureTrendBody =>
+      'Der beste Biss kommt nicht bei einem ‚guten‘ Druck, sondern bei einem sanften Fallen vor einer Front. Ein scharfer Absturz und ein scharfer Sprung werden beide bestraft. Wir lesen den Trend über 6 und über 24 Stunden.';
+
+  @override
+  String get algoFactFrontMemoryTitle =>
+      'Wir erinnern uns einen Tag an eine durchgezogene Front';
+
+  @override
+  String get algoFactFrontMemoryBody =>
+      'Selbst wenn sich der Druck erholt hat, stehen die Fische nach einer Kaltfront noch unter Schock. Wir halten einen eigenen Abzug einen ganzen Tag — Karpfen brauchen ein bis zwei Tage.';
+
+  @override
+  String get algoFactWeakestLinkTitle => 'Das Prinzip des schwächsten Glieds';
+
+  @override
+  String get algoFactWeakestLinkBody =>
+      'Viele Rechner addieren nur Punkte, sodass guter Druck eiskaltes Wasser ‚rettet‘. Bei uns wirken Temperatur, Saison und Druck wie Sicherungen: kein perfekter Wind rettet totes Wasser.';
+
+  @override
+  String get algoFactHeatCalmTitle => 'Ein Abzug für Hitze plus Flaute';
+
+  @override
+  String get algoFactHeatCalmBody =>
+      'Der Abzug greift nur, wenn Hitze und Flaute zusammentreffen — dann wird der Sauerstoff im Wasser knapp. Für sich allein sind ein heißer Tag oder Windstille weniger schädlich.';
+
+  @override
+  String get algoFactRealSunTitle => 'Beißzeiten an der echten Sonne';
+
+  @override
+  String get algoFactRealSunBody =>
+      'Kein festes ‚Biss um 6 Uhr‘. Wir nehmen den tatsächlichen Sonnenauf- und -untergang für deinen Spot, verstärken Morgen- und Abenddämmerung und dämpfen die heiße Mittagszeit.';
+
+  @override
+  String get algoFactSpawnPhysicsTitle =>
+      'Laichzeit aus Physik, nicht aus dem Kalender';
+
+  @override
+  String get algoFactSpawnPhysicsBody =>
+      'Die Laichphase berechnen wir aus Wassertemperatur und Tageslänge auf deinem Breitengrad. Und wir sind ehrlich zur Sicherheit: an einem trägen Gewässer ist das Signal unscharf.';
+
+  @override
+  String get algoFactSpeciesModelsTitle =>
+      'Karpfen und Karausche sind zwei Modelle';
+
+  @override
+  String get algoFactSpeciesModelsBody =>
+      'Es ist keine Formel mit einem Häkchen. Karauschen haben ein höheres Temperaturoptimum, reagieren empfindlicher auf Druck, mögen leichtes Kräuseln und beißen nachts kaum — Dutzende Parameter sind je Art abgestimmt.';
+
+  @override
+  String get algoFactBiteWindowsTitle => 'Beißfenster statt bloßer Stunden';
+
+  @override
+  String get algoFactBiteWindowsBody =>
+      'Wir fassen die guten Stunden zu durchgehenden Fenstern zusammen, überbrücken einzelne Einbrüche und fügen Fenster, die über Mitternacht reichen, korrekt zusammen.';
 
   @override
   String alertBody(String spot, String when, int index) {

@@ -146,16 +146,25 @@ final biteEngineProvider = Provider<BiteEngine>((ref) {
 /// для выбранного вида рыбы. Перезапрашивается автоматически при смене локации
 /// или вида рыбы.
 final forecastProvider = FutureProvider<Forecast>((ref) async {
+  // Погоду и водоём запускаем ПАРАЛЛЕЛЬНО: оба провайдера начинают грузиться в
+  // момент watch (до await), поэтому общее ожидание ≈ медленнейший из двух, а не
+  // их сумма. Раньше водоём трогали только после await погоды — запросы шли
+  // последовательно и складывались (до ~20 с на медленной сети/Overpass).
+  final seriesFuture = ref.watch(weatherSeriesProvider.future);
+  // Тип водоёма (из OSM) задаёт τ прогрева воды. Обработчик ошибки вешаем сразу:
+  // если зеркала Overpass недоступны — τ по умолчанию (а не «unhandled» ошибка),
+  // и прогноз считается один раз, без «мигания» индекса с дефолтного τ.
+  final bodyFuture = ref
+      .watch(waterBodyProvider.future)
+      .then<WaterBody?>((b) => b, onError: (_) => null);
+
   // Сырой ряд (только координаты) + вид рыбы. Переименование локации прогноз
   // не дёргает — weatherSeriesProvider зависит лишь от координат.
-  final series = await ref.watch(weatherSeriesProvider.future);
+  final series = await seriesFuture;
   final fish = ref.watch(selectedFishProvider);
   final location = ref.read(activeLocationProvider);
 
-  // Тип водоёма (из OSM) задаёт τ прогрева воды. Берём ТЕКУЩЕЕ значение, не
-  // блокируясь: пока Overpass грузится/недоступен — τ по умолчанию, а когда
-  // водоём определится, прогноз пересчитается локально (без новой загрузки сети).
-  final body = ref.watch(waterBodyProvider).value;
+  final body = await bodyFuture;
   final tau = waterTauForBody(body);
 
   // Пересчёт воды под τ по ПОЛНОЙ истории, затем отсекаем предысторию.
