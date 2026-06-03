@@ -107,13 +107,13 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Carp bite forecast'**
+  /// **'Plan around the bite, not the weekend'**
   String get welcomeTitle;
 
   /// No description provided for @welcomeSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Quick setup — under a minute'**
+  /// **'We\'ll find the best window for carp and crucian from real conditions, not guesswork'**
   String get welcomeSubtitle;
 
   /// No description provided for @welcomeCta.
@@ -374,11 +374,107 @@ abstract class AppLocalizations {
   /// **'See today for free first'**
   String get paywallSkipToday;
 
+  /// No description provided for @winbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'1 day of Pro, on us'**
+  String get winbackTitle;
+
+  /// No description provided for @winbackBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock everything for 24 hours: bite forecast, best windows and tactics for your spot. No payment — just try it.'**
+  String get winbackBody;
+
+  /// No description provided for @winbackCtaClaim.
+  ///
+  /// In en, this message translates to:
+  /// **'Claim 1 day'**
+  String get winbackCtaClaim;
+
+  /// No description provided for @winbackCtaSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue without Pro'**
+  String get winbackCtaSkip;
+
   /// No description provided for @paywallTitle.
   ///
   /// In en, this message translates to:
-  /// **'Unlock the full bite forecast'**
+  /// **'Open the complete fishing analysis for your spot for the week ahead'**
   String get paywallTitle;
+
+  /// No description provided for @paywallSaveBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Save 85%'**
+  String get paywallSaveBadge;
+
+  /// No description provided for @unlockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock All Pro Features'**
+  String get unlockTitle;
+
+  /// No description provided for @unlockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Dozens of rules for carp and crucian carp fishing — pressure, water temperature, wind, moon, season, and time of day in one honest assessment from 0 to 100. And all of this is based on the weather of your specific water body.'**
+  String get unlockBody;
+
+  /// No description provided for @tblFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get tblFree;
+
+  /// No description provided for @tblPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get tblPro;
+
+  /// No description provided for @tblLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited'**
+  String get tblLimited;
+
+  /// No description provided for @tblForecast.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day bite forecast · when to go'**
+  String get tblForecast;
+
+  /// No description provided for @tblTactics.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily tactics · what & how to catch'**
+  String get tblTactics;
+
+  /// No description provided for @tblSpot.
+  ///
+  /// In en, this message translates to:
+  /// **'Your spot, decoded · where to set up'**
+  String get tblSpot;
+
+  /// No description provided for @tblAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Best-day alerts · day before'**
+  String get tblAlerts;
+
+  /// No description provided for @tblPlaybook.
+  ///
+  /// In en, this message translates to:
+  /// **'Carp & crucian playbook'**
+  String get tblPlaybook;
+
+  /// No description provided for @tblJournal.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal · conditions & bite index'**
+  String get tblJournal;
 
   /// No description provided for @planYearly.
   ///
@@ -407,44 +503,56 @@ abstract class AppLocalizations {
   /// No description provided for @trialDay1Desc.
   ///
   /// In en, this message translates to:
-  /// **'Access unlocked'**
+  /// **'Trial starts'**
   String get trialDay1Desc;
 
   /// No description provided for @trialDayMidDesc.
   ///
   /// In en, this message translates to:
-  /// **'We\'ll remind you a day before'**
+  /// **'We\'ll remind you'**
   String get trialDayMidDesc;
 
   /// No description provided for @trialDayEndDesc.
   ///
   /// In en, this message translates to:
-  /// **'Subscription starts'**
+  /// **'Plan begins'**
   String get trialDayEndDesc;
 
-  /// No description provided for @featureUnlimited.
+  /// No description provided for @paywallAlgoTitle.
   ///
   /// In en, this message translates to:
-  /// **'Forecast for all your spots'**
-  String get featureUnlimited;
+  /// **'Smart bite algorithm'**
+  String get paywallAlgoTitle;
 
-  /// No description provided for @featureUpdates.
+  /// No description provided for @paywallAlgoBody.
   ///
   /// In en, this message translates to:
-  /// **'Hourly bite windows, updated daily'**
-  String get featureUpdates;
+  /// **'Dozens of rules tuned to carp biology — pressure, water temp, wind, moon, season and time of day in one honest 0–100 score. And all of it for the weather at your own water.'**
+  String get paywallAlgoBody;
 
-  /// No description provided for @featurePrivacy.
+  /// No description provided for @featureForecast.
   ///
   /// In en, this message translates to:
-  /// **'Works anywhere, data stays private'**
-  String get featurePrivacy;
+  /// **'7-day bite forecast — know when to go'**
+  String get featureForecast;
 
-  /// No description provided for @featureSupport.
+  /// No description provided for @featureTactics.
   ///
   /// In en, this message translates to:
-  /// **'Priority support'**
-  String get featureSupport;
+  /// **'Daily tactics — what and how to fish, what to feed'**
+  String get featureTactics;
+
+  /// No description provided for @featureSpot.
+  ///
+  /// In en, this message translates to:
+  /// **'\"Your spot\" — water analysis: type, size, where to stand by wind'**
+  String get featureSpot;
+
+  /// No description provided for @featureAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Best-day alerts — push the evening before prime time at your spot'**
+  String get featureAlerts;
 
   /// No description provided for @faqTitle.
   ///
@@ -491,13 +599,13 @@ abstract class AppLocalizations {
   /// No description provided for @paywallNoPaymentNow.
   ///
   /// In en, this message translates to:
-  /// **'No payment now'**
+  /// **'No payment today'**
   String get paywallNoPaymentNow;
 
   /// No description provided for @paywallCtaStartFree.
   ///
   /// In en, this message translates to:
-  /// **'Start free trial'**
+  /// **'Start trial'**
   String get paywallCtaStartFree;
 
   /// No description provided for @paywallCtaSubscribe.
@@ -2258,6 +2366,12 @@ abstract class AppLocalizations {
   /// **'Bait'**
   String get adviceKindBait;
 
+  /// No description provided for @adviceKindAroma.
+  ///
+  /// In en, this message translates to:
+  /// **'Aroma'**
+  String get adviceKindAroma;
+
   /// No description provided for @adviceKindFeeding.
   ///
   /// In en, this message translates to:
@@ -2480,6 +2594,42 @@ abstract class AppLocalizations {
   /// **'Water is dropping — fish turn cautious. Small pellets, corn, maggots.'**
   String get adviceBaitCoolingBody;
 
+  /// No description provided for @adviceAromaSweetFruityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweet & fruity aroma'**
+  String get adviceAromaSweetFruityTitle;
+
+  /// No description provided for @adviceAromaSweetFruityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A sweet, fruity profile (strawberry, scopex, honey). Keep one aroma across groundbait and hookbait — water-soluble, it attracts without overfeeding.'**
+  String get adviceAromaSweetFruityBody;
+
+  /// No description provided for @adviceAromaFishmealTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fishmeal aroma'**
+  String get adviceAromaFishmealTitle;
+
+  /// No description provided for @adviceAromaFishmealBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm water, peak feeding — a fishmeal profile (fishmeal, krill, liver). Works in the groundbait base and on the hook: oils and amino acids feed.'**
+  String get adviceAromaFishmealBody;
+
+  /// No description provided for @adviceAromaSpicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spicy aroma'**
+  String get adviceAromaSpicyTitle;
+
+  /// No description provided for @adviceAromaSpicyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Cold, coloured water — a spicy profile (chilli, pepper, Robin Red). Keep it in groundbait and hookbait — a strong signal when fish are lethargic.'**
+  String get adviceAromaSpicyBody;
+
   /// No description provided for @adviceFeedMinimalTitle.
   ///
   /// In en, this message translates to:
@@ -2587,6 +2737,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'In the heat, look for cooler deep water and shaded areas.'**
   String get adviceSwimShelteredBody;
+
+  /// No description provided for @adviceSpotReeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Reeds nearby — cast tight to the reed margin, carp patrol the edge.'**
+  String get adviceSpotReeds;
+
+  /// No description provided for @adviceSpotInflow.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream inflow nearby — fresh oxygenated water and washed-in food, strong in the heat.'**
+  String get adviceSpotInflow;
+
+  /// No description provided for @adviceSpotDam.
+  ///
+  /// In en, this message translates to:
+  /// **'Dam nearby — depth and the old riverbed; carp hold there, more so in the heat.'**
+  String get adviceSpotDam;
+
+  /// No description provided for @adviceSpotIsland.
+  ///
+  /// In en, this message translates to:
+  /// **'Island nearby — a carp magnet; work its margins and drop-offs.'**
+  String get adviceSpotIsland;
 
   /// No description provided for @adviceTimePressureDropTitle.
   ///

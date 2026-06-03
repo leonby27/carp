@@ -9,7 +9,6 @@ import '../data/answers_store.dart';
 import '../data/quiz_config.dart';
 import 'analyzing_view.dart';
 import 'quiz_step_view.dart';
-import 'result_view.dart';
 
 const _kHeaderHeight = 64.0;
 const _kHeaderRadius = 24.0;
@@ -25,7 +24,7 @@ class OnboardingFlow extends ConsumerStatefulWidget {
   ConsumerState<OnboardingFlow> createState() => _OnboardingFlowState();
 }
 
-enum _Phase { quiz, processing, result }
+enum _Phase { quiz, processing }
 
 class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
   int _index = 0;
@@ -77,13 +76,8 @@ class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
         return Scaffold(
           backgroundColor: bg,
           body: AnalyzingView(
-            onDone: () => setState(() => _phase = _Phase.result),
+            onDone: () => context.go('/paywall'),
           ),
-        );
-      case _Phase.result:
-        return Scaffold(
-          backgroundColor: bg,
-          body: ResultView(onContinue: () => context.go('/paywall')),
         );
       case _Phase.quiz:
         return _buildQuiz(context, isDark, bg);

@@ -1,7 +1,13 @@
 import '../../forecast/domain/weather_point.dart' show WindCardinal;
 
 /// Категория совета по тактике ловли.
-enum AdviceKind { bait, feeding, depth, location, timing }
+enum AdviceKind { bait, aroma, feeding, depth, location, timing }
+
+/// Структурные признаки спота из OSM (тростник, приток, плотина, острова).
+/// Показываются доп. буллетами в совете «Место»: это watercraft-логика «где
+/// искать рыбу», аддитивная (признаков может быть несколько сразу), поэтому не
+/// выбирается switch'ем как погодный совет, а перечисляется списком под ним.
+enum SpotFeature { reeds, inflow, dam, island }
 
 /// Конкретные рекомендации. Движок выбирает по одному коду на категорию,
 /// presentation-слой превращает код в локализованный текст и иконку.
@@ -13,6 +19,13 @@ enum AdviceCode {
   baitHotSurface,
   baitWarming,
   baitCooling,
+  // aroma — вкус/аромат (семейство, не конкретный бренд). Выбор по температуре
+  // воды: растворимость ароматики + метаболизм карпа. Сладко-фруктовое работает
+  // на привлечение в холоде и на поверхности в жару; рыбно-мясное — в тёплый
+  // жор; пряное — холодная мутная вода.
+  aromaSweetFruity,
+  aromaFishmeal,
+  aromaSpicy,
   // feeding — прикормка
   feedMinimal,
   feedModerate,
@@ -91,6 +104,7 @@ class AdviceTip {
     this.reasonValue,
     this.windDir,
     this.window,
+    this.bullets = const [],
   });
 
   final AdviceCode code;
@@ -101,6 +115,10 @@ class AdviceTip {
   final double? reasonValue;
   final WindCardinal? windDir;
   final (DateTime, DateTime)? window;
+
+  /// Доп. буллеты к совету «Место» — структурные признаки спота из OSM. Пусто,
+  /// если водоём неизвестен или структуры рядом нет.
+  final List<SpotFeature> bullets;
 
   AdviceKind get kind => adviceKindOf(code);
 }
@@ -113,6 +131,10 @@ AdviceKind adviceKindOf(AdviceCode code) => switch (code) {
       AdviceCode.baitWarming ||
       AdviceCode.baitCooling =>
         AdviceKind.bait,
+      AdviceCode.aromaSweetFruity ||
+      AdviceCode.aromaFishmeal ||
+      AdviceCode.aromaSpicy =>
+        AdviceKind.aroma,
       AdviceCode.feedMinimal ||
       AdviceCode.feedModerate ||
       AdviceCode.feedHeavy =>

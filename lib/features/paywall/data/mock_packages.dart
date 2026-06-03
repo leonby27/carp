@@ -12,6 +12,7 @@ class MockPackage {
     required this.pricePerPeriodShort,
     required this.hasTrial,
     this.trialDays,
+    this.anchorPriceShort,
   });
 
   final String id;
@@ -34,6 +35,11 @@ class MockPackage {
 
   final bool hasTrial;
   final int? trialDays;
+
+  /// «Обычная» цена после пробного периода — показывается в таймлайне как
+  /// анкер (выше цены оформления, чтобы trial-цена выглядела выгоднее).
+  /// Если null — в таймлайне используется [priceShort].
+  final String? anchorPriceShort;
 }
 
 final kMockPackages = <MockPackage>[
@@ -41,19 +47,20 @@ final kMockPackages = <MockPackage>[
     id: 'yearly',
     title: (l) => l.planYearly,
     periodLabel: (l) => l.planYearly,
-    priceLabel: '3 990 ₽ / год',
-    priceShort: '3 990 ₽',
-    pricePerPeriodShort: '76 ₽ / нед',
+    priceLabel: '\$29.99 / year',
+    priceShort: '\$29.99 / year',
+    pricePerPeriodShort: '\$2.50 / mo',
     hasTrial: true,
     trialDays: 3,
+    anchorPriceShort: '\$39.99 / year',
   ),
   MockPackage(
     id: 'weekly',
     title: (l) => l.planWeekly,
     periodLabel: (l) => l.planWeekly,
-    priceLabel: '199 ₽ / неделя',
-    priceShort: '199 ₽',
-    pricePerPeriodShort: '199 ₽',
+    priceLabel: '\$7.99 / week',
+    priceShort: '\$7.99 / week',
+    pricePerPeriodShort: '\$7.99 / wk',
     hasTrial: false,
   ),
 ];

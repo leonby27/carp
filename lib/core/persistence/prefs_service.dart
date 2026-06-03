@@ -23,6 +23,8 @@ class PrefsKeys {
   static const onboardingCompleted = 'onboarding_completed';
   static const answers = 'quiz_answers'; // JSON-encoded Map<String, String>
   static const premiumExpiresAtMs = 'premium_expires_at_ms';
+  // Win-back модалка после пропуска пейволла показывается ровно один раз.
+  static const winbackOfferShown = 'winback_offer_shown';
   static const notifAll = 'notif_all_enabled';
   static const notifReminders = 'notif_reminders';
   static const notifNews = 'notif_news';

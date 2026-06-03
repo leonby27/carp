@@ -2346,13 +2346,22 @@ class _ConditionsRow extends StatelessWidget {
             : null,
       ),
       if (calm)
-        _CondItem(icon: Icons.air, staticValue: l10n.fcWindCalm, detail: '')
+        // Штиль: показываем «0 <ед.>» в том же формате, что и ненулевой ветер —
+        // слово целиком («Штиль»/«Calm») ломало узкую колонку. Направления при
+        // штиле нет, поэтому в подпись ставим «Ветер» (как «Вода» у соседней
+        // колонки) — иначе пустая подпись рушила выравнивание ряда.
+        _CondItem(
+            icon: Icons.air, staticValue: '0 $windSuffix', detail: l10n.fcChipWind)
       else
         _CondItem(
           icon: Icons.air,
           target: units.windValue(weather.windSpeedMs).toDouble(),
           format: (v) => '${v.round()} $windSuffix',
-          detail: windCardinalLabel(l10n, weather.windCardinal),
+          detail: windCardinalFull(l10n, weather.windCardinal),
+          // Сторона света — полным словом, обрезаем многоточием по ширине
+          // колонки (а не масштабируем целиком, как прочие подписи): иначе
+          // «северо-восточный» сжалось бы в нечитаемую мелочь.
+          detailEllipsis: true,
         ),
       _CondItem(
         icon: Icons.water_drop,
@@ -2394,9 +2403,13 @@ class _CondItem {
     this.target,
     this.format,
     this.trend,
+    this.detailEllipsis = false,
   });
   final IconData icon;
   final String detail;
+  // Обрезать подпись многоточием по ширине (вместо масштабирования целиком).
+  // Нужно для полного названия стороны света — длинные диагонали.
+  final bool detailEllipsis;
   // Либо статичная строка (например «Штиль»)…
   final String? staticValue;
   // …либо число с форматтером — тогда показываем с count-up анимацией.
@@ -2449,16 +2462,30 @@ class _CondColumn extends StatelessWidget {
           ),
           if (item.detail.isNotEmpty) ...[
             const SizedBox(height: 2),
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                item.detail,
+            Builder(
+              builder: (context) {
                 // Серый «легенда»-текст — обычным начертанием.
-                style: theme.textTheme.labelSmall?.copyWith(
+                final style = theme.textTheme.labelSmall?.copyWith(
                   color: cs.onSurfaceVariant,
                   fontWeight: FontWeight.w400,
-                ),
-              ),
+                );
+                // Сторона света: обрезаем по ширине колонки многоточием.
+                if (item.detailEllipsis) {
+                  return Text(
+                    item.detail,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: style,
+                  );
+                }
+                // Прочие подписи — масштабируем целиком, без обрезки.
+                return FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(item.detail, style: style),
+                );
+              },
             ),
           ],
         ],

@@ -5,6 +5,7 @@ import '../../../core/units/units.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/states.dart';
 import '../../forecast/application/forecast_providers.dart';
+import '../../spots/application/spots_providers.dart';
 import '../domain/advice.dart';
 import '../domain/advice_engine.dart';
 import 'advice_format.dart';
@@ -126,7 +127,12 @@ class _AdviceSheet extends ConsumerWidget {
                 final prev =
                     selectedIndex > 0 ? forecast.days[selectedIndex - 1] : null;
                 final fish = ref.watch(selectedFishProvider);
-                final advice = AdviceEngine.forDay(day, fish, prev: prev);
+                // Структура спота из OSM (тростник/приток/плотина/острова) →
+                // буллеты в совете «Место». null при загрузке/ошибке — тогда
+                // буллетов просто нет, карточка как раньше.
+                final body = ref.watch(waterBodyProvider).value;
+                final advice =
+                    AdviceEngine.forDay(day, fish, prev: prev, body: body);
                 final units = ref.watch(unitsProvider);
                 return ListView(
                   shrinkWrap: true,
@@ -189,6 +195,13 @@ class _TipCard extends StatelessWidget {
                 dark: theme.brightness == Brightness.dark,
               ),
               fit: BoxFit.contain,
+              // Иллюстрация может ещё не быть нарисована — мягко падаем на
+              // иконку категории, чтобы карточка не показывала «битый» ассет.
+              errorBuilder: (context, _, _) => Icon(
+                adviceKindIcon(kind),
+                size: 48,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -218,6 +231,30 @@ class _TipCard extends StatelessWidget {
                     height: 1.3,
                   ),
                 ),
+                // Буллеты структуры спота (только у совета «Место», когда OSM
+                // вернул признаки) — watercraft «где искать», аддитивный список.
+                for (final f in tip.bullets) ...[
+                  const SizedBox(height: 4),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('•  ',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                            height: 1.3,
+                          )),
+                      Expanded(
+                        child: Text(
+                          spotFeatureBody(l10n, f),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
                 const SizedBox(height: 8),
                 Row(
                   children: [

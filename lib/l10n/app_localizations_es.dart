@@ -9,10 +9,11 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get welcomeTitle => 'Bienvenido';
+  String get welcomeTitle => 'Planifica según el picado, no según el finde';
 
   @override
-  String get welcomeSubtitle => 'Configuración rápida — menos de un minuto';
+  String get welcomeSubtitle =>
+      'Te mostramos la mejor ventana para carpa y carpín: lo calculamos con datos reales, sin adivinar';
 
   @override
   String get welcomeCta => 'Empezar';
@@ -145,7 +146,58 @@ class AppLocalizationsEs extends AppLocalizations {
   String get paywallSkipToday => 'Primero ver hoy gratis';
 
   @override
-  String get paywallTitle => 'Desbloquea el acceso total';
+  String get winbackTitle => 'Te regalamos 1 día de Pro';
+
+  @override
+  String get winbackBody =>
+      'Desbloquea todo durante 24 horas: pronóstico de picada, mejores ventanas y tácticas para tu spot. Sin pago, solo pruébalo.';
+
+  @override
+  String get winbackCtaClaim => 'Conseguir 1 día';
+
+  @override
+  String get winbackCtaSkip => 'Continuar sin Pro';
+
+  @override
+  String get paywallTitle =>
+      'Abre el análisis completo de pesca para tu spot de la próxima semana';
+
+  @override
+  String get paywallSaveBadge => 'Ahorra 85%';
+
+  @override
+  String get unlockTitle => 'Todas las funciones Pro';
+
+  @override
+  String get unlockBody =>
+      'Decenas de reglas para pescar carpa y carpín — presión, temperatura del agua, viento, luna, estación y hora del día en una evaluación honesta de 0 a 100. Y todo según el clima de tu propio cuerpo de agua.';
+
+  @override
+  String get tblFree => 'Free';
+
+  @override
+  String get tblPro => 'Pro';
+
+  @override
+  String get tblLimited => 'Limitado';
+
+  @override
+  String get tblForecast => 'Pronóstico de picada 7 días · cuándo ir';
+
+  @override
+  String get tblTactics => 'Táctica diaria · qué y cómo pescar';
+
+  @override
+  String get tblSpot => 'Tu spot, descifrado · dónde ubicarte';
+
+  @override
+  String get tblAlerts => 'Alertas de mejores días · el día antes';
+
+  @override
+  String get tblPlaybook => 'Guía de carpa y carpín';
+
+  @override
+  String get tblJournal => 'Diario · condiciones e índice de picada';
 
   @override
   String get planYearly => '12 meses';
@@ -170,25 +222,35 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get trialDay1Desc => 'Acceso desbloqueado';
+  String get trialDay1Desc => 'Empieza la prueba';
 
   @override
-  String get trialDayMidDesc => 'Te avisaremos un día antes';
+  String get trialDayMidDesc => 'Te avisaremos';
 
   @override
-  String get trialDayEndDesc => 'Comienza la suscripción';
+  String get trialDayEndDesc => 'Empieza el plan';
 
   @override
-  String get featureUnlimited => 'Todas las funciones sin límites';
+  String get paywallAlgoTitle => 'Algoritmo inteligente de picada';
 
   @override
-  String get featureUpdates => 'Actualizaciones regulares';
+  String get paywallAlgoBody =>
+      'Decenas de reglas según la biología de la carpa — presión, temperatura del agua, viento, luna, estación y hora del día en una única puntuación honesta de 0 a 100. Y todo según el tiempo de tu propia agua.';
 
   @override
-  String get featurePrivacy => 'Seguro y privado';
+  String get featureForecast => 'Pronóstico de picada a 7 días — cuándo ir';
 
   @override
-  String get featureSupport => 'Soporte prioritario';
+  String get featureTactics =>
+      'Tácticas diarias — qué y cómo pescar, con qué cebar';
+
+  @override
+  String get featureSpot =>
+      '«Tu sitio» — análisis del agua: tipo, tamaño, dónde situarte según el viento';
+
+  @override
+  String get featureAlerts =>
+      'Avisos de los mejores días — push la víspera del mejor momento en tu sitio';
 
   @override
   String get faqTitle => 'Preguntas frecuentes';
@@ -215,10 +277,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Todas las funciones sin límites, actualizaciones regulares y soporte prioritario.';
 
   @override
-  String get paywallNoPaymentNow => 'Sin pago ahora';
+  String get paywallNoPaymentNow => 'Hoy sin pago';
 
   @override
-  String get paywallCtaStartFree => 'Empezar gratis';
+  String get paywallCtaStartFree => 'Empezar prueba';
 
   @override
   String get paywallCtaSubscribe => 'Suscribirse';
@@ -1228,6 +1290,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get adviceKindBait => 'Cebo';
 
   @override
+  String get adviceKindAroma => 'Aroma';
+
+  @override
   String get adviceKindFeeding => 'Engodo';
 
   @override
@@ -1352,6 +1417,27 @@ class AppLocalizationsEs extends AppLocalizations {
       'El agua baja — el pez se vuelve cauto. Pellets pequeños, maíz, gusanos.';
 
   @override
+  String get adviceAromaSweetFruityTitle => 'Aroma dulce y afrutado';
+
+  @override
+  String get adviceAromaSweetFruityBody =>
+      'Perfil dulce y afrutado (fresa, scopex, miel). Mantén un mismo aroma en engodo y cebo — soluble en agua, atrae sin sobrealimentar.';
+
+  @override
+  String get adviceAromaFishmealTitle => 'Aroma de harina de pescado';
+
+  @override
+  String get adviceAromaFishmealBody =>
+      'Agua templada, máxima actividad — perfil de harina de pescado (harina de pescado, krill, hígado). Funciona en la base del engodo y en el anzuelo: aceites y aminoácidos alimentan.';
+
+  @override
+  String get adviceAromaSpicyTitle => 'Aroma especiado';
+
+  @override
+  String get adviceAromaSpicyBody =>
+      'Agua fría y turbia — perfil especiado (chile, pimienta, Robin Red). Mantenlo en engodo y cebo — una señal fuerte cuando el pez está aletargado.';
+
+  @override
   String get adviceFeedMinimalTitle => 'Ceba con moderación';
 
   @override
@@ -1414,6 +1500,22 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get adviceSwimShelteredBody =>
       'Con calor, busca agua profunda más fresca y zonas sombreadas.';
+
+  @override
+  String get adviceSpotReeds =>
+      'Cañas cerca — lanza pegado al borde del cañaveral, la carpa patrulla la orilla.';
+
+  @override
+  String get adviceSpotInflow =>
+      'Entrada de arroyo cerca — agua fresca y oxigenada con comida arrastrada, ideal con calor.';
+
+  @override
+  String get adviceSpotDam =>
+      'Presa cerca — profundidad y el cauce viejo; la carpa se queda ahí, más aún con calor.';
+
+  @override
+  String get adviceSpotIsland =>
+      'Isla cerca — un imán para la carpa; trabaja sus orillas y desniveles.';
 
   @override
   String get adviceTimePressureDropTitle => 'Ventana antes del frente';

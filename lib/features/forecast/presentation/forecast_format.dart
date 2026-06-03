@@ -243,6 +243,21 @@ String windCardinalLabel(AppLocalizations l10n, WindCardinal c) => switch (c) {
       WindCardinal.nw => l10n.fcWindNW,
     };
 
+/// Полное слово стороны света («западный», «северо-восточный»). В узких
+/// подстрочниках выводится целиком и обрезается многоточием по ширине — это
+/// читается лучше однобуквенного кода и не путает диагонали (как «сев…» резало
+/// бы и «северный», и «северо-восточный»).
+String windCardinalFull(AppLocalizations l10n, WindCardinal c) => switch (c) {
+      WindCardinal.n => l10n.windFullN,
+      WindCardinal.ne => l10n.windFullNE,
+      WindCardinal.e => l10n.windFullE,
+      WindCardinal.se => l10n.windFullSE,
+      WindCardinal.s => l10n.windFullS,
+      WindCardinal.sw => l10n.windFullSW,
+      WindCardinal.w => l10n.windFullW,
+      WindCardinal.nw => l10n.windFullNW,
+    };
+
 /// Категория-ярлык по числовому индексу (Слабо/Средне/Хорошо/Отлично) — общая
 /// для карточек периода и модалки разбора, чтобы пороги не разъезжались.
 String biteRateLabel(AppLocalizations l10n, int value) {

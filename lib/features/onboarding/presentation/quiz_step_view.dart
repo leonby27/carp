@@ -11,6 +11,7 @@ const _kCardHeight = 64.0;
 const _kCardGap = 10.0;
 const _kImageRadius = 24.0;
 const _kCtaRadius = 20.0;
+const _kCtaHeight = 56.0;
 const _kScaleDuration = Duration(milliseconds: 200);
 const _kContainerDuration = Duration(milliseconds: 180);
 const _kCurve = Curves.easeOutCubic;
@@ -39,20 +40,7 @@ class QuizStepView extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: step.image != null ? 20 : 28),
-                  if (step.image != null) ...[
-                    FractionallySizedBox(
-                      widthFactor: 0.5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(_kImageRadius),
-                        child: Image.asset(
-                          step.image!,
-                          width: double.infinity,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ],
+                  const SizedBox(height: 28),
                   Text(
                     step.question(l10n),
                     style: TextStyle(
@@ -83,13 +71,28 @@ class QuizStepView extends ConsumerWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            child: _DarkCtaButton(
-              label: l10n.commonContinue,
-              onPressed: selected == null ? null : onContinue,
-              isDark: isDark,
+          if (step.image != null)
+            FractionallySizedBox(
+              widthFactor: 0.75,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(_kImageRadius),
+                child: Image.asset(
+                  step.image!,
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          // +4 к странице (20) = 24, чтобы совпасть по ширине с welcome CTA.
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: SizedBox(
+              width: double.infinity,
+              child: _DarkCtaButton(
+                label: l10n.commonContinue,
+                onPressed: selected == null ? null : onContinue,
+                isDark: isDark,
+              ),
             ),
           ),
           SizedBox(height: 16 + MediaQuery.paddingOf(context).bottom),
@@ -163,7 +166,7 @@ class _DarkCtaButton extends StatelessWidget {
     final disabled = onPressed == null;
     final bg = disabled
         ? (isDark ? AppColors.darkDisabledBg : AppColors.lightDisabledBg)
-        : AppColors.onboardingCtaBg;
+        : AppColors.onboardingCtaGreen;
     final fg = disabled
         ? (isDark ? AppColors.darkDisabledContent : AppColors.lightDisabledContent)
         : Colors.white;
@@ -175,7 +178,9 @@ class _DarkCtaButton extends StatelessWidget {
         foregroundColor: fg,
         disabledBackgroundColor: bg,
         disabledForegroundColor: fg,
-        padding: const EdgeInsets.symmetric(vertical: 18),
+        padding: EdgeInsets.zero,
+        minimumSize: const Size.fromHeight(_kCtaHeight),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_kCtaRadius)),
       ),
       child: Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),

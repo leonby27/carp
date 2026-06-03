@@ -9,10 +9,11 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get welcomeTitle => 'Carp bite forecast';
+  String get welcomeTitle => 'Plan around the bite, not the weekend';
 
   @override
-  String get welcomeSubtitle => 'Quick setup — under a minute';
+  String get welcomeSubtitle =>
+      'We\'ll find the best window for carp and crucian from real conditions, not guesswork';
 
   @override
   String get welcomeCta => 'Get started';
@@ -146,7 +147,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallSkipToday => 'See today for free first';
 
   @override
-  String get paywallTitle => 'Unlock the full bite forecast';
+  String get winbackTitle => '1 day of Pro, on us';
+
+  @override
+  String get winbackBody =>
+      'Unlock everything for 24 hours: bite forecast, best windows and tactics for your spot. No payment — just try it.';
+
+  @override
+  String get winbackCtaClaim => 'Claim 1 day';
+
+  @override
+  String get winbackCtaSkip => 'Continue without Pro';
+
+  @override
+  String get paywallTitle =>
+      'Open the complete fishing analysis for your spot for the week ahead';
+
+  @override
+  String get paywallSaveBadge => 'Save 85%';
+
+  @override
+  String get unlockTitle => 'Unlock All Pro Features';
+
+  @override
+  String get unlockBody =>
+      'Dozens of rules for carp and crucian carp fishing — pressure, water temperature, wind, moon, season, and time of day in one honest assessment from 0 to 100. And all of this is based on the weather of your specific water body.';
+
+  @override
+  String get tblFree => 'Free';
+
+  @override
+  String get tblPro => 'Pro';
+
+  @override
+  String get tblLimited => 'Limited';
+
+  @override
+  String get tblForecast => '7-day bite forecast · when to go';
+
+  @override
+  String get tblTactics => 'Daily tactics · what & how to catch';
+
+  @override
+  String get tblSpot => 'Your spot, decoded · where to set up';
+
+  @override
+  String get tblAlerts => 'Best-day alerts · day before';
+
+  @override
+  String get tblPlaybook => 'Carp & crucian playbook';
+
+  @override
+  String get tblJournal => 'Journal · conditions & bite index';
 
   @override
   String get planYearly => '12 months';
@@ -171,25 +223,35 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get trialDay1Desc => 'Access unlocked';
+  String get trialDay1Desc => 'Trial starts';
 
   @override
-  String get trialDayMidDesc => 'We\'ll remind you a day before';
+  String get trialDayMidDesc => 'We\'ll remind you';
 
   @override
-  String get trialDayEndDesc => 'Subscription starts';
+  String get trialDayEndDesc => 'Plan begins';
 
   @override
-  String get featureUnlimited => 'Forecast for all your spots';
+  String get paywallAlgoTitle => 'Smart bite algorithm';
 
   @override
-  String get featureUpdates => 'Hourly bite windows, updated daily';
+  String get paywallAlgoBody =>
+      'Dozens of rules tuned to carp biology — pressure, water temp, wind, moon, season and time of day in one honest 0–100 score. And all of it for the weather at your own water.';
 
   @override
-  String get featurePrivacy => 'Works anywhere, data stays private';
+  String get featureForecast => '7-day bite forecast — know when to go';
 
   @override
-  String get featureSupport => 'Priority support';
+  String get featureTactics =>
+      'Daily tactics — what and how to fish, what to feed';
+
+  @override
+  String get featureSpot =>
+      '\"Your spot\" — water analysis: type, size, where to stand by wind';
+
+  @override
+  String get featureAlerts =>
+      'Best-day alerts — push the evening before prime time at your spot';
 
   @override
   String get faqTitle => 'Frequently asked';
@@ -216,10 +278,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'The full bite forecast for all your spots, hourly biting windows, regular updates and priority support.';
 
   @override
-  String get paywallNoPaymentNow => 'No payment now';
+  String get paywallNoPaymentNow => 'No payment today';
 
   @override
-  String get paywallCtaStartFree => 'Start free trial';
+  String get paywallCtaStartFree => 'Start trial';
 
   @override
   String get paywallCtaSubscribe => 'Subscribe';
@@ -1218,6 +1280,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adviceKindBait => 'Bait';
 
   @override
+  String get adviceKindAroma => 'Aroma';
+
+  @override
   String get adviceKindFeeding => 'Feeding';
 
   @override
@@ -1341,6 +1406,27 @@ class AppLocalizationsEn extends AppLocalizations {
       'Water is dropping — fish turn cautious. Small pellets, corn, maggots.';
 
   @override
+  String get adviceAromaSweetFruityTitle => 'Sweet & fruity aroma';
+
+  @override
+  String get adviceAromaSweetFruityBody =>
+      'A sweet, fruity profile (strawberry, scopex, honey). Keep one aroma across groundbait and hookbait — water-soluble, it attracts without overfeeding.';
+
+  @override
+  String get adviceAromaFishmealTitle => 'Fishmeal aroma';
+
+  @override
+  String get adviceAromaFishmealBody =>
+      'Warm water, peak feeding — a fishmeal profile (fishmeal, krill, liver). Works in the groundbait base and on the hook: oils and amino acids feed.';
+
+  @override
+  String get adviceAromaSpicyTitle => 'Spicy aroma';
+
+  @override
+  String get adviceAromaSpicyBody =>
+      'Cold, coloured water — a spicy profile (chilli, pepper, Robin Red). Keep it in groundbait and hookbait — a strong signal when fish are lethargic.';
+
+  @override
   String get adviceFeedMinimalTitle => 'Feed sparingly';
 
   @override
@@ -1403,6 +1489,22 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get adviceSwimShelteredBody =>
       'In the heat, look for cooler deep water and shaded areas.';
+
+  @override
+  String get adviceSpotReeds =>
+      'Reeds nearby — cast tight to the reed margin, carp patrol the edge.';
+
+  @override
+  String get adviceSpotInflow =>
+      'Stream inflow nearby — fresh oxygenated water and washed-in food, strong in the heat.';
+
+  @override
+  String get adviceSpotDam =>
+      'Dam nearby — depth and the old riverbed; carp hold there, more so in the heat.';
+
+  @override
+  String get adviceSpotIsland =>
+      'Island nearby — a carp magnet; work its margins and drop-offs.';
 
   @override
   String get adviceTimePressureDropTitle => 'Pre-front window';

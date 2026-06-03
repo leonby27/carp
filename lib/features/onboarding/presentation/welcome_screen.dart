@@ -23,12 +23,14 @@ class WelcomeScreen extends ConsumerWidget {
         child: Column(
           children: [
             const Spacer(),
-            Image.asset(
-              'assets/images/onboarding/start.png',
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
+            FractionallySizedBox(
+              widthFactor: 0.85,
+              child: Image.asset(
+                'assets/images/onboarding/start.png',
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-            const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
@@ -48,9 +50,9 @@ class WelcomeScreen extends ConsumerWidget {
                     l10n.welcomeSubtitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 16,
-                      height: 22 / 16,
-                      color: cs.onSurfaceVariant,
+                      fontSize: 17,
+                      height: 23 / 17,
+                      color: cs.onSurface,
                     ),
                   ),
                 ],
@@ -151,16 +153,12 @@ class _CtaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         height: 56,
         decoration: BoxDecoration(
-          // В dark theme тёмная CTA на тёмном фоне теряется — используем primary.
-          color: isDark
-              ? Theme.of(context).colorScheme.primary
-              : AppColors.onboardingCtaBg,
+          color: AppColors.onboardingCtaGreen,
           borderRadius: BorderRadius.circular(20),
         ),
         alignment: Alignment.center,

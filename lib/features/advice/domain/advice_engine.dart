@@ -2,6 +2,7 @@ import '../../forecast/domain/bite_score.dart';
 import '../../forecast/domain/fish.dart';
 import '../../forecast/domain/forecast.dart';
 import '../../forecast/domain/weather_point.dart';
+import '../../spots/domain/water_body.dart';
 import 'advice.dart';
 
 /// Эвристический «движок тактики»: по реальной погоде Open-Meteo выдаёт по
@@ -25,8 +26,10 @@ class AdviceEngine {
     DayForecast day,
     Fish fish, {
     DayForecast? prev,
+    WaterBody? body,
   }) {
     final w = day.representative;
+    final features = _spotFeatures(body);
     final waterTrend = prev == null
         ? 0.0
         : w.waterTempC - prev.representative.waterTempC;
@@ -35,19 +38,24 @@ class AdviceEngine {
         w.condition == WeatherCondition.storm;
     final level = day.bite.level;
 
+    // Вчерашний аромат — для гистерезиса у температурных порогов (см. _aroma).
+    final prevAroma =
+        prev == null ? null : _aroma(prev.representative).code;
+
     return switch (fish) {
       Fish.carp => [
           _bait(w, waterTrend),
+          _aroma(w, prevAroma: prevAroma),
           _feeding(w, waterTrend, level),
           _depth(w, waterTrend, rainToday),
-          _location(w),
+          _location(w, features),
           _timing(w, level, day.bestWindow),
         ],
       Fish.crucian => [
           _crucianBait(w, waterTrend),
           _crucianFeeding(w, waterTrend, level),
           _crucianDepth(w, waterTrend),
-          _crucianLocation(w),
+          _crucianLocation(w, features),
           _crucianTiming(w, level, day.bestWindow),
         ],
     };
@@ -77,6 +85,49 @@ class AdviceEngine {
     }
     return AdviceTip(AdviceCode.baitHotSurface,
         reason: AdviceReason.waterTemp, reasonValue: t);
+  }
+
+  /// Вкус/аромат по температуре воды. Это химия растворимости ароматики плюс
+  /// метаболизм, а не данные о водоёме. Три семейства: сладко-фруктовое —
+  /// водорастворимое привлекающее (холод-прозрач, прогрев, жара на поверхности);
+  /// рыбно-мясное — тёплый жор 16–24 °C (масла раздаются и кормят); пряное —
+  /// холодная вода + муть от дождя/ветра (сильный сигнал для вялой рыбы).
+  /// Полуширина дед-бэнда гистерезиса у порогов тёплой полосы, °C. Температура
+  /// воды — модель (EMA воздуха, погрешность ±2–3 °C), поэтому у самой границы
+  /// 16/24 °C микро-колебания иначе перекидывали бы совет день-к-дню. Сменяем
+  /// профиль только при заметном (≥ [_aromaBand]) выходе за полосу.
+  static const _aromaBand = 1.0;
+
+  /// [prevAroma] — вчерашний аромат-код (для гистерезиса у порогов); null, если
+  /// предыдущего дня нет.
+  static AdviceTip _aroma(WeatherPoint w, {AdviceCode? prevAroma}) {
+    final t = w.waterTempC;
+    // Холодная + реально мутящий фактор — пряное. Муть воды поднимают дождевой
+    // сток и ветровое перемешивание (измеряемые величины), а НЕ облачность неба:
+    // пасмурно ≠ мутно, поэтому прокси по cloudCover убран как недостоверный.
+    final stirred = w.precipMm >= 1.0 || w.windSpeedMs >= 6;
+    if (t < 10 && stirred) {
+      return AdviceTip(AdviceCode.aromaSpicy,
+          reason: AdviceReason.waterTemp, reasonValue: t);
+    }
+    // Тёплый жор — рыбно-мясное (полоса 16–24 °C) с гистерезисом: если вчера уже
+    // был этот профиль — отпускаем его только при выходе за полосу на _aromaBand;
+    // войти в него с краёв (холод-прозрач/жара) — только зайдя на _aromaBand
+    // внутрь. Так шум модели у границ не дёргает совет. Спайси (выше) завязан на
+    // реальные дождь/ветер, не на шумную воду, — его не сглаживаем.
+    const lo = 16.0, hi = 24.0;
+    final bool fishmeal;
+    if (prevAroma == AdviceCode.aromaFishmeal) {
+      fishmeal = t >= lo - _aromaBand && t < hi + _aromaBand; // липкий выход
+    } else if (prevAroma == AdviceCode.aromaSweetFruity) {
+      fishmeal = t >= lo + _aromaBand && t < hi - _aromaBand; // липкий вход
+    } else {
+      fishmeal = t >= lo && t < hi; // нет истории — номинальные пороги
+    }
+    return AdviceTip(
+        fishmeal ? AdviceCode.aromaFishmeal : AdviceCode.aromaSweetFruity,
+        reason: AdviceReason.waterTemp,
+        reasonValue: t);
   }
 
   static AdviceTip _feeding(WeatherPoint w, double trend, BiteLevel level) {
@@ -130,19 +181,35 @@ class AdviceEngine {
         reason: AdviceReason.bottomHabit);
   }
 
-  static AdviceTip _location(WeatherPoint w) {
+  /// Структурные признаки спота из OSM → буллеты к совету «Место». Аддитивно:
+  /// признаков может быть несколько сразу, порядок фиксирован. Пусто, если
+  /// водоём неизвестен или структуры рядом нет.
+  static List<SpotFeature> _spotFeatures(WaterBody? b) {
+    if (b == null) return const [];
+    return [
+      if (b.reedsNearSpot) SpotFeature.reeds,
+      if (b.inflowNearSpot) SpotFeature.inflow,
+      if (b.damNearSpot) SpotFeature.dam,
+      if (b.islandCount > 0) SpotFeature.island,
+    ];
+  }
+
+  static AdviceTip _location(WeatherPoint w, List<SpotFeature> features) {
     if (w.airTempC >= 28) {
       return AdviceTip(AdviceCode.swimSheltered,
-          reason: AdviceReason.airHot, reasonValue: w.airTempC);
+          reason: AdviceReason.airHot,
+          reasonValue: w.airTempC,
+          bullets: features);
     }
     if (w.windSpeedMs >= 4) {
       return AdviceTip(AdviceCode.swimWindward,
           reason: AdviceReason.windStrong,
           reasonValue: w.windSpeedMs,
-          windDir: w.windCardinal);
+          windDir: w.windCardinal,
+          bullets: features);
     }
-    return const AdviceTip(AdviceCode.swimCalmFeatures,
-        reason: AdviceReason.windLight);
+    return AdviceTip(AdviceCode.swimCalmFeatures,
+        reason: AdviceReason.windLight, bullets: features);
   }
 
   static AdviceTip _timing(WeatherPoint w, BiteLevel level, BiteWindow? window) {
@@ -240,17 +307,21 @@ class AdviceEngine {
         reason: AdviceReason.bottomHabit);
   }
 
-  static AdviceTip _crucianLocation(WeatherPoint w) {
+  static AdviceTip _crucianLocation(WeatherPoint w, List<SpotFeature> features) {
     if (w.airTempC >= 30) {
       return AdviceTip(AdviceCode.crucianSwimDeepEdge,
-          reason: AdviceReason.airHot, reasonValue: w.airTempC);
+          reason: AdviceReason.airHot,
+          reasonValue: w.airTempC,
+          bullets: features);
     }
     if (w.waterTempC < 14) {
       return AdviceTip(AdviceCode.crucianSwimWarmShallows,
-          reason: AdviceReason.waterTemp, reasonValue: w.waterTempC);
+          reason: AdviceReason.waterTemp,
+          reasonValue: w.waterTempC,
+          bullets: features);
     }
-    return const AdviceTip(AdviceCode.crucianSwimReeds,
-        reason: AdviceReason.bottomHabit);
+    return AdviceTip(AdviceCode.crucianSwimReeds,
+        reason: AdviceReason.bottomHabit, bullets: features);
   }
 
   static AdviceTip _crucianTiming(

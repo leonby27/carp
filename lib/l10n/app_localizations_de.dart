@@ -9,10 +9,11 @@ class AppLocalizationsDe extends AppLocalizations {
   AppLocalizationsDe([String locale = 'de']) : super(locale);
 
   @override
-  String get welcomeTitle => 'Willkommen';
+  String get welcomeTitle => 'Plane nach dem Biss, nicht nach dem Wochenende';
 
   @override
-  String get welcomeSubtitle => 'Schnelles Setup — unter einer Minute';
+  String get welcomeSubtitle =>
+      'Wir finden das beste Zeitfenster für Karpfen und Karausche anhand echter Bedingungen, nicht geraten';
 
   @override
   String get welcomeCta => 'Loslegen';
@@ -145,7 +146,58 @@ class AppLocalizationsDe extends AppLocalizations {
   String get paywallSkipToday => 'Erst heute gratis ansehen';
 
   @override
-  String get paywallTitle => 'Vollzugriff freischalten';
+  String get winbackTitle => '1 Tag Pro geschenkt';
+
+  @override
+  String get winbackBody =>
+      'Schalte 24 Stunden lang alles frei: Beiß-Prognose, beste Zeitfenster und Taktik für deinen Spot. Ohne Zahlung — probier es einfach aus.';
+
+  @override
+  String get winbackCtaClaim => '1 Tag holen';
+
+  @override
+  String get winbackCtaSkip => 'Ohne Pro fortfahren';
+
+  @override
+  String get paywallTitle =>
+      'Öffne die komplette Angel-Analyse für deinen Spot für die kommende Woche';
+
+  @override
+  String get paywallSaveBadge => '85% sparen';
+
+  @override
+  String get unlockTitle => 'Alle Pro-Funktionen';
+
+  @override
+  String get unlockBody =>
+      'Dutzende Regeln für Karpfen- und Karauschenangeln — Druck, Wassertemperatur, Wind, Mond, Saison und Tageszeit in einer ehrlichen Bewertung von 0 bis 100. Und das alles nach dem Wetter deines konkreten Gewässers.';
+
+  @override
+  String get tblFree => 'Free';
+
+  @override
+  String get tblPro => 'Pro';
+
+  @override
+  String get tblLimited => 'Begrenzt';
+
+  @override
+  String get tblForecast => '7-Tage-Beißprognose · wann losfahren';
+
+  @override
+  String get tblTactics => 'Tagestaktik · was & wie fangen';
+
+  @override
+  String get tblSpot => 'Dein Spot entschlüsselt · wo ansitzen';
+
+  @override
+  String get tblAlerts => 'Top-Tag-Alarme · am Vortag';
+
+  @override
+  String get tblPlaybook => 'Karpfen- & Karauschen-Guide';
+
+  @override
+  String get tblJournal => 'Tagebuch · Bedingungen & Beiß-Index';
 
   @override
   String get planYearly => '12 Monate';
@@ -170,25 +222,35 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get trialDay1Desc => 'Zugriff freigeschaltet';
+  String get trialDay1Desc => 'Test startet';
 
   @override
-  String get trialDayMidDesc => 'Wir erinnern dich einen Tag vorher';
+  String get trialDayMidDesc => 'Wir erinnern dich';
 
   @override
   String get trialDayEndDesc => 'Abo beginnt';
 
   @override
-  String get featureUnlimited => 'Alle Funktionen ohne Limits';
+  String get paywallAlgoTitle => 'Intelligenter Beiß-Algorithmus';
 
   @override
-  String get featureUpdates => 'Regelmäßige Updates';
+  String get paywallAlgoBody =>
+      'Dutzende Regeln nach der Biologie des Karpfens — Luftdruck, Wassertemperatur, Wind, Mond, Jahreszeit und Tageszeit in einem ehrlichen Wert von 0–100. Und das alles nach dem Wetter genau an deinem Gewässer.';
 
   @override
-  String get featurePrivacy => 'Sicher und privat';
+  String get featureForecast => '7-Tage-Beißprognose — wann es sich lohnt';
 
   @override
-  String get featureSupport => 'Bevorzugter Support';
+  String get featureTactics =>
+      'Tägliche Taktik — was und wie angeln, womit füttern';
+
+  @override
+  String get featureSpot =>
+      '„Dein Spot“ — Gewässeranalyse: Typ, Größe, wo du im Wind stehst';
+
+  @override
+  String get featureAlerts =>
+      'Beste-Tage-Hinweise — Push am Vorabend der besten Zeit an deinem Spot';
 
   @override
   String get faqTitle => 'Häufige Fragen';
@@ -215,10 +277,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Alle App-Funktionen ohne Limits, regelmäßige Updates und bevorzugter Support.';
 
   @override
-  String get paywallNoPaymentNow => 'Keine Zahlung jetzt';
+  String get paywallNoPaymentNow => 'Heute keine Zahlung';
 
   @override
-  String get paywallCtaStartFree => 'Gratis starten';
+  String get paywallCtaStartFree => 'Test starten';
 
   @override
   String get paywallCtaSubscribe => 'Abonnieren';
@@ -1229,6 +1291,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get adviceKindBait => 'Köder';
 
   @override
+  String get adviceKindAroma => 'Aroma';
+
+  @override
   String get adviceKindFeeding => 'Anfüttern';
 
   @override
@@ -1352,6 +1417,27 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das Wasser fällt — die Fische werden vorsichtig. Kleine Pellets, Mais, Maden.';
 
   @override
+  String get adviceAromaSweetFruityTitle => 'Süß-fruchtiges Aroma';
+
+  @override
+  String get adviceAromaSweetFruityBody =>
+      'Süß-fruchtiges Profil (Erdbeere, Scopex, Honig). Ein Aroma in Futter und Hakenköder halten — wasserlöslich, lockt, ohne zu überfüttern.';
+
+  @override
+  String get adviceAromaFishmealTitle => 'Fischmehl-Aroma';
+
+  @override
+  String get adviceAromaFishmealBody =>
+      'Warmes Wasser, Beißhöhepunkt — Fischmehl-Profil (Fischmehl, Krill, Leber). Wirkt in der Futterbasis und am Haken: Öle und Aminosäuren füttern.';
+
+  @override
+  String get adviceAromaSpicyTitle => 'Würziges Aroma';
+
+  @override
+  String get adviceAromaSpicyBody =>
+      'Kaltes, trübes Wasser — würziges Profil (Chili, Pfeffer, Robin Red). In Futter und Hakenköder halten — ein starker Reiz, wenn die Fische träge sind.';
+
+  @override
   String get adviceFeedMinimalTitle => 'Sparsam anfüttern';
 
   @override
@@ -1414,6 +1500,22 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get adviceSwimShelteredBody =>
       'Bei Hitze kühleres tiefes Wasser und schattige Bereiche suchen.';
+
+  @override
+  String get adviceSpotReeds =>
+      'Schilf in der Nähe — wirf dicht an die Schilfkante, Karpfen ziehen am Rand entlang.';
+
+  @override
+  String get adviceSpotInflow =>
+      'Bachzufluss in der Nähe — frisches, sauerstoffreiches Wasser und eingespültes Futter, besonders bei Hitze.';
+
+  @override
+  String get adviceSpotDam =>
+      'Damm in der Nähe — Tiefe und altes Flussbett; dort stehen Karpfen, bei Hitze erst recht.';
+
+  @override
+  String get adviceSpotIsland =>
+      'Insel in der Nähe — ein Karpfenmagnet; befische ihre Kanten und Abbrüche.';
 
   @override
   String get adviceTimePressureDropTitle => 'Fenster vor der Front';

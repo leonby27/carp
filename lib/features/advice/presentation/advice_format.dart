@@ -11,6 +11,7 @@ import '../domain/advice.dart';
 
 IconData adviceKindIcon(AdviceKind kind) => switch (kind) {
       AdviceKind.bait => Icons.set_meal_outlined,
+      AdviceKind.aroma => Icons.science_outlined,
       AdviceKind.feeding => Icons.grain,
       AdviceKind.depth => Icons.swap_vert,
       AdviceKind.location => Icons.explore_outlined,
@@ -34,6 +35,9 @@ String _iconName(AdviceCode code) => switch (code) {
       AdviceCode.baitHotSurface => 'bait_hot_surface',
       AdviceCode.baitWarming => 'bait_warming',
       AdviceCode.baitCooling => 'bait_cooling',
+      AdviceCode.aromaSweetFruity => 'aroma_sweet',
+      AdviceCode.aromaFishmeal => 'aroma_fishmeal',
+      AdviceCode.aromaSpicy => 'aroma_spicy',
       AdviceCode.feedMinimal => 'feed_minimal',
       AdviceCode.feedModerate => 'feed_moderate',
       AdviceCode.feedHeavy => 'feed_heavy',
@@ -74,6 +78,7 @@ String _iconName(AdviceCode code) => switch (code) {
 String adviceKindTitle(AppLocalizations l10n, AdviceKind kind) =>
     switch (kind) {
       AdviceKind.bait => l10n.adviceKindBait,
+      AdviceKind.aroma => l10n.adviceKindAroma,
       AdviceKind.feeding => l10n.adviceKindFeeding,
       AdviceKind.depth => l10n.adviceKindDepth,
       AdviceKind.location => l10n.adviceKindLocation,
@@ -87,6 +92,9 @@ String adviceTitle(AppLocalizations l10n, AdviceTip tip) => switch (tip.code) {
       AdviceCode.baitHotSurface => l10n.adviceBaitHotSurfaceTitle,
       AdviceCode.baitWarming => l10n.adviceBaitWarmingTitle,
       AdviceCode.baitCooling => l10n.adviceBaitCoolingTitle,
+      AdviceCode.aromaSweetFruity => l10n.adviceAromaSweetFruityTitle,
+      AdviceCode.aromaFishmeal => l10n.adviceAromaFishmealTitle,
+      AdviceCode.aromaSpicy => l10n.adviceAromaSpicyTitle,
       AdviceCode.feedMinimal => l10n.adviceFeedMinimalTitle,
       AdviceCode.feedModerate => l10n.adviceFeedModerateTitle,
       AdviceCode.feedHeavy => l10n.adviceFeedHeavyTitle,
@@ -166,6 +174,15 @@ String adviceReason(AppLocalizations l10n, Units units, AdviceTip tip) =>
       AdviceReason.bestHours => l10n.adviceWhyBestHours,
     };
 
+/// Текст буллета структуры спота (тростник/приток/плотина/остров) в совете
+/// «Место». Локализованная watercraft-подсказка «где искать рыбу».
+String spotFeatureBody(AppLocalizations l10n, SpotFeature f) => switch (f) {
+      SpotFeature.reeds => l10n.adviceSpotReeds,
+      SpotFeature.inflow => l10n.adviceSpotInflow,
+      SpotFeature.dam => l10n.adviceSpotDam,
+      SpotFeature.island => l10n.adviceSpotIsland,
+    };
+
 String _hm(DateTime t) => '${t.hour}:00';
 
 /// Полное название направления ветра — в предложении короткие «С/В/З» путаются
@@ -189,6 +206,9 @@ String _staticBody(AppLocalizations l10n, AdviceCode code) => switch (code) {
       AdviceCode.baitHotSurface => l10n.adviceBaitHotSurfaceBody,
       AdviceCode.baitWarming => l10n.adviceBaitWarmingBody,
       AdviceCode.baitCooling => l10n.adviceBaitCoolingBody,
+      AdviceCode.aromaSweetFruity => l10n.adviceAromaSweetFruityBody,
+      AdviceCode.aromaFishmeal => l10n.adviceAromaFishmealBody,
+      AdviceCode.aromaSpicy => l10n.adviceAromaSpicyBody,
       AdviceCode.feedMinimal => l10n.adviceFeedMinimalBody,
       AdviceCode.feedModerate => l10n.adviceFeedModerateBody,
       AdviceCode.feedHeavy => l10n.adviceFeedHeavyBody,

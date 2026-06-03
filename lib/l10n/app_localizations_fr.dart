@@ -9,10 +9,11 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get welcomeTitle => 'Bienvenue';
+  String get welcomeTitle => 'Planifie selon le mordage, pas selon le week-end';
 
   @override
-  String get welcomeSubtitle => 'Configuration rapide — moins d\'une minute';
+  String get welcomeSubtitle =>
+      'On vous indique le meilleur créneau pour carpe et carassin : calculé d\'après les conditions réelles, pas au hasard';
 
   @override
   String get welcomeCta => 'Commencer';
@@ -145,7 +146,58 @@ class AppLocalizationsFr extends AppLocalizations {
   String get paywallSkipToday => 'D\'abord voir aujourd\'hui gratuitement';
 
   @override
-  String get paywallTitle => 'Débloquez l\'accès complet';
+  String get winbackTitle => '1 jour de Pro offert';
+
+  @override
+  String get winbackBody =>
+      'Débloque tout pendant 24 heures : prévision de touche, meilleurs créneaux et tactique pour ton spot. Sans paiement, essaie simplement.';
+
+  @override
+  String get winbackCtaClaim => 'Obtenir 1 jour';
+
+  @override
+  String get winbackCtaSkip => 'Continuer sans Pro';
+
+  @override
+  String get paywallTitle =>
+      'Ouvre l\'analyse de pêche complète pour ton spot pour la semaine à venir';
+
+  @override
+  String get paywallSaveBadge => 'Économisez 85%';
+
+  @override
+  String get unlockTitle => 'Toutes les fonctions Pro';
+
+  @override
+  String get unlockBody =>
+      'Des dizaines de règles pour la pêche de la carpe et du carassin — pression, température de l\'eau, vent, lune, saison et heure du jour en une évaluation honnête de 0 à 100. Et tout cela d\'après la météo de ton propre plan d\'eau.';
+
+  @override
+  String get tblFree => 'Free';
+
+  @override
+  String get tblPro => 'Pro';
+
+  @override
+  String get tblLimited => 'Limité';
+
+  @override
+  String get tblForecast => 'Prévision de touche 7 jours · quand partir';
+
+  @override
+  String get tblTactics => 'Tactique du jour · quoi et comment pêcher';
+
+  @override
+  String get tblSpot => 'Ton spot décodé · où s\'installer';
+
+  @override
+  String get tblAlerts => 'Alertes meilleurs jours · la veille';
+
+  @override
+  String get tblPlaybook => 'Guide carpe & carassin';
+
+  @override
+  String get tblJournal => 'Journal · conditions & indice de touche';
 
   @override
   String get planYearly => '12 mois';
@@ -170,25 +222,36 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get trialDay1Desc => 'Accès débloqué';
+  String get trialDay1Desc => 'Début de l\'essai';
 
   @override
-  String get trialDayMidDesc => 'Nous vous rappellerons un jour avant';
+  String get trialDayMidDesc => 'On te préviendra';
 
   @override
   String get trialDayEndDesc => 'L\'abonnement commence';
 
   @override
-  String get featureUnlimited => 'Toutes les fonctionnalités sans limite';
+  String get paywallAlgoTitle => 'Algorithme de touche intelligent';
 
   @override
-  String get featureUpdates => 'Mises à jour régulières';
+  String get paywallAlgoBody =>
+      'Des dizaines de règles selon la biologie de la carpe — pression, température de l\'eau, vent, lune, saison et heure du jour en une seule note honnête de 0 à 100. Le tout d\'après la météo de ton propre plan d\'eau.';
 
   @override
-  String get featurePrivacy => 'Sûr et privé';
+  String get featureForecast =>
+      'Prévision de touche sur 7 jours — quand y aller';
 
   @override
-  String get featureSupport => 'Support prioritaire';
+  String get featureTactics =>
+      'Tactique au quotidien — quoi et comment pêcher, comment amorcer';
+
+  @override
+  String get featureSpot =>
+      '« Ton spot » — analyse du plan d\'eau : type, taille, où se placer selon le vent';
+
+  @override
+  String get featureAlerts =>
+      'Alertes des meilleurs jours — notif la veille du moment idéal sur ton spot';
 
   @override
   String get faqTitle => 'Questions fréquentes';
@@ -215,10 +278,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Toutes les fonctionnalités sans limite, des mises à jour régulières et un support prioritaire.';
 
   @override
-  String get paywallNoPaymentNow => 'Aucun paiement maintenant';
+  String get paywallNoPaymentNow => 'Aucun paiement aujourd\'hui';
 
   @override
-  String get paywallCtaStartFree => 'Commencer gratuitement';
+  String get paywallCtaStartFree => 'Commencer l\'essai';
 
   @override
   String get paywallCtaSubscribe => 'S\'abonner';
@@ -1231,6 +1294,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get adviceKindBait => 'Appât';
 
   @override
+  String get adviceKindAroma => 'Arôme';
+
+  @override
   String get adviceKindFeeding => 'Amorçage';
 
   @override
@@ -1354,6 +1420,27 @@ class AppLocalizationsFr extends AppLocalizations {
       'L\'eau baisse — le poisson devient prudent. Petits pellets, maïs, asticots.';
 
   @override
+  String get adviceAromaSweetFruityTitle => 'Arôme sucré et fruité';
+
+  @override
+  String get adviceAromaSweetFruityBody =>
+      'Profil sucré et fruité (fraise, scopex, miel). Garde un même arôme dans l\'amorce et l\'esche — soluble dans l\'eau, il attire sans suralimenter.';
+
+  @override
+  String get adviceAromaFishmealTitle => 'Arôme de farine de poisson';
+
+  @override
+  String get adviceAromaFishmealBody =>
+      'Eau chaude, pic d\'activité — profil farine de poisson (farine de poisson, krill, foie). Agit dans la base d\'amorce et sur l\'hameçon : huiles et acides aminés nourrissent.';
+
+  @override
+  String get adviceAromaSpicyTitle => 'Arôme épicé';
+
+  @override
+  String get adviceAromaSpicyBody =>
+      'Eau froide et trouble — profil épicé (piment, poivre, Robin Red). Garde-le dans l\'amorce et l\'esche — un signal fort quand les poissons sont léthargiques.';
+
+  @override
   String get adviceFeedMinimalTitle => 'Amorce avec parcimonie';
 
   @override
@@ -1416,6 +1503,22 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get adviceSwimShelteredBody =>
       'Par forte chaleur, cherche l\'eau profonde plus fraîche et les zones ombragées.';
+
+  @override
+  String get adviceSpotReeds =>
+      'Roseaux à proximité — lance au ras de la bordure de roseaux, la carpe longe le bord.';
+
+  @override
+  String get adviceSpotInflow =>
+      'Arrivée d\'un ruisseau à proximité — eau fraîche oxygénée et nourriture charriée, surtout par forte chaleur.';
+
+  @override
+  String get adviceSpotDam =>
+      'Barrage à proximité — profondeur et ancien lit de rivière ; la carpe s\'y tient, d\'autant plus par forte chaleur.';
+
+  @override
+  String get adviceSpotIsland =>
+      'Île à proximité — un aimant à carpes ; prospecte ses bordures et ses cassures.';
 
   @override
   String get adviceTimePressureDropTitle => 'Fenêtre avant le front';

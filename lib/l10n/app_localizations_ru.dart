@@ -9,10 +9,11 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get welcomeTitle => 'Прогноз клёва карпа';
+  String get welcomeTitle => 'Планируй по клёву, а не по выходным';
 
   @override
-  String get welcomeSubtitle => 'Быстрая настройка — меньше минуты';
+  String get welcomeSubtitle =>
+      'Подскажем лучшее окно для карпа и карася: считаем по реальным условиям, а не гадаем';
 
   @override
   String get welcomeCta => 'Начать';
@@ -145,7 +146,58 @@ class AppLocalizationsRu extends AppLocalizations {
   String get paywallSkipToday => 'Сначала посмотреть сегодня бесплатно';
 
   @override
-  String get paywallTitle => 'Откройте полный прогноз клёва';
+  String get winbackTitle => 'Дарим 1 день Pro';
+
+  @override
+  String get winbackBody =>
+      'Открой все функции на сутки: прогноз клёва, лучшие окна и тактику по своему водоёму. Без оплаты — просто попробуй.';
+
+  @override
+  String get winbackCtaClaim => 'Забрать 1 день';
+
+  @override
+  String get winbackCtaSkip => 'Продолжить без Pro';
+
+  @override
+  String get paywallTitle =>
+      'Открой полный разбор рыбалки на твоём споте на неделю вперёд';
+
+  @override
+  String get paywallSaveBadge => 'Скидка 85%';
+
+  @override
+  String get unlockTitle => 'Все функции Pro';
+
+  @override
+  String get unlockBody =>
+      'Десятки правил для ловли карпа и карася — давление, температура воды, ветер, луна, сезон и время суток в одной честной оценке от 0 до 100. И всё это — по погоде именно твоего водоёма.';
+
+  @override
+  String get tblFree => 'Free';
+
+  @override
+  String get tblPro => 'Pro';
+
+  @override
+  String get tblLimited => 'Лимит';
+
+  @override
+  String get tblForecast => 'Прогноз клёва на 7 дней · когда ехать';
+
+  @override
+  String get tblTactics => 'Тактика на день · что и как ловить';
+
+  @override
+  String get tblSpot => 'Разбор спота · где встать';
+
+  @override
+  String get tblAlerts => 'Алёрты лучших дней · накануне';
+
+  @override
+  String get tblPlaybook => 'Гайды по карпу и карасю';
+
+  @override
+  String get tblJournal => 'Дневник · условия и индекс клёва';
 
   @override
   String get planYearly => '12 месяцев';
@@ -172,25 +224,35 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get trialDay1Desc => 'Доступ открыт';
+  String get trialDay1Desc => 'Старт пробного';
 
   @override
-  String get trialDayMidDesc => 'Напомним за день';
+  String get trialDayMidDesc => 'Напомним заранее';
 
   @override
-  String get trialDayEndDesc => 'Списание';
+  String get trialDayEndDesc => 'Начинается подписка';
 
   @override
-  String get featureUnlimited => 'Прогноз для всех ваших мест';
+  String get paywallAlgoTitle => 'Умный алгоритм клёва';
 
   @override
-  String get featureUpdates => 'Часы клёва обновляются каждый день';
+  String get paywallAlgoBody =>
+      'Десятки правил под биологию карпа — давление, темп. воды, ветер, луна, сезон и время суток в одной честной оценке 0–100. И всё это — по погоде именно твоего водоёма.';
 
   @override
-  String get featurePrivacy => 'Работает везде, данные приватны';
+  String get featureForecast => 'Прогноз клёва на 7 дней вперёд — когда ехать';
 
   @override
-  String get featureSupport => 'Приоритетная поддержка';
+  String get featureTactics =>
+      'Тактика на каждый день — что и как ловить, чем кормить';
+
+  @override
+  String get featureSpot =>
+      '«Твой спот» — разбор водоёма: тип, размер, где встать по ветру';
+
+  @override
+  String get featureAlerts =>
+      'Алёрты лучших дней — пуш накануне прайм-окна на твоём споте';
 
   @override
   String get faqTitle => 'Часто спрашивают';
@@ -217,10 +279,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Полный прогноз клёва для всех ваших мест, часы клёва по часам, регулярные обновления и приоритетная поддержка.';
 
   @override
-  String get paywallNoPaymentNow => 'Без оплаты сейчас';
+  String get paywallNoPaymentNow => 'Сегодня без оплаты';
 
   @override
-  String get paywallCtaStartFree => 'Начать бесплатно';
+  String get paywallCtaStartFree => 'Начать пробный период';
 
   @override
   String get paywallCtaSubscribe => 'Оформить подписку';
@@ -1228,6 +1290,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get adviceKindBait => 'Насадка';
 
   @override
+  String get adviceKindAroma => 'Аромат';
+
+  @override
   String get adviceKindFeeding => 'Прикормка';
 
   @override
@@ -1351,6 +1416,27 @@ class AppLocalizationsRu extends AppLocalizations {
       'Вода падает — рыба осторожничает. Мелкий пеллет, кукуруза, опарыш.';
 
   @override
+  String get adviceAromaSweetFruityTitle => 'Сладко-фруктовый аромат';
+
+  @override
+  String get adviceAromaSweetFruityBody =>
+      'Сладко-фруктовый профиль (клубника, скопекс, мёд). Держи один аромат и в прикормке, и в насадке: водорастворимый, привлекает не перегружая кормом.';
+
+  @override
+  String get adviceAromaFishmealTitle => 'Рыбно-мясной аромат';
+
+  @override
+  String get adviceAromaFishmealBody =>
+      'Тёплая вода, пик жора — рыбно-мясной профиль (рыбная мука, криль, печень). Работает и в базе прикормки, и в насадке: масла и аминокислоты кормят.';
+
+  @override
+  String get adviceAromaSpicyTitle => 'Пряный аромат';
+
+  @override
+  String get adviceAromaSpicyBody =>
+      'Холодная мутная вода — пряный профиль (специи, перец, Robin Red). Держи его и в прикормке, и в насадке — сильный сигнал для вялой рыбы.';
+
+  @override
   String get adviceFeedMinimalTitle => 'Корми скупо';
 
   @override
@@ -1413,6 +1499,22 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get adviceSwimShelteredBody =>
       'В жару ищи прохладные глубокие участки и затенённые зоны.';
+
+  @override
+  String get adviceSpotReeds =>
+      'Рядом тростник — забрасывай вдоль камышовой кромки, карп ходит по краю.';
+
+  @override
+  String get adviceSpotInflow =>
+      'Рядом впадение ручья — свежая насыщенная кислородом вода и принесённый корм, особенно в жару.';
+
+  @override
+  String get adviceSpotDam =>
+      'Рядом плотина — глубина и старое русло, рыба держится там, в жару тем более.';
+
+  @override
+  String get adviceSpotIsland =>
+      'Рядом остров — магнит для карпа, облавливай его бровки и свалы.';
 
   @override
   String get adviceTimePressureDropTitle => 'Окно перед фронтом';

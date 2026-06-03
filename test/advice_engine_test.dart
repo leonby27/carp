@@ -244,10 +244,84 @@ void main() {
     });
   });
 
+  group('aroma по температуре воды и мути (дождь/ветер)', () {
+    test('холодная прозрачная → сладко-фруктовый', () {
+      final a = _advice(_day(_point(waterTempC: 7, cloudCoverPct: 20)));
+      expect(_of(a, AdviceKind.aroma), AdviceCode.aromaSweetFruity);
+    });
+
+    test('холодная + ветер мутит воду → пряный', () {
+      final a = _advice(_day(_point(waterTempC: 7, windSpeedMs: 7)));
+      expect(_of(a, AdviceKind.aroma), AdviceCode.aromaSpicy);
+    });
+
+    test('холодная + дождь мутит воду → пряный', () {
+      final a = _advice(_day(_point(waterTempC: 7, precipMm: 2)));
+      expect(_of(a, AdviceKind.aroma), AdviceCode.aromaSpicy);
+    });
+
+    test('холодная + облачно, но вода спокойная → сладко-фруктовый', () {
+      // Облачность больше НЕ считается мутью: пасмурно при штиле и без дождя —
+      // вода прозрачная, аромат сладко-фруктовый.
+      final a = _advice(_day(_point(waterTempC: 7, cloudCoverPct: 80)));
+      expect(_of(a, AdviceKind.aroma), AdviceCode.aromaSweetFruity);
+    });
+
+    test('прогрев 10–16 → сладко-фруктовый', () {
+      final a = _advice(_day(_point(waterTempC: 13)));
+      expect(_of(a, AdviceKind.aroma), AdviceCode.aromaSweetFruity);
+    });
+
+    test('тёплый жор 16–24 → рыбно-мясной', () {
+      final a = _advice(_day(_point(waterTempC: 20)));
+      expect(_of(a, AdviceKind.aroma), AdviceCode.aromaFishmeal);
+    });
+
+    test('жара ≥24 → сладко-фруктовый (лёгкое на верх)', () {
+      final a = _advice(_day(_point(waterTempC: 26)));
+      expect(_of(a, AdviceKind.aroma), AdviceCode.aromaSweetFruity);
+    });
+
+    test('аромат опирается на температуру воды (reason)', () {
+      final tip = _tip(_advice(_day(_point(waterTempC: 20))), AdviceKind.aroma);
+      expect(tip.reason, AdviceReason.waterTemp);
+      expect(tip.reasonValue, 20);
+    });
+  });
+
+  group('aroma гистерезис у порогов 16/24 (шум модели воды)', () {
+    test('был рыбно-мясной, чуть ниже 16 → удерживаем (липкий выход)', () {
+      // prev=20°C → рыбно-мясной; сегодня 15.5°C в дед-бэнде [15,16) —
+      // без гистерезиса перекинуло бы в сладко-фруктовый.
+      final prev = _day(_point(waterTempC: 20));
+      final today = _day(_point(waterTempC: 15.5));
+      expect(_of(_advice(today, prev: prev), AdviceKind.aroma),
+          AdviceCode.aromaFishmeal);
+    });
+
+    test('был сладко-фруктовый, чуть выше 16 → не входим (липкий вход)', () {
+      // prev=13°C → сладко-фруктовый; сегодня 16.5°C ещё в дед-бэнде [16,17) —
+      // без гистерезиса уже стало бы рыбно-мясным.
+      final prev = _day(_point(waterTempC: 13));
+      final today = _day(_point(waterTempC: 16.5));
+      expect(_of(_advice(today, prev: prev), AdviceKind.aroma),
+          AdviceCode.aromaSweetFruity);
+    });
+
+    test('заметный выход за полосу → профиль всё-таки меняется', () {
+      // prev=20°C → рыбно-мясной; сегодня 14°C — глубже дед-бэнда, переключаем.
+      final prev = _day(_point(waterTempC: 20));
+      final today = _day(_point(waterTempC: 14));
+      expect(_of(_advice(today, prev: prev), AdviceKind.aroma),
+          AdviceCode.aromaSweetFruity);
+    });
+  });
+
   test('forDay возвращает по одному совету на каждую категорию по порядку', () {
     final a = _advice(_day(_point()));
     expect(a.map((t) => t.kind).toList(), [
       AdviceKind.bait,
+      AdviceKind.aroma,
       AdviceKind.feeding,
       AdviceKind.depth,
       AdviceKind.location,

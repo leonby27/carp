@@ -1,8 +1,8 @@
 {
   "@@locale": "en",
 
-  "welcomeTitle": "Carp bite forecast",
-  "welcomeSubtitle": "Quick setup — under a minute",
+  "welcomeTitle": "Plan around the bite, not the weekend",
+  "welcomeSubtitle": "We'll find the best window for carp and crucian from real conditions, not guesswork",
   "welcomeCta": "Get started",
 
   "languageSheetTitle": "Language",
@@ -55,7 +55,25 @@
   "onbResultCta": "See my forecast",
   "paywallSkipToday": "See today for free first",
 
-  "paywallTitle": "Unlock the full bite forecast",
+  "winbackTitle": "1 day of Pro, on us",
+  "winbackBody": "Unlock everything for 24 hours: bite forecast, best windows and tactics for your spot. No payment — just try it.",
+  "winbackCtaClaim": "Claim 1 day",
+  "winbackCtaSkip": "Continue without Pro",
+
+  "paywallTitle": "Open the complete fishing analysis for your spot for the week ahead",
+
+  "paywallSaveBadge": "Save 85%",
+  "unlockTitle": "Unlock All Pro Features",
+  "unlockBody": "Dozens of rules for carp and crucian carp fishing — pressure, water temperature, wind, moon, season, and time of day in one honest assessment from 0 to 100. And all of this is based on the weather of your specific water body.",
+  "tblFree": "Free",
+  "tblPro": "Pro",
+  "tblLimited": "Limited",
+  "tblForecast": "7-day bite forecast · when to go",
+  "tblTactics": "Daily tactics · what & how to catch",
+  "tblSpot": "Your spot, decoded · where to set up",
+  "tblAlerts": "Best-day alerts · day before",
+  "tblPlaybook": "Carp & crucian playbook",
+  "tblJournal": "Journal · conditions & bite index",
   "planYearly": "12 months",
   "planWeekly": "Week",
   "trialBadgeFreeDays": "{days, plural, one{{days} day free} other{{days} days free}}",
@@ -66,14 +84,16 @@
   "@trialDayLabel": {
     "placeholders": { "n": { "type": "int" } }
   },
-  "trialDay1Desc": "Access unlocked",
-  "trialDayMidDesc": "We'll remind you a day before",
-  "trialDayEndDesc": "Subscription starts",
+  "trialDay1Desc": "Trial starts",
+  "trialDayMidDesc": "We'll remind you",
+  "trialDayEndDesc": "Plan begins",
 
-  "featureUnlimited": "Forecast for all your spots",
-  "featureUpdates": "Hourly bite windows, updated daily",
-  "featurePrivacy": "Works anywhere, data stays private",
-  "featureSupport": "Priority support",
+  "paywallAlgoTitle": "Smart bite algorithm",
+  "paywallAlgoBody": "Dozens of rules tuned to carp biology — pressure, water temp, wind, moon, season and time of day in one honest 0–100 score. And all of it for the weather at your own water.",
+  "featureForecast": "7-day bite forecast — know when to go",
+  "featureTactics": "Daily tactics — what and how to fish, what to feed",
+  "featureSpot": "\"Your spot\" — water analysis: type, size, where to stand by wind",
+  "featureAlerts": "Best-day alerts — push the evening before prime time at your spot",
 
   "faqTitle": "Frequently asked",
   "faqCancelQ": "Can I cancel?",
@@ -83,8 +103,8 @@
   "faqIncludesQ": "What's included in the subscription?",
   "faqIncludesA": "The full bite forecast for all your spots, hourly biting windows, regular updates and priority support.",
 
-  "paywallNoPaymentNow": "No payment now",
-  "paywallCtaStartFree": "Start free trial",
+  "paywallNoPaymentNow": "No payment today",
+  "paywallCtaStartFree": "Start trial",
   "paywallCtaSubscribe": "Subscribe",
   "paywallDisclaimer": "Auto-renews. Cancel anytime",
 
@@ -501,6 +521,7 @@
   "adviceDisclaimer": "Guidance based on the weather forecast, not a specific water.",
 
   "adviceKindBait": "Bait",
+  "adviceKindAroma": "Aroma",
   "adviceKindFeeding": "Feeding",
   "adviceKindDepth": "Depth",
   "adviceKindLocation": "Spot",
@@ -551,6 +572,13 @@
   "adviceBaitCoolingTitle": "Downsize & brighten",
   "adviceBaitCoolingBody": "Water is dropping — fish turn cautious. Small pellets, corn, maggots.",
 
+  "adviceAromaSweetFruityTitle": "Sweet & fruity aroma",
+  "adviceAromaSweetFruityBody": "A sweet, fruity profile (strawberry, scopex, honey). Keep one aroma across groundbait and hookbait — water-soluble, it attracts without overfeeding.",
+  "adviceAromaFishmealTitle": "Fishmeal aroma",
+  "adviceAromaFishmealBody": "Warm water, peak feeding — a fishmeal profile (fishmeal, krill, liver). Works in the groundbait base and on the hook: oils and amino acids feed.",
+  "adviceAromaSpicyTitle": "Spicy aroma",
+  "adviceAromaSpicyBody": "Cold, coloured water — a spicy profile (chilli, pepper, Robin Red). Keep it in groundbait and hookbait — a strong signal when fish are lethargic.",
+
   "adviceFeedMinimalTitle": "Feed sparingly",
   "adviceFeedMinimalBody": "Only a couple of handfuls, placed tight — don't overfeed inactive fish.",
   "adviceFeedModerateTitle": "Feed moderately",
@@ -574,6 +602,11 @@
   "adviceSwimCalmFeaturesBody": "Light wind — work drop-offs, snags, reeds and depth changes.",
   "adviceSwimShelteredTitle": "Go deep or shaded",
   "adviceSwimShelteredBody": "In the heat, look for cooler deep water and shaded areas.",
+
+  "adviceSpotReeds": "Reeds nearby — cast tight to the reed margin, carp patrol the edge.",
+  "adviceSpotInflow": "Stream inflow nearby — fresh oxygenated water and washed-in food, strong in the heat.",
+  "adviceSpotDam": "Dam nearby — depth and the old riverbed; carp hold there, more so in the heat.",
+  "adviceSpotIsland": "Island nearby — a carp magnet; work its margins and drop-offs.",
 
   "adviceTimePressureDropTitle": "Pre-front window",
   "adviceTimePressureDropBody": "Pressure is falling — a feeding spell is likely. Don't miss the next few hours.",

@@ -115,6 +115,10 @@ class AppColors {
   /// so the white scaffold isn't dominated by a saturated rectangle.
   static const onboardingCtaBg = Color(0xFF0E1220);
 
+  /// Muted swamp/grass green for onboarding CTA buttons — slightly darker and
+  /// more olive than the brand `primary`, so the buttons read warmer.
+  static const onboardingCtaGreen = Color(0xFF3C6B33);
+
   // ── Card edge tokens (skeumorphic depth) ──────────────────
   static const cardEdgeLight = Color(0xFFE5E6EF);
   static const cardEdgeDark = Color(0xFF0D0E11);
