@@ -190,6 +190,8 @@ class ForecastTab extends ConsumerWidget {
                   icon: Icons.location_on,
                   iconColor: theme.colorScheme.primary,
                   label: title,
+                  // Лист открываем всем; для free смена места на другой спот
+                  // уже внутри листа уводит на пейволл (текущее место — free).
                   onTap: () => showLocationSheet(context),
                 ),
               ),
@@ -413,6 +415,7 @@ class _FishSheet extends ConsumerWidget {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     final selected = ref.watch(selectedFishProvider);
+    final isPremium = ref.watch(premiumStatusProvider).isActive;
     return SafeArea(
       top: false,
       child: Column(
@@ -442,24 +445,37 @@ class _FishSheet extends ConsumerWidget {
             ),
           ),
           for (final fish in Fish.values)
-            ListTile(
-              leading: SizedBox(
-                width: 44,
-                height: 44,
-                child: Image.asset(fishAsset(fish), fit: BoxFit.contain),
-              ),
-              title: Text(
-                fishLabel(l10n, fish),
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              trailing: fish == selected
-                  ? Icon(Icons.check, color: cs.primary)
-                  : null,
-              onTap: () {
-                ref.read(selectedFishProvider.notifier).select(fish);
-                Navigator.of(context).pop();
+            // FREE: доступен только карп; остальные виды — премиум, тап по ним
+            // закрывает лист и уводит на пейволл.
+            Builder(
+              builder: (context) {
+                final locked = !isPremium && fish != Fish.carp;
+                return ListTile(
+                  leading: SizedBox(
+                    width: 44,
+                    height: 44,
+                    child: Image.asset(fishAsset(fish), fit: BoxFit.contain),
+                  ),
+                  title: Text(
+                    fishLabel(l10n, fish),
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  trailing: fish == selected
+                      ? Icon(Icons.check, color: cs.primary)
+                      : null,
+                  onTap: () {
+                    if (locked) {
+                      final router = GoRouter.of(context);
+                      Navigator.of(context).pop();
+                      router.push('/paywall?from=app');
+                      return;
+                    }
+                    ref.read(selectedFishProvider.notifier).select(fish);
+                    Navigator.of(context).pop();
+                  },
+                );
               },
             ),
           const SizedBox(height: 8),
@@ -587,7 +603,11 @@ bool _sameDay(DateTime a, DateTime b) =>
 /// Человекочитаемый возраст прогноза: «только что» / «N мин назад» / «N ч назад»
 /// в пределах суток, дальше — дата.
 String _ageLabel(
-    BuildContext context, AppLocalizations l10n, DateTime at, Duration age) {
+  BuildContext context,
+  AppLocalizations l10n,
+  DateTime at,
+  Duration age,
+) {
   if (age.inMinutes < 1) return l10n.fcUpdatedJustNow;
   if (age.inMinutes < 60) return l10n.fcUpdatedMinAgo(age.inMinutes);
   if (age.inHours < 24 && _sameDay(DateTime.now(), at)) {
@@ -636,7 +656,8 @@ class _UpdatedAtState extends State<_UpdatedAt> {
     final now = DateTime.now();
     final age = now.difference(fetchedAt);
     final staleOnline =
-        !fromCache && (age >= const Duration(hours: 3) || !_sameDay(now, fetchedAt));
+        !fromCache &&
+        (age >= const Duration(hours: 3) || !_sameDay(now, fetchedAt));
 
     final Color color;
     if (fromCache) {
@@ -810,19 +831,8 @@ class _SectionTitle extends StatelessWidget {
 }
 
 class _Card extends StatelessWidget {
-  const _Card({
-    required this.child,
-    this.backgroundImage,
-    this.backgroundScale = 1.0,
-    this.padding = const EdgeInsets.all(16),
-  });
+  const _Card({required this.child, this.padding = const EdgeInsets.all(16)});
   final Widget child;
-
-  /// Опциональная фоновая картинка карточки.
-  final ImageProvider? backgroundImage;
-
-  /// Масштаб фоновой картинки (1.0 = cover, 1.3 = zoom-in на 30%).
-  final double backgroundScale;
 
   /// Внутренние отступы карточки.
   final EdgeInsets padding;
@@ -830,58 +840,32 @@ class _Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final hasImage = backgroundImage != null;
     final isDark = theme.brightness == Brightness.dark;
     final decoration = BoxDecoration(
       color: theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(20),
-      // Карточка с фото — без обводки. В тёмной теме обводку тоже убираем: на
-      // глубоком фоне карточки и так выделяются цветом поверхности (бордеры
-      // оставляем только инпутам/селектам и кликабельным блокам). В светлой
-      // теме обводка нужна — иначе белая карточка сливается со светлым фоном.
-      border: hasImage || isDark
+      // В тёмной теме обводку убираем: на глубоком фоне карточки и так выделяются
+      // цветом поверхности (бордеры оставляем только инпутам/селектам и
+      // кликабельным блокам). В светлой теме обводка нужна — иначе белая карточка
+      // сливается со светлым фоном.
+      border: isDark
           ? null
           : Border.all(color: theme.colorScheme.outlineVariant),
-      boxShadow: hasImage
-          ? null
-          : const [
-              BoxShadow(
-                color: Color(0x0A1B364A),
-                blurRadius: 18,
-                offset: Offset(0, 6),
-              ),
-            ],
-    );
-
-    if (backgroundImage == null) {
-      return Container(padding: padding, decoration: decoration, child: child);
-    }
-
-    // Фон рендерим отдельным Image, чтобы можно было зумить через Transform —
-    // у DecorationImage с BoxFit.cover параметр scale игнорируется.
-    return Container(
-      decoration: decoration,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Transform.scale(
-                scale: backgroundScale,
-                child: Image(image: backgroundImage!, fit: BoxFit.cover),
-              ),
-            ),
-            Padding(padding: padding, child: child),
-          ],
+      boxShadow: const [
+        BoxShadow(
+          color: Color(0x0A1B364A),
+          blurRadius: 18,
+          offset: Offset(0, 6),
         ),
-      ),
+      ],
     );
+
+    return Container(padding: padding, decoration: decoration, child: child);
   }
 }
 
 class _HeroCard extends StatelessWidget {
   const _HeroCard({
-    super.key,
     required this.day,
     required this.dayIndex,
     required this.units,
@@ -981,9 +965,8 @@ class _HeroCard extends StatelessWidget {
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: theme.textTheme.titleMedium?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ],
@@ -1134,14 +1117,14 @@ class _CircleBadge extends StatelessWidget {
     required this.icon,
     required this.background,
     required this.iconColor,
-    this.size = 30,
     this.iconScale = 0.48,
   });
+
+  static const double size = 30;
 
   final IconData icon;
   final Color background;
   final Color iconColor;
-  final double size;
 
   /// Доля диаметра, которую занимает иконка (звезда крупнее часов).
   final double iconScale;
@@ -1196,16 +1179,10 @@ class _KeepAliveState extends State<_KeepAlive>
 /// при загрузке прогноза и переключении дня (для последнего родитель меняет
 /// key, чтобы виджет пересоздался и анимация началась с нуля заново).
 class _CountUp extends StatefulWidget {
-  const _CountUp({
-    super.key,
-    required this.value,
-    required this.builder,
-    this.duration = const Duration(milliseconds: 750),
-  });
+  const _CountUp({required this.value, required this.builder});
 
   final double value;
   final Widget Function(BuildContext context, double value) builder;
-  final Duration duration;
 
   @override
   State<_CountUp> createState() => _CountUpState();
@@ -1215,7 +1192,7 @@ class _CountUpState extends State<_CountUp>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: widget.duration,
+    duration: const Duration(milliseconds: 750),
   );
   late final Animation<double> _curve = CurvedAnimation(
     parent: _controller,
@@ -1257,7 +1234,7 @@ class _CountUpState extends State<_CountUp>
 }
 
 class _BiteDial extends StatelessWidget {
-  const _BiteDial({super.key, required this.value, required this.color});
+  const _BiteDial({required this.value, required this.color});
   final int value;
   final Color color;
 
@@ -1348,47 +1325,49 @@ class _TacticsSummary extends ConsumerWidget {
       children: [
         _SectionTitle(
           title,
-          // Ссылку на полную «Тактику» показываем только для Pro — для free
-          // вместо подсказок стоит заглушка.
-          action: isPremium
-              ? InkWell(
-                  onTap: () => showAdviceSheet(context),
-                  borderRadius: BorderRadius.circular(10),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          l10n.tabAdvice,
-                          style: theme.textTheme.titleSmall?.copyWith(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Icon(
-                          Icons.chevron_right,
-                          size: 18,
-                          color: theme.colorScheme.primary,
-                        ),
-                      ],
+          // Ссылку на полную «Тактику» показываем всегда: для Pro она открывает
+          // лист советов, для free — ведёт на пейволл.
+          action: InkWell(
+            onTap: () => isPremium
+                ? showAdviceSheet(context)
+                : context.push('/paywall?from=app'),
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    l10n.tabAdvice,
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                )
-              : null,
+                  Icon(
+                    Icons.chevron_right,
+                    size: 18,
+                    color: theme.colorScheme.primary,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 10),
         // FREE: вместо 3 подсказок — Pro-заглушка (реальные советы не считаем).
         if (!isPremium)
-          PremiumPlaceholder(onContinue: () => context.push('/paywall'))
+          PremiumPlaceholder(
+            onContinue: () => context.push('/paywall?from=app'),
+          )
         else
           _Card(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (final tip in _tips()) Expanded(child: _TacticColumn(tip: tip)),
+                for (final tip in _tips())
+                  Expanded(child: _TacticColumn(tip: tip)),
               ],
             ),
           ),
@@ -1507,61 +1486,76 @@ class _SpotAdviceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final location = ref.watch(activeLocationProvider);
-    final onFallback = location == kDefaultLocation;
+    final isPremium = ref.watch(premiumStatusProvider).isActive;
 
     final Widget body;
-    if (onFallback) {
-      // Спот не выбран — честно предлагаем задать, а не разбираем фолбэк-точку.
-      body = const _SpotEmpty();
+    if (!isPremium) {
+      // FREE: разбор спота — премиум-контент. Вместо него Pro-заглушка; сам
+      // водоём не запрашиваем (гейт на уровне данных, как у тактики).
+      body = PremiumPlaceholder(
+        onContinue: () => context.push('/paywall?from=app'),
+      );
     } else {
-      body = ref
-          .watch(waterBodyProvider)
-          .when(
-            loading: () => const _SpotLoading(),
-            error: (_, _) => const _SpotError(),
-            data: (waterBody) {
-              if (waterBody == null) {
-                // «Воды нет» кэшируется надолго; даём перепроверить вручную,
-                // сбросив кэш этих координат (OSM мог не разметить водоём).
-                return _SpotEmpty(
-                  onRefresh: () {
-                    clearWaterCache(location.latitude, location.longitude);
-                    ref.invalidate(waterBodyProvider);
+      final location = ref.watch(activeLocationProvider);
+      final onFallback = location == kDefaultLocation;
+      if (onFallback) {
+        // Спот не выбран — честно предлагаем задать, а не разбираем фолбэк-точку.
+        body = const _SpotEmpty();
+      } else {
+        body = ref
+            .watch(waterBodyProvider)
+            .when(
+              loading: () => const _SpotLoading(),
+              error: (_, _) => const _SpotError(),
+              data: (waterBody) {
+                if (waterBody == null) {
+                  // «Воды нет» кэшируется надолго; даём перепроверить вручную,
+                  // сбросив кэш этих координат (OSM мог не разметить водоём).
+                  return _SpotEmpty(
+                    onRefresh: () {
+                      clearWaterCache(location.latitude, location.longitude);
+                      ref.invalidate(waterBodyProvider);
+                    },
+                  );
+                }
+                final advice = SpotAdvisor.analyze(
+                  waterBody,
+                  day.representative,
+                  spotLat: location.latitude,
+                  spotLon: location.longitude,
+                );
+                return _SpotContent(
+                  advice: advice,
+                  windDirDeg: day.representative.windDirDeg,
+                  windSpeedMs: day.representative.windSpeedMs,
+                  onShowMap: () async {
+                    final updated = await Navigator.of(context).push<GeoPoint>(
+                      MaterialPageRoute<GeoPoint>(
+                        builder: (_) => MapPickerScreen(
+                          initialCenter: LatLng(
+                            location.latitude,
+                            location.longitude,
+                          ),
+                          viewSpot: location,
+                          windDirDeg: day.representative.windDirDeg,
+                          windSpeedMs: day.representative.windSpeedMs,
+                        ),
+                      ),
+                    );
+                    if (updated == null || updated == location) return;
+                    // Подвинули метку: replace — no-op, если точка не сохранена в
+                    // списке спотов; setLocation двигает активную точку прогноза.
+                    ref
+                        .read(savedSpotsProvider.notifier)
+                        .replace(location, updated);
+                    ref
+                        .read(activeLocationProvider.notifier)
+                        .setLocation(updated);
                   },
                 );
-              }
-              final advice = SpotAdvisor.analyze(
-                waterBody,
-                day.representative,
-                spotLat: location.latitude,
-                spotLon: location.longitude,
-              );
-              return _SpotContent(
-                advice: advice,
-                windDirDeg: day.representative.windDirDeg,
-                windSpeedMs: day.representative.windSpeedMs,
-                onShowMap: () async {
-                  final updated = await Navigator.of(context).push<GeoPoint>(
-                    MaterialPageRoute<GeoPoint>(
-                      builder: (_) => MapPickerScreen(
-                        initialCenter:
-                            LatLng(location.latitude, location.longitude),
-                        viewSpot: location,
-                        windDirDeg: day.representative.windDirDeg,
-                        windSpeedMs: day.representative.windSpeedMs,
-                      ),
-                    ),
-                  );
-                  if (updated == null || updated == location) return;
-                  // Подвинули метку: replace — no-op, если точка не сохранена в
-                  // списке спотов; setLocation двигает активную точку прогноза.
-                  ref.read(savedSpotsProvider.notifier).replace(location, updated);
-                  ref.read(activeLocationProvider.notifier).setLocation(updated);
-                },
-              );
-            },
-          );
+              },
+            );
+      }
     }
 
     return Column(
@@ -1635,8 +1629,10 @@ class _SpotEmpty extends StatelessWidget {
                 label: Text(l10n.fcRetry),
                 style: TextButton.styleFrom(
                   foregroundColor: cs.onSurfaceVariant,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   minimumSize: Size.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
@@ -1739,10 +1735,7 @@ class _SpotContent extends StatelessWidget {
     // Имя из OSM — в заголовок; тип и размер уходят в подпись под ним. Если
     // имени нет, тип сам становится заголовком.
     final headTitle = name ?? typeText;
-    final headMeta = [
-      if (name != null) typeText,
-      ?sizeText,
-    ].join(' · ');
+    final headMeta = [if (name != null) typeText, ?sizeText].join(' · ');
 
     final tipText = spotTipText(l10n, advice);
     final whereText = spotWhereText(l10n, advice);
@@ -1890,17 +1883,17 @@ class _SpotCompass extends StatelessWidget {
     final flowDeg = (windDirDeg + 180) % 360; // куда дует
 
     Widget cardinal(String t, Alignment a, {bool north = false}) => Align(
-          alignment: a,
-          child: Text(
-            t,
-            style: theme.textTheme.labelSmall?.copyWith(
-              fontSize: 9,
-              height: 1,
-              fontWeight: north ? FontWeight.w800 : FontWeight.w600,
-              color: north ? cs.primary : cs.onSurfaceVariant,
-            ),
-          ),
-        );
+      alignment: a,
+      child: Text(
+        t,
+        style: theme.textTheme.labelSmall?.copyWith(
+          fontSize: 9,
+          height: 1,
+          fontWeight: north ? FontWeight.w800 : FontWeight.w600,
+          color: north ? cs.primary : cs.onSurfaceVariant,
+        ),
+      ),
+    );
 
     return SizedBox(
       width: 54,
@@ -2076,9 +2069,7 @@ class _DayPeriods extends StatelessWidget {
     // день. Важно на высоких широтах: при закате после 22:00 за полночь уходит
     // уже вечер, и ночь целиком приходится на следующий день.
     final base = DateTime(day.date.year, day.date.month, day.date.day);
-    final bounds = <DateTime>[
-      DateTime(base.year, base.month, base.day, bh[0]),
-    ];
+    final bounds = <DateTime>[DateTime(base.year, base.month, base.day, bh[0])];
     var dayOff = 0;
     for (var i = 1; i < bh.length; i++) {
       if (bh[i] <= bh[i - 1]) dayOff += 1;
@@ -2088,12 +2079,12 @@ class _DayPeriods extends StatelessWidget {
     final nx = next;
     // Часы выбранного и следующего дня, попадающие в окно [from, to).
     List<HourForecast> hoursIn(DateTime from, DateTime to) => [
-          for (final h in day.hours)
-            if (!h.time.isBefore(from) && h.time.isBefore(to)) h,
-          if (nx != null)
-            for (final h in nx.hours)
-              if (!h.time.isBefore(from) && h.time.isBefore(to)) h,
-        ];
+      for (final h in day.hours)
+        if (!h.time.isBefore(from) && h.time.isBefore(to)) h,
+      if (nx != null)
+        for (final h in nx.hours)
+          if (!h.time.isBefore(from) && h.time.isBefore(to)) h,
+    ];
 
     // Хронологический порядок суток: ночь последняя (после вечера), как и
     // наступает по времени.
@@ -2125,6 +2116,7 @@ class _DayPeriods extends StatelessWidget {
       }
       return (s / hs.length).round();
     }
+
     // Представитель периода — час, чей индекс ближе всего к среднему: его разбор
     // факторов и режим времени суток честно отражают показанное число.
     WeatherPoint? repOf(_Period p, int avg) {
@@ -2159,7 +2151,9 @@ class _DayPeriods extends StatelessWidget {
 
     final metas = [for (final p in order) _meta(p, sr, ss, l10n)];
     final avgs = [for (final p in order) avgOf(p)];
-    final reps = [for (var i = 0; i < order.length; i++) repOf(order[i], avgs[i])];
+    final reps = [
+      for (var i = 0; i < order.length; i++) repOf(order[i], avgs[i]),
+    ];
     final dateLabels = [for (final p in order) labelFor(p)];
     return _Card(
       child: Column(
@@ -2199,11 +2193,11 @@ class _DayPeriods extends StatelessWidget {
                     onTap: reps[i] == null
                         ? null
                         : () => showPeriodSheet(
-                              context,
-                              meta: metas[i],
-                              avg: avgs[i],
-                              weather: reps[i]!,
-                            ),
+                            context,
+                            meta: metas[i],
+                            avg: avgs[i],
+                            weather: reps[i]!,
+                          ),
                   ),
                 ),
               ],
@@ -2301,7 +2295,7 @@ class _PeriodCard extends StatelessWidget {
 Future<void> showPeriodSheet(
   BuildContext context, {
   required ({IconData icon, String label, int start, int end, Color accent})
-      meta,
+  meta,
   required int avg,
   required WeatherPoint weather,
 }) {
@@ -2388,8 +2382,9 @@ class _PeriodSheet extends ConsumerWidget {
                       const SizedBox(height: 2),
                       Text(
                         '${_hh(meta.start)} – ${_hh(meta.end)}',
-                        style: theme.textTheme.labelMedium
-                            ?.copyWith(color: cs.onSurfaceVariant),
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: cs.onSurfaceVariant,
+                        ),
                       ),
                     ],
                   ),
@@ -2425,8 +2420,10 @@ class _PeriodSheet extends ConsumerWidget {
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: adjColor.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(10),
@@ -2443,18 +2440,23 @@ class _PeriodSheet extends ConsumerWidget {
                 Expanded(
                   child: Text(
                     l10n.fcTodAdjCaption,
-                    style: theme.textTheme.labelMedium
-                        ?.copyWith(color: cs.onSurfaceVariant),
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: cs.onSurfaceVariant,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
-                Icon(Icons.water_drop_outlined,
-                    size: 16, color: cs.onSurfaceVariant),
+                Icon(
+                  Icons.water_drop_outlined,
+                  size: 16,
+                  color: cs.onSurfaceVariant,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   '${l10n.fcPeriodWater} ${formatTemp(units, weather.waterTempC)}',
-                  style: theme.textTheme.labelMedium
-                      ?.copyWith(color: cs.onSurfaceVariant),
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: cs.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -2462,7 +2464,8 @@ class _PeriodSheet extends ConsumerWidget {
             Text(
               todRegimePhrase(l10n, tod.regime, weather, engine.config, units),
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: cs.onSurface, // основной цвет текста (белый в тёмной теме)
+                color:
+                    cs.onSurface, // основной цвет текста (белый в тёмной теме)
                 height: 1.35,
               ),
             ),
@@ -2493,7 +2496,7 @@ class _PeriodSheetTitle extends StatelessWidget {
 /// «Погода днём»: 4 равные колонки через тонкие вертикальные разделители —
 /// иконка, крупное значение, деталь и подпись-категория снизу.
 class _ConditionsRow extends StatelessWidget {
-  const _ConditionsRow({super.key, required this.weather, required this.units});
+  const _ConditionsRow({required this.weather, required this.units});
   final WeatherPoint weather;
   final Units units;
 
@@ -2524,7 +2527,10 @@ class _ConditionsRow extends StatelessWidget {
         // штиле нет, поэтому в подпись ставим «Ветер» (как «Вода» у соседней
         // колонки) — иначе пустая подпись рушила выравнивание ряда.
         _CondItem(
-            icon: Icons.air, staticValue: '0 $windSuffix', detail: l10n.fcChipWind)
+          icon: Icons.air,
+          staticValue: '0 $windSuffix',
+          detail: l10n.fcChipWind,
+        )
       else
         _CondItem(
           icon: Icons.air,
@@ -2670,11 +2676,7 @@ class _CondColumn extends StatelessWidget {
 /// «Ближайшие дни»: 3 крупные карточки + ссылка «Смотреть неделю» (открывает
 /// полную неделю листом). Тап по карточке переключает выбранный день.
 class _UpcomingDays extends ConsumerWidget {
-  const _UpcomingDays({
-    super.key,
-    required this.forecast,
-    required this.selectedIndex,
-  });
+  const _UpcomingDays({required this.forecast, required this.selectedIndex});
   final Forecast forecast;
   final int selectedIndex;
 
@@ -2682,6 +2684,7 @@ class _UpcomingDays extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final isPremium = ref.watch(premiumStatusProvider).isActive;
     final dayCount = forecast.days.length;
     // Всегда показываем сегодня и завтра; третья карточка — выбранный день,
     // если он дальше послезавтра, иначе день 2.
@@ -2697,7 +2700,10 @@ class _UpcomingDays extends ConsumerWidget {
           children: [
             Expanded(child: _SectionTitle(l10n.fcUpcomingDays)),
             InkWell(
-              onTap: () => showWeekSheet(context),
+              // FREE: полная неделя — премиум; вместо листа уводим на пейволл.
+              onTap: () => isPremium
+                  ? showWeekSheet(context)
+                  : context.push('/paywall?from=app'),
               borderRadius: BorderRadius.circular(10),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
@@ -2748,9 +2754,16 @@ class _UpcomingDays extends ConsumerWidget {
                               forecast.days[indices[j] - 1].bite.value
                         : null,
                     selected: indices[j] == selectedIndex,
-                    onTap: () => ref
-                        .read(selectedDayIndexProvider.notifier)
-                        .select(indices[j]),
+                    // FREE: сегодня доступно, будущие дни (план) — премиум,
+                    // тап по ним уводит на пейволл.
+                    onTap: () {
+                      final idx = indices[j];
+                      if (idx > 0 && !isPremium) {
+                        context.push('/paywall?from=app');
+                        return;
+                      }
+                      ref.read(selectedDayIndexProvider.notifier).select(idx);
+                    },
                   ),
                 ),
               ],
@@ -3080,15 +3093,15 @@ class _WhySummary extends StatelessWidget {
 
   // Запасной зелёный щит (бренд) для состояний без иллюстрации.
   Widget _whyShield(ColorScheme cs) => Container(
-        width: 80,
-        height: 80,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: cs.primary.withValues(alpha: 0.10),
-        ),
-        child: Icon(Icons.verified_user, size: 44, color: cs.primary),
-      );
+    width: 80,
+    height: 80,
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: cs.primary.withValues(alpha: 0.10),
+    ),
+    child: Icon(Icons.verified_user, size: 44, color: cs.primary),
+  );
 }
 
 /// «Интересное об алгоритме»: один факт про нестандартные особенности модели.
@@ -3155,5 +3168,3 @@ class _AlgoFactsCard extends StatelessWidget {
     );
   }
 }
-
-

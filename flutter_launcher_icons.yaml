@@ -1,0 +1,15 @@
+flutter_launcher_icons:
+  # iOS — full-bleed зелёная иконка (без альфы, как требует App Store).
+  ios: true
+  image_path_ios: "assets/icon/ios.png"
+  remove_alpha_ios: true
+  background_color_ios: "#365E2F"
+
+  # Android — adaptive icon: фон #365E2F (совпадает с зелёным диска),
+  # foreground — диск с карпом, уменьшенный под safe-zone. Legacy-иконка —
+  # тот же диск.
+  android: true
+  image_path_android: "assets/icon/android_legacy.png"
+  adaptive_icon_background: "#365E2F"
+  adaptive_icon_foreground: "assets/icon/android_foreground.png"
+  min_sdk_android: 21

@@ -305,7 +305,7 @@ class _SubscriptionCard extends ConsumerWidget {
           const SizedBox(height: 16),
           if (!active)
             FilledButton(
-              onPressed: () => context.go('/paywall'),
+              onPressed: () => context.push('/paywall?from=app'),
               child: Text(l10n.settingsSubBtnGoPaywall),
             )
           else

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../paywall/data/premium_status.dart';
 import '../domain/fishing_tip.dart';
 import 'tips_format.dart';
 
@@ -9,17 +12,23 @@ import 'tips_format.dart';
 ///
 /// Стартуем с детерминированного «совета дня» ([tipOfDayIndex]), кнопка «Ещё
 /// совет» прокручивает пул по кругу. Состояние — локальный сдвиг от совета дня.
-class TipsTab extends StatefulWidget {
+///
+/// FREE: виден только совет дня; «Ещё совет» — премиум, уводит на пейволл.
+class TipsTab extends ConsumerStatefulWidget {
   const TipsTab({super.key});
 
   @override
-  State<TipsTab> createState() => _TipsTabState();
+  ConsumerState<TipsTab> createState() => _TipsTabState();
 }
 
-class _TipsTabState extends State<TipsTab> {
+class _TipsTabState extends ConsumerState<TipsTab> {
   int _offset = 0;
 
   void _next() {
+    if (!ref.read(premiumStatusProvider).isActive) {
+      context.push('/paywall?from=app');
+      return;
+    }
     HapticFeedback.selectionClick();
     setState(() => _offset++);
   }

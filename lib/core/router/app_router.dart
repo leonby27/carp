@@ -58,8 +58,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/paywall',
-        pageBuilder: (context, state) =>
-            _fadePage(state, _lockLight(const PaywallScreen())),
+        pageBuilder: (context, state) {
+          // `?from=app` — пейволл открыт из работающего приложения (free-версия:
+          // Тактика, заглушка Pro, апгрейд в настройках). В этом режиме крестик
+          // просто закрывает экран и возвращает на тот же экран, без win-back
+          // модалки и без перехода в онбординг. Без флага — финальный шаг
+          // онбординга (win-back + возврат на welcome).
+          final embedded = state.uri.queryParameters['from'] == 'app';
+          return _fadePage(state, _lockLight(PaywallScreen(embedded: embedded)));
+        },
       ),
       StatefulShellRoute(
         builder: (context, state, navigationShell) =>

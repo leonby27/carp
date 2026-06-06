@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:app/features/forecast/domain/bite_config.dart';
 import 'package:app/features/forecast/domain/bite_engine.dart';
 import 'package:app/features/forecast/domain/bite_score.dart';
-import 'package:app/features/forecast/domain/fish.dart';
 import 'package:app/features/forecast/domain/weather_point.dart';
 
 /// Движок под карпа — базовый для большинства проверок.

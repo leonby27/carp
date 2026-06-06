@@ -36,7 +36,12 @@ const _heroHeight = 219.0;
 const _imgBase = 'assets/images/paywall/pro/';
 
 class PaywallScreen extends ConsumerStatefulWidget {
-  const PaywallScreen({super.key});
+  const PaywallScreen({super.key, this.embedded = false});
+
+  /// Открыт из работающего приложения (free-версия), а не из онбординга. В этом
+  /// режиме крестик/назад просто закрывают экран (pop) и возвращают на тот же
+  /// экран — без win-back модалки и без перехода на welcome.
+  final bool embedded;
 
   @override
   ConsumerState<PaywallScreen> createState() => _PaywallScreenState();
@@ -60,10 +65,9 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
     );
     _fadeIn = CurvedAnimation(parent: _enterController, curve: Curves.easeOut);
     _slideUp = Tween<Offset>(begin: const Offset(0, 0.08), end: Offset.zero)
-        .animate(CurvedAnimation(
-      parent: _enterController,
-      curve: Curves.easeOutCubic,
-    ));
+        .animate(
+          CurvedAnimation(parent: _enterController, curve: Curves.easeOutCubic),
+        );
     _enterController.forward();
   }
 
@@ -93,22 +97,37 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
         : const Duration(days: 7);
     ref.read(premiumStatusProvider.notifier).activateFor(mockPeriod);
     ref.read(onboardingCompletedProvider.notifier).markCompleted();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.mockPurchase(pkg.title(l10n)))),
-    );
-    if (mounted) context.go('/');
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(l10n.mockPurchase(pkg.title(l10n)))));
+    if (mounted) _leaveAfterUnlock();
   }
 
-  /// Гибрид-модель: впускаем в free без оплаты. Контекстный пейволл встретит
-  /// пользователя позже — при попытке спланировать (будущий день / Тактика).
+  /// Куда уходим после успешной покупки/промокода. Встроенный пейволл просто
+  /// закрываем (возврат на тот же free-экран, который теперь разблокируется
+  /// реактивно). Из онбординга — на главную.
+  void _leaveAfterUnlock() {
+    if (widget.embedded) {
+      context.pop();
+    } else {
+      context.go('/');
+    }
+  }
+
+  /// Крестик. Встроенный (in-app) пейволл просто закрываем — возвращаемся на тот
+  /// же free-экран без win-back модалки (она часть онбординга).
   ///
-  /// По крестику показываем win-back модалку с подарком 1 дня Pro (Figma
-  /// «Large card»). В интерфейс уходим ТОЛЬКО по кнопкам модалки:
+  /// В онбординге по крестику показываем win-back модалку с подарком 1 дня Pro
+  /// (Figma «Large card»). В интерфейс уходим ТОЛЬКО по кнопкам модалки:
   ///   • «Забрать 1 день» → `true`  — Pro на 1 день уже активирован в модалке;
   ///   • «Продолжить без Pro» → `false` — уходим во free.
   /// Закрытие по бэкдропу/свайпу → `null` — просто закрываем модалку и
   /// остаёмся на пейволле (в интерфейс не переходим).
   Future<void> _skipToFree() async {
+    if (widget.embedded) {
+      context.pop();
+      return;
+    }
     final result = await showWinbackSheet(context);
     if (!mounted || result == null) return;
     ref.read(onboardingCompletedProvider.notifier).markCompleted();
@@ -117,22 +136,27 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
 
   void _restore() {
     final l10n = AppLocalizations.of(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.mockRestore)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(l10n.mockRestore)));
   }
 
   Future<void> _enterPromoCode() async {
     final ok = await showPromoCodeSheet(context);
     if (ok == true && mounted) {
       ref.read(onboardingCompletedProvider.notifier).markCompleted();
-      context.go('/');
+      _leaveAfterUnlock();
     }
   }
 
-  /// Стрелка «назад» возвращает на самый первый экран онбординга. Ответы
-  /// квиза не сбрасываем — пользователь просто идёт назад по воронке.
+  /// Стрелка «назад». Встроенный пейволл просто закрываем (возврат на тот же
+  /// free-экран). В онбординге — возвращаемся на самый первый экран воронки;
+  /// ответы квиза не сбрасываем, пользователь просто идёт назад.
   void _back() {
+    if (widget.embedded) {
+      context.pop();
+      return;
+    }
     context.go('/welcome');
   }
 
@@ -149,8 +173,11 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final pkg = _selectedPkg;
+    // Онбординг: системный «назад» блокируем — выход только через явный выбор
+    // (крестик → win-back). Встроенный пейволл закрывается свайпом/назад как
+    // обычный экран.
     return PopScope(
-      canPop: false,
+      canPop: widget.embedded,
       child: Scaffold(
         backgroundColor: AppColors.lightBack3,
         body: FadeTransition(
@@ -160,6 +187,9 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
             child: Column(
               children: [
                 _PaywallHeader(
+                  // Встроенный пейволл: без стрелки «назад» (она ведёт в
+                  // онбординг) — закрытие только крестиком.
+                  showBack: !widget.embedded,
                   onBack: _back,
                   onClose: _skipToFree,
                   onRestore: _restore,
@@ -193,36 +223,36 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                             child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _PlanPicker(
-                                selectedId: _selectedId,
-                                onSelect: _selectPlan,
-                              ),
-                              AnimatedCrossFade(
-                                duration: const Duration(milliseconds: 260),
-                                sizeCurve: Curves.easeOutCubic,
-                                firstCurve: Curves.easeOutCubic,
-                                secondCurve: Curves.easeOutCubic,
-                                alignment: Alignment.topCenter,
-                                crossFadeState: pkg.hasTrial
-                                    ? CrossFadeState.showFirst
-                                    : CrossFadeState.showSecond,
-                                firstChild: Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: _TrialTimeline(pkg: pkg),
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                _PlanPicker(
+                                  selectedId: _selectedId,
+                                  onSelect: _selectPlan,
                                 ),
-                                secondChild: const SizedBox(
-                                  width: double.infinity,
-                                  height: 0,
+                                AnimatedCrossFade(
+                                  duration: const Duration(milliseconds: 260),
+                                  sizeCurve: Curves.easeOutCubic,
+                                  firstCurve: Curves.easeOutCubic,
+                                  secondCurve: Curves.easeOutCubic,
+                                  alignment: Alignment.topCenter,
+                                  crossFadeState: pkg.hasTrial
+                                      ? CrossFadeState.showFirst
+                                      : CrossFadeState.showSecond,
+                                  firstChild: Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: _TrialTimeline(pkg: pkg),
+                                  ),
+                                  secondChild: const SizedBox(
+                                    width: double.infinity,
+                                    height: 0,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 20),
-                              const _UnlockCard(),
-                              const SizedBox(height: 16),
-                              const _FaqCard(),
-                            ],
-                          ),
+                                const SizedBox(height: 20),
+                                const _UnlockCard(),
+                                const SizedBox(height: 16),
+                                const _FaqCard(),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -297,6 +327,7 @@ class _HeroImage extends StatelessWidget {
 
 class _PaywallHeader extends StatelessWidget {
   const _PaywallHeader({
+    required this.showBack,
     required this.onBack,
     required this.onClose,
     required this.onRestore,
@@ -304,6 +335,8 @@ class _PaywallHeader extends StatelessWidget {
     required this.onRestart,
   });
 
+  /// Показывать ли стрелку «назад» (онбординг — да, встроенный пейволл — нет).
+  final bool showBack;
   final VoidCallback onBack;
   final VoidCallback onClose;
   final VoidCallback onRestore;
@@ -322,7 +355,11 @@ class _PaywallHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              _IconPill(icon: Icons.arrow_back_ios_new_rounded, onTap: onBack),
+              if (showBack)
+                _IconPill(
+                  icon: Icons.arrow_back_ios_new_rounded,
+                  onTap: onBack,
+                ),
               const Spacer(),
               _MenuKebab(
                 onRestore: onRestore,
@@ -593,10 +630,7 @@ class _PlanCheckbox extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: selected ? _accent : Colors.transparent,
-        border: Border.all(
-          color: selected ? _accent : _faint,
-          width: 2,
-        ),
+        border: Border.all(color: selected ? _accent : _faint, width: 2),
       ),
       child: selected
           ? const Icon(Icons.check, color: Colors.white, size: 16)
@@ -744,9 +778,16 @@ class _UnlockCard extends StatelessWidget {
       _UnlockFeature('${_imgBase}f_forecast.jpg', l10n.tblForecast, '—'),
       _UnlockFeature('${_imgBase}f_tactics.jpg', l10n.tblTactics, '—'),
       _UnlockFeature('${_imgBase}f_spot.jpg', l10n.tblSpot, '—'),
-      _UnlockFeature('${_imgBase}f_alerts.jpg', l10n.tblAlerts, l10n.tblLimited),
       _UnlockFeature(
-          '${_imgBase}f_playbook.jpg', l10n.tblPlaybook, l10n.tblLimited),
+        '${_imgBase}f_alerts.jpg',
+        l10n.tblAlerts,
+        l10n.tblLimited,
+      ),
+      _UnlockFeature(
+        '${_imgBase}f_playbook.jpg',
+        l10n.tblPlaybook,
+        l10n.tblLimited,
+      ),
       _UnlockFeature('${_imgBase}f_journal.jpg', l10n.tblJournal, '1'),
     ];
     return Container(
@@ -772,16 +813,16 @@ class _UnlockCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _ComparisonTable(features: features, freeLabel: l10n.tblFree, proLabel: l10n.tblPro),
+          _ComparisonTable(
+            features: features,
+            freeLabel: l10n.tblFree,
+            proLabel: l10n.tblPro,
+          ),
           const SizedBox(height: 16),
           Text(
             l10n.unlockBody,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 12,
-              height: 18 / 12,
-              color: _ink,
-            ),
+            style: const TextStyle(fontSize: 12, height: 18 / 12, color: _ink),
           ),
         ],
       ),
@@ -929,8 +970,11 @@ class _ComparisonTable extends StatelessWidget {
                         shape: BoxShape.circle,
                         color: _accent,
                       ),
-                      child: const Icon(Icons.check,
-                          size: 14, color: Colors.white),
+                      child: const Icon(
+                        Icons.check,
+                        size: 14,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -989,9 +1033,8 @@ class _FaqCardState extends State<_FaqCard> {
               question: items[i].$1,
               answer: items[i].$2,
               expanded: _expanded == i,
-              onTap: () => setState(
-                () => _expanded = _expanded == i ? null : i,
-              ),
+              onTap: () =>
+                  setState(() => _expanded = _expanded == i ? null : i),
             ),
             if (i != items.length - 1) const SizedBox(height: 12),
           ],
@@ -1088,8 +1131,9 @@ class _BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final ctaLabel =
-        pkg.hasTrial ? l10n.paywallCtaStartFree : l10n.paywallCtaSubscribe;
+    final ctaLabel = pkg.hasTrial
+        ? l10n.paywallCtaStartFree
+        : l10n.paywallCtaSubscribe;
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.lightOnBack,

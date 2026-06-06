@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../l10n/app_localizations.dart';
 import '../../forecast/application/forecast_providers.dart';
+import '../../paywall/data/premium_status.dart';
 import '../../spots/application/spots_providers.dart';
 import '../../spots/presentation/map_picker_screen.dart';
 import '../application/location_providers.dart';
@@ -45,8 +47,20 @@ class _LocationSheet extends ConsumerWidget {
     final cs = Theme.of(context).colorScheme;
     final active = ref.watch(activeLocationProvider);
     final spots = ref.watch(savedSpotsProvider);
+    final isPremium = ref.watch(premiumStatusProvider).isActive;
+
+    // FREE: доступно только текущее место. Любой выбор/создание другого спота
+    // закрывает лист и уводит на пейволл.
+    bool gateToPaywall() {
+      if (isPremium) return false;
+      final router = GoRouter.of(context);
+      Navigator.of(context).pop();
+      router.push('/paywall?from=app');
+      return true;
+    }
 
     void select(GeoPoint point) {
+      if (gateToPaywall()) return;
       HapticFeedback.selectionClick();
       ref.read(activeLocationProvider.notifier).setLocation(point);
       Navigator.of(context).pop();
@@ -67,15 +81,15 @@ class _LocationSheet extends ConsumerWidget {
           : null;
       final updated = await Navigator.of(context, rootNavigator: true)
           .push<GeoPoint>(
-        MaterialPageRoute<GeoPoint>(
-          builder: (_) => MapPickerScreen(
-            initialCenter: LatLng(spot.latitude, spot.longitude),
-            initialName: spot.isUnnamed ? null : spot.name,
-            windDirDeg: rep?.windDirDeg,
-            windSpeedMs: rep?.windSpeedMs,
-          ),
-        ),
-      );
+            MaterialPageRoute<GeoPoint>(
+              builder: (_) => MapPickerScreen(
+                initialCenter: LatLng(spot.latitude, spot.longitude),
+                initialName: spot.isUnnamed ? null : spot.name,
+                windDirDeg: rep?.windDirDeg,
+                windSpeedMs: rep?.windSpeedMs,
+              ),
+            ),
+          );
       if (updated == null || updated == spot) return;
       // Имя очистили — сохраняем прежнее, чтобы место не стало безымянным.
       final result = updated.isUnnamed && !spot.isUnnamed
@@ -94,6 +108,7 @@ class _LocationSheet extends ConsumerWidget {
     }
 
     Future<void> addOnMap() async {
+      if (gateToPaywall()) return;
       // Нотифаеры и клиенты живут в ProviderScope, переживают закрытие листа —
       // в отличие от ref этого виджета. Поэтому захватываем их заранее.
       final nav = Navigator.of(context, rootNavigator: true);
@@ -276,9 +291,7 @@ class _SpotRow extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         tileColor: bg,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         contentPadding: const EdgeInsets.fromLTRB(16, 4, 8, 4),
         leading: Icon(
           active ? Icons.check_circle : Icons.location_on_outlined,
@@ -342,15 +355,10 @@ class _ActionTile extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       tileColor: cs.surfaceContainerHighest.withValues(alpha: 0.33),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       leading: Icon(icon, color: iconColor),
-      title: Text(
-        label,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ),
+      title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
     );
   }
 }
