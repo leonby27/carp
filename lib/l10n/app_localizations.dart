@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'Continue'**
   String get commonContinue;
 
+  /// No description provided for @gateProTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Available in Pro'**
+  String get gateProTitle;
+
   /// No description provided for @quizQ1Question.
   ///
   /// In en, this message translates to:

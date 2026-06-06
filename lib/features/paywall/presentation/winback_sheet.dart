@@ -5,12 +5,14 @@ import '../../../core/theme/app_theme.dart';
 import '../../../l10n/app_localizations.dart';
 import '../data/premium_status.dart';
 
-const _brandGreen = AppColors.onboardingCtaGreen;
-const _ink = Color(0xFF0A1B39);
-const _muted = Color(0xFF676E85);
-const _cardBg = Color(0xFFF5F6F8);
+// Дизайн Figma «Large card» (node 9707:9440): корона+рыба, заголовок 24/Bold,
+// тело 16/Regular, две кнопки h60 r20 (primary + outline).
+const _brandGreen = AppColors.onboardingCtaGreen; // #3C6B33 ≈ Figma #3c6b32
+const _ink = Color(0xFF0A1B39); // Text or Icons/Primary
+const _outlineBorder = Color(0xFFD6E4FF); // Buttons/Outline/Border
+const _crownImg = 'assets/images/paywall/pro/crown.png';
 
-/// Win-back модалка после тапа «пропустить пейволл». Дарит 1 день полного Pro,
+/// Win-back модалка после тапа «закрыть пейволл». Дарит 1 день полного Pro,
 /// чтобы пользователь увидел ценность до решения об оплате.
 ///
 /// Возвращает `true`, если подарок забрали (Pro уже активирован), `false`/`null`
@@ -41,94 +43,88 @@ class _WinbackSheet extends ConsumerWidget {
     return SafeArea(
       top: false,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Корона+рыба (свечение запечено в png) — 96×96, по центру.
             Center(
-              child: Container(
-                width: 36,
-                height: 4,
-                margin: const EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
-                  color: _cardBg,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
+              child: Image.asset(_crownImg, width: 96, height: 96),
             ),
-            Center(
-              child: Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  color: _brandGreen.withAlpha(28),
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: const Icon(
-                  Icons.card_giftcard_rounded,
-                  size: 32,
-                  color: _brandGreen,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 4),
             Text(
               l10n.winbackTitle,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 22,
+                fontSize: 24,
                 fontWeight: FontWeight.w700,
-                height: 28 / 22,
                 color: _ink,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             Text(
               l10n.winbackBody,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 15,
-                height: 21 / 15,
-                color: _muted,
+                fontSize: 16,
+                height: 20 / 16,
+                color: _ink,
               ),
             ),
             const SizedBox(height: 24),
-            GestureDetector(
+            _SheetButton(
+              label: l10n.winbackCtaClaim,
               onTap: () => _claim(context, ref),
-              child: Container(
-                height: 56,
-                decoration: BoxDecoration(
-                  color: _brandGreen,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  l10n.winbackCtaClaim,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              filled: true,
             ),
-            const SizedBox(height: 4),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(
-                l10n.winbackCtaSkip,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  height: 20 / 15,
-                  color: _muted,
-                ),
-              ),
+            const SizedBox(height: 8),
+            _SheetButton(
+              label: l10n.winbackCtaSkip,
+              onTap: () => Navigator.of(context).pop(false),
+              filled: false,
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Кнопка модалки: filled — primary (зелёный фон, белый текст), иначе outline
+/// (белый фон, бордер, зелёный текст). Высота 56, скругление 20 — как у кнопок
+/// онбординга (welcome / quiz CTA).
+class _SheetButton extends StatelessWidget {
+  const _SheetButton({
+    required this.label,
+    required this.onTap,
+    required this.filled,
+  });
+
+  final String label;
+  final VoidCallback onTap;
+  final bool filled;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 56,
+        decoration: BoxDecoration(
+          color: filled ? _brandGreen : AppColors.lightOnBack,
+          borderRadius: BorderRadius.circular(20),
+          border: filled ? null : Border.all(color: _outlineBorder),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            height: 22 / 16,
+            color: filled ? Colors.white : _brandGreen,
+          ),
         ),
       ),
     );

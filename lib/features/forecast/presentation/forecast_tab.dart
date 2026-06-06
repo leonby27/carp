@@ -3,11 +3,14 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../core/units/units.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/premium_placeholder.dart';
 import '../../../shared/widgets/states.dart';
+import '../../paywall/data/premium_status.dart';
 import '../../advice/domain/advice.dart';
 import '../../advice/domain/advice_engine.dart';
 import '../../advice/presentation/advice_format.dart';
@@ -90,6 +93,68 @@ String _dateLabel(BuildContext context, DateTime date) {
   final code = _localeCode(context);
   final m = _months[code]![date.month];
   return code == 'ru' ? '${date.day} $m' : '$m ${date.day}';
+}
+
+const _monthsShort = {
+  'ru': [
+    '',
+    'янв.',
+    'февр.',
+    'мар.',
+    'апр.',
+    'мая',
+    'июн.',
+    'июл.',
+    'авг.',
+    'сент.',
+    'окт.',
+    'нояб.',
+    'дек.',
+  ],
+  'en': [
+    '',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ],
+};
+
+/// Короткая дата с ведущим нулём дня: «07 июн.» / «Jun 07».
+String _dateShort(BuildContext context, DateTime date) {
+  final code = _localeCode(context);
+  final m = _monthsShort[code]![date.month];
+  final d = date.day.toString().padLeft(2, '0');
+  return code == 'ru' ? '$d $m' : '$m $d';
+}
+
+/// Подпись даты периода по календарным датам его ФАКТИЧЕСКИХ часов: [first] —
+/// дата первого часа, [last] — последнего. Период внутри одних суток → «07 июн.»;
+/// перешедший через полночь → диапазон «06–07 июн.» (в одном месяце месяц не
+/// дублируем). Привязка к реальным часам, а не к формуле, держит подпись и
+/// показанное число согласованными на любой широте.
+String _periodDateLabel(BuildContext context, DateTime first, DateTime last) {
+  final d1d = DateTime(first.year, first.month, first.day);
+  final d2d = DateTime(last.year, last.month, last.day);
+  if (d1d == d2d) return _dateShort(context, d1d);
+  final next = d2d;
+  final date = d1d;
+  if (date.month == next.month) {
+    final code = _localeCode(context);
+    final m = _monthsShort[code]![date.month];
+    final d1 = date.day.toString().padLeft(2, '0');
+    final d2 = next.day.toString().padLeft(2, '0');
+    return code == 'ru' ? '$d1–$d2 $m' : '$m $d1–$d2';
+  }
+  return '${_dateShort(context, date)} – ${_dateShort(context, next)}';
 }
 
 String _weekdayLabel(BuildContext context, DateTime date) =>
@@ -231,7 +296,12 @@ class ForecastTab extends ConsumerWidget {
               // 5. Когда — таймлайн дня с окнами клёва и зорьками.
               _SectionTitle(l10n.fcWhenTitle),
               const SizedBox(height: 10),
-              _DayPeriods(day: day),
+              _DayPeriods(
+                day: day,
+                next: selectedIndex + 1 < forecast.days.length
+                    ? forecast.days[selectedIndex + 1]
+                    : null,
+              ),
               const SizedBox(height: 20),
               // 6. Почему — связное объяснение прогноза + уверенность.
               _SectionTitle(l10n.fcWhyTitle),
@@ -1250,7 +1320,7 @@ class _BiteDial extends StatelessWidget {
 
 // ─── Как ловить сегодня (саммари тактики) ────────────────────
 
-class _TacticsSummary extends StatelessWidget {
+class _TacticsSummary extends ConsumerWidget {
   const _TacticsSummary({
     required this.day,
     required this.dayIndex,
@@ -1263,65 +1333,78 @@ class _TacticsSummary extends StatelessWidget {
   final Fish fish;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final advice = AdviceEngine.forDay(day, fish, prev: prev);
+    final isPremium = ref.watch(premiumStatusProvider).isActive;
     // Заголовок следует за выбранным днём: сегодня / завтра / дата.
     final title = switch (dayIndex) {
       0 => l10n.fcHowToFish,
       1 => l10n.fcHowToFishTomorrow,
       _ => l10n.fcHowToFishOn(_dateLabel(context, day.date)),
     };
-    AdviceTip byKind(AdviceKind k) => advice.firstWhere((t) => t.kind == k);
-    // Порядок как на референсе: Место → Глубина → Насадка.
-    final tips = [
-      byKind(AdviceKind.location),
-      byKind(AdviceKind.depth),
-      byKind(AdviceKind.bait),
-    ];
 
     return Column(
       children: [
         _SectionTitle(
           title,
-          action: InkWell(
-            onTap: () => showAdviceSheet(context),
-            borderRadius: BorderRadius.circular(10),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    l10n.tabAdvice,
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w600,
+          // Ссылку на полную «Тактику» показываем только для Pro — для free
+          // вместо подсказок стоит заглушка.
+          action: isPremium
+              ? InkWell(
+                  onTap: () => showAdviceSheet(context),
+                  borderRadius: BorderRadius.circular(10),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          l10n.tabAdvice,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          size: 18,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ],
                     ),
                   ),
-                  Icon(
-                    Icons.chevron_right,
-                    size: 18,
-                    color: theme.colorScheme.primary,
-                  ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : null,
         ),
         const SizedBox(height: 10),
-        _Card(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (final tip in tips) Expanded(child: _TacticColumn(tip: tip)),
-            ],
+        // FREE: вместо 3 подсказок — Pro-заглушка (реальные советы не считаем).
+        if (!isPremium)
+          PremiumPlaceholder(onContinue: () => context.push('/paywall'))
+        else
+          _Card(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final tip in _tips()) Expanded(child: _TacticColumn(tip: tip)),
+              ],
+            ),
           ),
-        ),
       ],
     );
+  }
+
+  /// Советы Место → Глубина → Насадка (считаем только для Pro).
+  List<AdviceTip> _tips() {
+    final advice = AdviceEngine.forDay(day, fish, prev: prev);
+    AdviceTip byKind(AdviceKind k) => advice.firstWhere((t) => t.kind == k);
+    return [
+      byKind(AdviceKind.location),
+      byKind(AdviceKind.depth),
+      byKind(AdviceKind.bait),
+    ];
   }
 }
 
@@ -1908,21 +1991,20 @@ class _SpotBullet extends StatelessWidget {
 enum _Period { night, morning, day, evening }
 
 class _DayPeriods extends StatelessWidget {
-  const _DayPeriods({required this.day});
+  const _DayPeriods({required this.day, this.next});
   final DayForecast day;
+
+  /// Следующий день — нужен, чтобы честно собрать ближайшую ночь: поздние часы
+  /// [day] (после заката) + ранние часы [next] (до рассвета). Иначе «ночь»
+  /// склеивала бы тёмные часы одних суток (утро 00–03 + вечер 23), что не
+  /// соответствует подписи «05–06 июн.». null — для последнего дня прогноза.
+  final DayForecast? next;
 
   bool _inRange(int h, int a, int b) {
     a = (a + 24) % 24;
     b = (b + 24) % 24;
     if (a <= b) return h >= a && h < b;
     return h >= a || h < b; // переход через полночь
-  }
-
-  _Period _periodOf(int h, int sr, int ss) {
-    if (_inRange(h, sr - 1, sr + 3)) return _Period.morning;
-    if (_inRange(h, ss - 2, ss + 2)) return _Period.evening;
-    if (_inRange(h, sr + 3, ss - 2)) return _Period.day;
-    return _Period.night;
   }
 
   ({IconData icon, String label, int start, int end, Color accent}) _meta(
@@ -1970,15 +2052,69 @@ class _DayPeriods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
     final sun = day.representative;
     int roundH(DateTime t) => t.hour + (t.minute >= 30 ? 1 : 0);
     final sr = roundH(sun.sunrise);
     final ss = roundH(sun.sunset);
 
-    // Часы, сгруппированные по периодам — из фактических почасовых значений.
+    // Утро/День/Вечер — часы выбранного дня в своих диапазонах. Ночь собираем
+    // отдельно (ниже), чтобы не смешивать с уже прошедшим утром того же дня.
+    // Границы периодов в часах суток (от восхода/заката): начало утра, дня,
+    // вечера, ночи и конец ночи (= следующее утро).
+    final bh = <int>[
+      (sr - 1 + 24) % 24,
+      (sr + 3) % 24,
+      (ss - 2 + 24) % 24,
+      (ss + 2) % 24,
+      (sr - 1 + 24) % 24,
+    ];
+    // Абсолютные моменты границ: идём по таймлайну вперёд от утра выбранного
+    // дня; если час границы откатился назад, значит перешли полночь и дата +1.
+    // Так период привязан к реальным суткам, а ночь честно уезжает в следующий
+    // день. Важно на высоких широтах: при закате после 22:00 за полночь уходит
+    // уже вечер, и ночь целиком приходится на следующий день.
+    final base = DateTime(day.date.year, day.date.month, day.date.day);
+    final bounds = <DateTime>[
+      DateTime(base.year, base.month, base.day, bh[0]),
+    ];
+    var dayOff = 0;
+    for (var i = 1; i < bh.length; i++) {
+      if (bh[i] <= bh[i - 1]) dayOff += 1;
+      bounds.add(DateTime(base.year, base.month, base.day + dayOff, bh[i]));
+    }
+
+    final nx = next;
+    // Часы выбранного и следующего дня, попадающие в окно [from, to).
+    List<HourForecast> hoursIn(DateTime from, DateTime to) => [
+          for (final h in day.hours)
+            if (!h.time.isBefore(from) && h.time.isBefore(to)) h,
+          if (nx != null)
+            for (final h in nx.hours)
+              if (!h.time.isBefore(from) && h.time.isBefore(to)) h,
+        ];
+
+    // Хронологический порядок суток: ночь последняя (после вечера), как и
+    // наступает по времени.
+    const order = [
+      _Period.morning,
+      _Period.day,
+      _Period.evening,
+      _Period.night,
+    ];
     final byPeriod = <_Period, List<HourForecast>>{};
-    for (final h in day.hours) {
-      (byPeriod[_periodOf(h.time.hour, sr, ss)] ??= []).add(h);
+    for (var i = 0; i < order.length; i++) {
+      var hs = hoursIn(bounds[i], bounds[i + 1]);
+      // Последний день прогноза: следующего нет, ночь ушла за горизонт — берём
+      // доступные ночные часы самого дня, чтобы не показывать пусто.
+      if (hs.isEmpty && order[i] == _Period.night) {
+        hs = [
+          for (final h in day.hours)
+            if (_inRange(h.time.hour, bh[3], bh[4])) h,
+        ];
+      }
+      byPeriod[order[i]] = hs;
     }
     int avgOf(_Period p) {
       final hs = byPeriod[p];
@@ -2006,36 +2142,73 @@ class _DayPeriods extends StatelessWidget {
       return best.weather;
     }
 
-    const order = [
-      _Period.night,
-      _Period.morning,
-      _Period.day,
-      _Period.evening,
-    ];
+    // Даты периода — из его фактических часов (min..max): диапазон «06–07 июн.»
+    // появляется ровно у того периода, что реально переходит через полночь, а
+    // число и подпись всегда согласованы.
+    String labelFor(_Period p) {
+      final hs = byPeriod[p];
+      if (hs == null || hs.isEmpty) return '';
+      var lo = hs.first.time;
+      var hi = hs.first.time;
+      for (final h in hs) {
+        if (h.time.isBefore(lo)) lo = h.time;
+        if (h.time.isAfter(hi)) hi = h.time;
+      }
+      return _periodDateLabel(context, lo, hi);
+    }
+
     final metas = [for (final p in order) _meta(p, sr, ss, l10n)];
     final avgs = [for (final p in order) avgOf(p)];
     final reps = [for (var i = 0; i < order.length; i++) repOf(order[i], avgs[i])];
+    final dateLabels = [for (final p in order) labelFor(p)];
     return _Card(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          for (var i = 0; i < order.length; i++) ...[
-            if (i != 0) const SizedBox(width: 4),
-            Expanded(
-              child: _PeriodCard(
-                meta: metas[i],
-                avg: avgs[i],
-                onTap: reps[i] == null
-                    ? null
-                    : () => showPeriodSheet(
-                          context,
-                          meta: metas[i],
-                          avg: avgs[i],
-                          weather: reps[i]!,
+          Row(
+            children: [
+              for (var i = 0; i < order.length; i++) ...[
+                if (i != 0) const SizedBox(width: 4),
+                Expanded(
+                  child: Center(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        dateLabels[i],
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: cs.onSurfaceVariant,
+                          fontWeight: FontWeight.w600,
                         ),
-              ),
-            ),
-          ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (var i = 0; i < order.length; i++) ...[
+                if (i != 0) const SizedBox(width: 4),
+                Expanded(
+                  child: _PeriodCard(
+                    meta: metas[i],
+                    avg: avgs[i],
+                    onTap: reps[i] == null
+                        ? null
+                        : () => showPeriodSheet(
+                              context,
+                              meta: metas[i],
+                              avg: avgs[i],
+                              weather: reps[i]!,
+                            ),
+                  ),
+                ),
+              ],
+            ],
+          ),
         ],
       ),
     );

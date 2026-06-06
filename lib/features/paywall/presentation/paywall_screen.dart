@@ -27,8 +27,10 @@ const _headerHeight = 56.0;
 const _pillSize = Size(44, 44);
 const _pillRadius = 22.0;
 const _cardRadius = 24.0;
-const _ctaHeight = 64.0;
-const _ctaRadius = 28.0;
+// Высота как у кнопок онбординга (welcome / quiz CTA = 56).
+const _ctaHeight = 56.0;
+// Скругление как у кнопок онбординга (welcome / quiz CTA = 20).
+const _ctaRadius = 20.0;
 const _heroHeight = 219.0;
 
 const _imgBase = 'assets/images/paywall/pro/';
@@ -100,17 +102,15 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
   /// Гибрид-модель: впускаем в free без оплаты. Контекстный пейволл встретит
   /// пользователя позже — при попытке спланировать (будущий день / Тактика).
   ///
-  /// Перед уходом — ровно один раз за всё время — показываем win-back модалку
-  /// с подарком 1 дня Pro. Забрал подарок или нет — всё равно завершаем
-  /// онбординг и уходим на `/` (при подарке Pro уже активен).
+  /// По крестику показываем win-back модалку с подарком 1 дня Pro (Figma
+  /// «Large card»). В интерфейс уходим ТОЛЬКО по кнопкам модалки:
+  ///   • «Забрать 1 день» → `true`  — Pro на 1 день уже активирован в модалке;
+  ///   • «Продолжить без Pro» → `false` — уходим во free.
+  /// Закрытие по бэкдропу/свайпу → `null` — просто закрываем модалку и
+  /// остаёмся на пейволле (в интерфейс не переходим).
   Future<void> _skipToFree() async {
-    final shown = sharedPrefs.getBool(PrefsKeys.winbackOfferShown) ?? false;
-    if (!shown) {
-      await sharedPrefs.setBool(PrefsKeys.winbackOfferShown, true);
-      if (!mounted) return;
-      await showWinbackSheet(context);
-      if (!mounted) return;
-    }
+    final result = await showWinbackSheet(context);
+    if (!mounted || result == null) return;
     ref.read(onboardingCompletedProvider.notifier).markCompleted();
     context.go('/');
   }
@@ -128,6 +128,12 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
       ref.read(onboardingCompletedProvider.notifier).markCompleted();
       context.go('/');
     }
+  }
+
+  /// Стрелка «назад» возвращает на самый первый экран онбординга. Ответы
+  /// квиза не сбрасываем — пользователь просто идёт назад по воронке.
+  void _back() {
+    context.go('/welcome');
   }
 
   void _restart() {
@@ -154,6 +160,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
             child: Column(
               children: [
                 _PaywallHeader(
+                  onBack: _back,
                   onClose: _skipToFree,
                   onRestore: _restore,
                   onPromoCode: _enterPromoCode,
@@ -178,8 +185,11 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen>
                           ),
                         ),
                         const _HeroImage(),
+                        // Контент наезжает на низ картинки (с растворением hero
+                        // в белом) — карточки и плашка цен слегка перекрывают
+                        // нижнюю часть иллюстрации.
                         Transform.translate(
-                          offset: const Offset(0, -16),
+                          offset: const Offset(0, -72),
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                             child: Column(
@@ -287,12 +297,14 @@ class _HeroImage extends StatelessWidget {
 
 class _PaywallHeader extends StatelessWidget {
   const _PaywallHeader({
+    required this.onBack,
     required this.onClose,
     required this.onRestore,
     required this.onPromoCode,
     required this.onRestart,
   });
 
+  final VoidCallback onBack;
   final VoidCallback onClose;
   final VoidCallback onRestore;
   final VoidCallback onPromoCode;
@@ -310,7 +322,7 @@ class _PaywallHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              _IconPill(icon: Icons.arrow_back_ios_new_rounded, onTap: onClose),
+              _IconPill(icon: Icons.arrow_back_ios_new_rounded, onTap: onBack),
               const Spacer(),
               _MenuKebab(
                 onRestore: onRestore,
@@ -454,9 +466,26 @@ class _PlanPicker extends StatelessWidget {
           ),
           if (yearly.hasTrial && yearly.trialDays != null)
             Positioned(
-              top: 0,
-              right: 28,
-              child: _TrialBadge(days: yearly.trialDays!),
+              // Плашка «наезжает» на верхнюю границу карточки: половина над ней,
+              // половина внутри (≈ половина высоты бейджа = 24/2).
+              top: -12,
+              left: 0,
+              right: 0,
+              // Зеркалим раскладку карточек (Expanded · 8 · Expanded), чтобы
+              // бейдж центрировался ровно над годовой карточкой в любой локали —
+              // вне зависимости от ширины текста.
+              child: Row(
+                children: [
+                  const Expanded(child: SizedBox()),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: _TrialBadge(days: yearly.trialDays!),
+                    ),
+                  ),
+                ],
+              ),
             ),
         ],
       ),
@@ -495,11 +524,10 @@ class _PlanCard extends StatelessWidget {
           ),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -523,7 +551,10 @@ class _PlanCard extends StatelessWidget {
                       ),
                     ),
                   ],
+                  // Прижимаем ценник к низу, чтобы в обеих карточках он стоял
+                  // на одной линии (минимум 8pt над ним сохраняем).
                   const SizedBox(height: 8),
+                  const Spacer(),
                   Text(
                     pkg.priceShort,
                     style: const TextStyle(
@@ -536,7 +567,11 @@ class _PlanCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            _PlanCheckbox(selected: selected),
+            // Чекбокс держим у верхней кромки независимо от высоты карточки.
+            Align(
+              alignment: Alignment.topCenter,
+              child: _PlanCheckbox(selected: selected),
+            ),
           ],
         ),
       ),
@@ -634,8 +669,11 @@ class _TrialTimeline extends StatelessWidget {
           const SizedBox(height: 12),
           _TimelineRow(
             dayLabel: l10n.trialDayLabel(days + 1),
+            // Цена — реальная стоимость выбранного плана (как в плашке),
+            // не зачёркнутый anchor. Неразрывные пробелы держат «· цену»
+            // одной строкой.
             text:
-                '${l10n.trialDayEndDesc} · ${pkg.anchorPriceShort ?? pkg.priceShort}',
+                '${l10n.trialDayEndDesc} · ${pkg.priceShort.replaceAll(' ', ' ')}',
           ),
         ],
       ),
@@ -722,8 +760,8 @@ class _UnlockCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.asset('${_imgBase}lock.jpg', width: 112, height: 112),
-          const SizedBox(height: 8),
+          Image.asset('${_imgBase}lock.jpg', width: 84, height: 84),
+          const SizedBox(height: 4),
           Text(
             l10n.unlockTitle,
             style: const TextStyle(

@@ -61,6 +61,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get commonContinue => 'Продолжить';
 
   @override
+  String get gateProTitle => 'Доступно в Pro версии';
+
+  @override
   String get quizQ1Question => 'Кого ловишь?';
 
   @override
@@ -150,7 +153,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get winbackBody =>
-      'Открой все функции на сутки: прогноз клёва, лучшие окна и тактику по своему водоёму. Без оплаты — просто попробуй.';
+      'Открой все функции на сутки: прогноз клёва, лучшие окна, тактику по своему водоёму и многое другое. Без оплаты — просто попробуй.';
 
   @override
   String get winbackCtaClaim => 'Забрать 1 день';
@@ -160,7 +163,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get paywallTitle =>
-      'Открой полный разбор рыбалки на твоём споте на неделю вперёд';
+      'Открой полный разбор рыбалки на твоём водоёме на неделю вперёд';
 
   @override
   String get paywallSaveBadge => 'Скидка 85%';
@@ -182,22 +185,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tblLimited => 'Лимит';
 
   @override
-  String get tblForecast => 'Прогноз клёва на 7 дней · когда ехать';
+  String get tblForecast => 'Прогноз клёва на 7 дней · когда ехать';
 
   @override
-  String get tblTactics => 'Тактика на день · что и как ловить';
+  String get tblTactics => 'Тактика на день · что и как ловить';
 
   @override
-  String get tblSpot => 'Разбор спота · где встать';
+  String get tblSpot => 'Разбор места · где встать';
 
   @override
-  String get tblAlerts => 'Алёрты лучших дней · накануне';
+  String get tblAlerts => 'Лучшие дни · напомним заранее';
 
   @override
-  String get tblPlaybook => 'Гайды по карпу и карасю';
+  String get tblPlaybook => 'Гайды по карпу и карасю';
 
   @override
-  String get tblJournal => 'Дневник · условия и индекс клёва';
+  String get tblJournal => 'Дневник · условия и индекс клёва';
 
   @override
   String get planYearly => '12 месяцев';
@@ -230,7 +233,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get trialDayMidDesc => 'Напомним заранее';
 
   @override
-  String get trialDayEndDesc => 'Начинается подписка';
+  String get trialDayEndDesc => 'Списание';
 
   @override
   String get paywallAlgoTitle => 'Умный алгоритм клёва';
@@ -248,11 +251,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get featureSpot =>
-      '«Твой спот» — разбор водоёма: тип, размер, где встать по ветру';
+      '«Твоё место» — разбор водоёма: тип, размер, где встать по ветру';
 
   @override
   String get featureAlerts =>
-      'Алёрты лучших дней — пуш накануне прайм-окна на твоём споте';
+      'Уведомления о лучших днях — напоминание накануне пика клёва на твоём водоёме';
 
   @override
   String get faqTitle => 'Часто спрашивают';
@@ -288,8 +291,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get paywallCtaSubscribe => 'Оформить подписку';
 
   @override
-  String get paywallDisclaimer =>
-      'Продлевается автоматически. Отмена в любой момент';
+  String get paywallDisclaimer => 'Автопродление. Отмена в любой момент';
 
   @override
   String get menuRestore => 'Восстановить покупки';
@@ -1873,14 +1875,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settingsAlertsPrimeSubtitle =>
-      'Один пуш о самом клёвом дне недели по твоим местам';
+      'Одно уведомление о самом клёвом дне недели по твоим местам';
 
   @override
   String get settingsAlertsExcellentTitle => 'Все отличные дни';
 
   @override
   String get settingsAlertsExcellentSubtitle =>
-      'Пуш вечером накануне каждого дня с отличным клёвом';
+      'Уведомление вечером накануне каждого дня с отличным клёвом';
 
   @override
   String get settingsAlertsForCarp => 'Уведомления по карпу';

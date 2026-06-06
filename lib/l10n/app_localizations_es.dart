@@ -61,6 +61,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get commonContinue => 'Continuar';
 
   @override
+  String get gateProTitle => 'Disponible en la versión Pro';
+
+  @override
   String get quizQ1Question => '¿Qué pez buscas?';
 
   @override

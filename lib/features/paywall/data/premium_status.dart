@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,13 +26,32 @@ class PremiumStatus {
 }
 
 class PremiumStatusNotifier extends Notifier<PremiumStatus> {
+  /// Срабатывает ровно в момент истечения, чтобы перевести state в «неактивно»
+  /// и заставить слушателей (карточка подписки и т.п.) перестроиться сами —
+  /// без этого UI «зависал» бы на «активно», т.к. expiresAt не меняется.
+  Timer? _expiryTimer;
+
   @override
   PremiumStatus build() {
+    ref.onDispose(() => _expiryTimer?.cancel());
+
     final ms = sharedPrefs.getInt(PrefsKeys.premiumExpiresAtMs);
     if (ms == null) return const PremiumStatus();
-    return PremiumStatus(expiresAt: DateTime.fromMillisecondsSinceEpoch(ms));
+
+    final expiry = DateTime.fromMillisecondsSinceEpoch(ms);
+    // Срок уже истёк (например, между сессиями) — чистим хвост в prefs и
+    // стартуем как неактивный, а не тащим протухший timestamp.
+    if (!expiry.isAfter(DateTime.now())) {
+      sharedPrefs.remove(PrefsKeys.premiumExpiresAtMs);
+      return const PremiumStatus();
+    }
+
+    _scheduleExpiry(expiry);
+    return PremiumStatus(expiresAt: expiry);
   }
 
+  /// Активировать/продлить Pro на [period]. Никогда не укорачиваем уже
+  /// действующий срок (важно для стэка промо + win-back подарка).
   void activateFor(Duration period) {
     final newExpiry = DateTime.now().add(period);
     final current = state.expiresAt;
@@ -39,9 +60,29 @@ class PremiumStatusNotifier extends Notifier<PremiumStatus> {
         : newExpiry;
     state = PremiumStatus(expiresAt: next);
     sharedPrefs.setInt(PrefsKeys.premiumExpiresAtMs, next.millisecondsSinceEpoch);
+    _scheduleExpiry(next);
   }
 
   void deactivate() {
+    _expiryTimer?.cancel();
+    _expiryTimer = null;
+    state = const PremiumStatus();
+    sharedPrefs.remove(PrefsKeys.premiumExpiresAtMs);
+  }
+
+  void _scheduleExpiry(DateTime expiry) {
+    _expiryTimer?.cancel();
+    final delay = expiry.difference(DateTime.now());
+    if (delay.isNegative || delay == Duration.zero) {
+      _expireNow();
+      return;
+    }
+    _expiryTimer = Timer(delay, _expireNow);
+  }
+
+  void _expireNow() {
+    _expiryTimer?.cancel();
+    _expiryTimer = null;
     state = const PremiumStatus();
     sharedPrefs.remove(PrefsKeys.premiumExpiresAtMs);
   }
