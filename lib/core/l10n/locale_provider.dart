@@ -10,6 +10,7 @@ const kSupportedLocales = [
   Locale('de'),
   Locale('es'),
   Locale('fr'),
+  Locale('pl'),
 ];
 
 class LocaleNotifier extends Notifier<Locale?> {

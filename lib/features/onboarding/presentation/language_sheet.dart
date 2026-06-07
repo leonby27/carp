@@ -34,6 +34,7 @@ class _LanguageSheet extends ConsumerWidget {
       ('de', l10n.languageDe, 'de'),
       ('es', l10n.languageEs, 'es'),
       ('fr', l10n.languageFr, 'fr'),
+      ('pl', l10n.languagePl, 'pl'),
     ];
 
     return SafeArea(

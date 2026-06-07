@@ -50,6 +50,10 @@ String fishAsset(Fish fish) => switch (fish) {
 const _weekdayShort = {
   'ru': ['', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
   'en': ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  'de': ['', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+  'es': ['', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'],
+  'fr': ['', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'],
+  'pl': ['', 'pon', 'wt', 'śr', 'czw', 'pt', 'sob', 'niedz'],
 };
 const _months = {
   'ru': [
@@ -82,17 +86,81 @@ const _months = {
     'November',
     'December',
   ],
+  'de': [
+    '',
+    'Januar',
+    'Februar',
+    'März',
+    'April',
+    'Mai',
+    'Juni',
+    'Juli',
+    'August',
+    'September',
+    'Oktober',
+    'November',
+    'Dezember',
+  ],
+  'es': [
+    '',
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
+  ],
+  'fr': [
+    '',
+    'janvier',
+    'février',
+    'mars',
+    'avril',
+    'mai',
+    'juin',
+    'juillet',
+    'août',
+    'septembre',
+    'octobre',
+    'novembre',
+    'décembre',
+  ],
+  'pl': [
+    '',
+    'stycznia',
+    'lutego',
+    'marca',
+    'kwietnia',
+    'maja',
+    'czerwca',
+    'lipca',
+    'sierpnia',
+    'września',
+    'października',
+    'listopada',
+    'grudnia',
+  ],
 };
+
+/// Локали с собственными таблицами месяцев/дней недели; остальные → 'en'.
+const _dateLocales = {'ru', 'en', 'de', 'es', 'fr', 'pl'};
 
 String _localeCode(BuildContext context) {
   final code = Localizations.localeOf(context).languageCode;
-  return (code == 'ru') ? 'ru' : 'en';
+  return _dateLocales.contains(code) ? code : 'en';
 }
 
 String _dateLabel(BuildContext context, DateTime date) {
   final code = _localeCode(context);
   final m = _months[code]![date.month];
-  return code == 'ru' ? '${date.day} $m' : '$m ${date.day}';
+  // Английский — «месяц день»; остальные локали — «день месяц».
+  return code == 'en' ? '$m ${date.day}' : '${date.day} $m';
 }
 
 const _monthsShort = {
@@ -126,6 +194,66 @@ const _monthsShort = {
     'Nov',
     'Dec',
   ],
+  'de': [
+    '',
+    'Jan',
+    'Feb',
+    'März',
+    'Apr',
+    'Mai',
+    'Juni',
+    'Juli',
+    'Aug',
+    'Sep',
+    'Okt',
+    'Nov',
+    'Dez',
+  ],
+  'es': [
+    '',
+    'ene',
+    'feb',
+    'mar',
+    'abr',
+    'may',
+    'jun',
+    'jul',
+    'ago',
+    'sep',
+    'oct',
+    'nov',
+    'dic',
+  ],
+  'fr': [
+    '',
+    'janv.',
+    'févr.',
+    'mars',
+    'avr.',
+    'mai',
+    'juin',
+    'juil.',
+    'août',
+    'sept.',
+    'oct.',
+    'nov.',
+    'déc.',
+  ],
+  'pl': [
+    '',
+    'sty',
+    'lut',
+    'mar',
+    'kwi',
+    'maj',
+    'cze',
+    'lip',
+    'sie',
+    'wrz',
+    'paź',
+    'lis',
+    'gru',
+  ],
 };
 
 /// Короткая дата с ведущим нулём дня: «07 июн.» / «Jun 07».
@@ -133,7 +261,7 @@ String _dateShort(BuildContext context, DateTime date) {
   final code = _localeCode(context);
   final m = _monthsShort[code]![date.month];
   final d = date.day.toString().padLeft(2, '0');
-  return code == 'ru' ? '$d $m' : '$m $d';
+  return code == 'en' ? '$m $d' : '$d $m';
 }
 
 /// Подпись даты периода по календарным датам его ФАКТИЧЕСКИХ часов: [first] —
@@ -152,7 +280,7 @@ String _periodDateLabel(BuildContext context, DateTime first, DateTime last) {
     final m = _monthsShort[code]![date.month];
     final d1 = date.day.toString().padLeft(2, '0');
     final d2 = next.day.toString().padLeft(2, '0');
-    return code == 'ru' ? '$d1–$d2 $m' : '$m $d1–$d2';
+    return code == 'en' ? '$m $d1–$d2' : '$d1–$d2 $m';
   }
   return '${_dateShort(context, date)} – ${_dateShort(context, next)}';
 }

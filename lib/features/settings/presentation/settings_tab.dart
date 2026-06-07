@@ -374,6 +374,7 @@ class _LanguageRow extends ConsumerWidget {
       'de' => l10n.languageDe,
       'es' => l10n.languageEs,
       'fr' => l10n.languageFr,
+      'pl' => l10n.languagePl,
       _ => l10n.languageEn,
     };
     return _ActionTile(

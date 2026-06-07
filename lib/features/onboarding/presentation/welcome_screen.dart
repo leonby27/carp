@@ -100,6 +100,7 @@ class _LanguagePill extends StatelessWidget {
       'de' => l10n.langShortDe,
       'es' => l10n.langShortEs,
       'fr' => l10n.langShortFr,
+      'pl' => l10n.langShortPl,
       _ => l10n.langShortEn,
     };
   }

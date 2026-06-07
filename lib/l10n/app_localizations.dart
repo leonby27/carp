@@ -9,6 +9,7 @@ import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_fr.dart';
+import 'app_localizations_pl.dart';
 import 'app_localizations_ru.dart';
 
 // ignore_for_file: type=lint
@@ -101,6 +102,7 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('es'),
     Locale('fr'),
+    Locale('pl'),
     Locale('ru'),
   ];
 
@@ -170,6 +172,12 @@ abstract class AppLocalizations {
   /// **'Français'**
   String get languageFr;
 
+  /// No description provided for @languagePl.
+  ///
+  /// In en, this message translates to:
+  /// **'Polski'**
+  String get languagePl;
+
   /// No description provided for @langShortEn.
   ///
   /// In en, this message translates to:
@@ -199,6 +207,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'FR'**
   String get langShortFr;
+
+  /// No description provided for @langShortPl.
+  ///
+  /// In en, this message translates to:
+  /// **'PL'**
+  String get langShortPl;
 
   /// No description provided for @commonContinue.
   ///
@@ -3931,8 +3945,14 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['de', 'en', 'es', 'fr', 'ru'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'de',
+    'en',
+    'es',
+    'fr',
+    'pl',
+    'ru',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -3949,6 +3969,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEs();
     case 'fr':
       return AppLocalizationsFr();
+    case 'pl':
+      return AppLocalizationsPl();
     case 'ru':
       return AppLocalizationsRu();
   }

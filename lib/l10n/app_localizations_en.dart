@@ -43,6 +43,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageFr => 'Français';
 
   @override
+  String get languagePl => 'Polski';
+
+  @override
   String get langShortEn => 'EN';
 
   @override
@@ -56,6 +59,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get langShortFr => 'FR';
+
+  @override
+  String get langShortPl => 'PL';
 
   @override
   String get commonContinue => 'Continue';
